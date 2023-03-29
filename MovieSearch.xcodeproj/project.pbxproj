@@ -16,6 +16,12 @@
 		27A115C229C9E5B300439340 /* MovieSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A115C129C9E5B300439340 /* MovieSearchTests.swift */; };
 		27A115CC29C9E5B300439340 /* MovieSearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A115CB29C9E5B300439340 /* MovieSearchUITests.swift */; };
 		27A115CE29C9E5B300439340 /* MovieSearchUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A115CD29C9E5B300439340 /* MovieSearchUITestsLaunchTests.swift */; };
+		27B6BA3E29CB3DA400E9AB7C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B6BA3D29CB3DA400E9AB7C /* Model.swift */; };
+		27B6BA4029CB3DC000E9AB7C /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B6BA3F29CB3DC000E9AB7C /* APIService.swift */; };
+		27B6BA4229CB3DC800E9AB7C /* ViewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B6BA4129CB3DC800E9AB7C /* ViewList.swift */; };
+		27B6BA4429CB3DD700E9AB7C /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B6BA4329CB3DD700E9AB7C /* ViewModel.swift */; };
+		27B99A7B29CC64860089C196 /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B99A7A29CC64860089C196 /* Domain.swift */; };
+		27B99A7D29CC8C480089C196 /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B99A7C29CC8C480089C196 /* ListCollectionViewCell.swift */; };
 		2BFBABC8D7D182D7B600434B /* Pods_MovieSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6089CF05CCC7CCE860C9905 /* Pods_MovieSearch.framework */; };
 		7AA3A7B0C0987E6349A0E1AB /* Pods_MovieSearchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48D3F08FDADBB9EF825C496 /* Pods_MovieSearchTests.framework */; };
 		C9BD9ABED5E10D42CEE4A59E /* Pods_MovieSearch_MovieSearchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E66B0E23A0540BEE29613D2 /* Pods_MovieSearch_MovieSearchUITests.framework */; };
@@ -52,6 +58,12 @@
 		27A115C729C9E5B300439340 /* MovieSearchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieSearchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27A115CB29C9E5B300439340 /* MovieSearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchUITests.swift; sourceTree = "<group>"; };
 		27A115CD29C9E5B300439340 /* MovieSearchUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		27B6BA3D29CB3DA400E9AB7C /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		27B6BA3F29CB3DC000E9AB7C /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		27B6BA4129CB3DC800E9AB7C /* ViewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewList.swift; sourceTree = "<group>"; };
+		27B6BA4329CB3DD700E9AB7C /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		27B99A7A29CC64860089C196 /* Domain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain.swift; sourceTree = "<group>"; };
+		27B99A7C29CC8C480089C196 /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		3E66B0E23A0540BEE29613D2 /* Pods_MovieSearch_MovieSearchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieSearch_MovieSearchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51EA5EE8F2C7BC419F35BC2A /* Pods-MovieSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieSearch.release.xcconfig"; path = "Target Support Files/Pods-MovieSearch/Pods-MovieSearch.release.xcconfig"; sourceTree = "<group>"; };
 		8B0FF4C1110B3DB431626F44 /* Pods-MovieSearch-MovieSearchUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieSearch-MovieSearchUITests.release.xcconfig"; path = "Target Support Files/Pods-MovieSearch-MovieSearchUITests/Pods-MovieSearch-MovieSearchUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -118,7 +130,13 @@
 			children = (
 				27A115AA29C9E5B200439340 /* AppDelegate.swift */,
 				27A115AC29C9E5B200439340 /* SceneDelegate.swift */,
+				27B6BA3D29CB3DA400E9AB7C /* Model.swift */,
+				27B6BA3F29CB3DC000E9AB7C /* APIService.swift */,
+				27B6BA4129CB3DC800E9AB7C /* ViewList.swift */,
+				27B99A7A29CC64860089C196 /* Domain.swift */,
+				27B6BA4329CB3DD700E9AB7C /* ViewModel.swift */,
 				27A115AE29C9E5B200439340 /* ViewController.swift */,
+				27B99A7C29CC8C480089C196 /* ListCollectionViewCell.swift */,
 				27A115B029C9E5B200439340 /* Main.storyboard */,
 				27A115B329C9E5B300439340 /* Assets.xcassets */,
 				27A115B529C9E5B300439340 /* LaunchScreen.storyboard */,
@@ -164,7 +182,6 @@
 				BD0497ED6666BEBAED485848 /* Pods-MovieSearchTests.debug.xcconfig */,
 				95C6AC16579A463B3C113D37 /* Pods-MovieSearchTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -409,7 +426,13 @@
 			files = (
 				27A115AF29C9E5B200439340 /* ViewController.swift in Sources */,
 				27A115AB29C9E5B200439340 /* AppDelegate.swift in Sources */,
+				27B99A7D29CC8C480089C196 /* ListCollectionViewCell.swift in Sources */,
+				27B6BA4029CB3DC000E9AB7C /* APIService.swift in Sources */,
 				27A115AD29C9E5B200439340 /* SceneDelegate.swift in Sources */,
+				27B6BA3E29CB3DA400E9AB7C /* Model.swift in Sources */,
+				27B6BA4229CB3DC800E9AB7C /* ViewList.swift in Sources */,
+				27B6BA4429CB3DD700E9AB7C /* ViewModel.swift in Sources */,
+				27B99A7B29CC64860089C196 /* Domain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
