@@ -16,6 +16,7 @@ protocol RankViewModelType {
 
 class RankViewModel: RankViewModelType {
     let dispaseBag = DisposeBag()
+    var nowPage: Int = 0
     
     let fetchableList: AnyObserver<Void>
     let allList: Observable<[ViewList]>

@@ -9,5 +9,6 @@ import UIKit
 
 class ListCollectionViewCell: UICollectionViewCell {
     static let cellIdentifier = "cellIdentifier"
-    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var posterImageView: UIImageView!
+    @IBOutlet weak var rankLabel: UILabel!
 }
