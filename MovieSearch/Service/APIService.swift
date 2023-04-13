@@ -17,21 +17,11 @@ class APIService {
     }
     
     //MARK: Fetch - BoxOffice
-    
-    static var boxOfficeURL: String = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=8c7c736bd850cfc9c87b1245a20cf7e6&targetDt=20230301"
-//    static var boxOfficeURL: String = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=8c7c736bd850cfc9c87b1245a20cf7e6&targetDt=20230301"
     static var boxOfficeMainURL: String = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?"
     static var boxOfficeKey: String = "8c7c736bd850cfc9c87b1245a20cf7e6"
-    static var currentDate: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        return dateFormatter.string(from: Date())
-    }
-    
    
     static func fetchBoxOffice(onComplete: @escaping (Result<BoxOfficeResult, Error>) -> Void) {
-        let urlString = boxOfficeMainURL + "key=\(boxOfficeKey)" + "&targetDt=\(Date().setY())"
-        print(urlString)
+        let urlString = boxOfficeMainURL + "key=\(boxOfficeKey)" + "&targetDt=\(Date().setYesterday())"
         guard let url: URL = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { data, res, err in

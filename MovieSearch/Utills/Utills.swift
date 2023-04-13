@@ -8,21 +8,15 @@
 import Foundation
 
 extension String {
-    func setYesterDay() -> Self {
-        let calender = Calendar.current
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        
-        var yesterDay = DateComponents()
-        yesterDay.day = -1
-        
-        guard let yesterDay = calender.date(byAdding: yesterDay, to: Date()) else { return ""}
-        return dateFormatter.string(from: yesterDay)
+    func removeBlank() -> String {
+        let firstBlack = self.components(separatedBy: " !HE").joined()
+        return firstBlack.components(separatedBy: "  !HS ").joined()
     }
 }
 
+
 extension Date {
-    func setY() -> String {
+    func setYesterday() -> String {
         let calender = Calendar.current
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"

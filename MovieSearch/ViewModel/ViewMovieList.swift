@@ -24,7 +24,7 @@ class ViewMovieList {
     
     init(info: MovieInfo) {
         self.movieId = info.movieId
-        self.title = info.title
+        self.title = info.title.removeBlank()
 //        self.directorNm = info.directors.director[0].directorNm
 //        self.actors = info.actors
         self.company = info.company
