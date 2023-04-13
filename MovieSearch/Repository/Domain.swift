@@ -20,12 +20,6 @@ enum FetchFor {
 class Domain: DomainType {
     let disposeBag = DisposeBag()
     
-    var currentDate: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        return dateFormatter.string(from: Date())
-    }
-    
     
 //    func fetchItems(fetc1: FetchFor, fetc2: String) -> Observable<[ViewMovieList]> {
 //        switch fetc1 {

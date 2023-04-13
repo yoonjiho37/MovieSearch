@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2773407829D70D7900150A08 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773407729D70D7900150A08 /* SearchResult.swift */; };
+		2781B40729E83035002E3877 /* Utills.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2781B40629E83035002E3877 /* Utills.swift */; };
 		27A115AB29C9E5B200439340 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A115AA29C9E5B200439340 /* AppDelegate.swift */; };
 		27A115AD29C9E5B200439340 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A115AC29C9E5B200439340 /* SceneDelegate.swift */; };
 		27A115AF29C9E5B200439340 /* BoxOfficeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A115AE29C9E5B200439340 /* BoxOfficeViewController.swift */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		2773407729D70D7900150A08 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		2781B40629E83035002E3877 /* Utills.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utills.swift; sourceTree = "<group>"; };
 		27A115A729C9E5B200439340 /* MovieSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27A115AA29C9E5B200439340 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27A115AC29C9E5B200439340 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +168,14 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
+		2781B40529E8300C002E3877 /* Utills */ = {
+			isa = PBXGroup;
+			children = (
+				2781B40629E83035002E3877 /* Utills.swift */,
+			);
+			path = Utills;
+			sourceTree = "<group>";
+		};
 		27A1159E29C9E5B200439340 = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +210,7 @@
 				2773407C29D70DFF00150A08 /* ViewModel */,
 				2773407D29D70E0B00150A08 /* ViewController */,
 				2773407A29D70DBD00150A08 /* Resource */,
+				2781B40529E8300C002E3877 /* Utills */,
 			);
 			path = MovieSearch;
 			sourceTree = "<group>";
@@ -489,6 +500,7 @@
 				27B99A7D29CC8C480089C196 /* BoxOfficeCollectionViewCell.swift in Sources */,
 				27B6BA4029CB3DC000E9AB7C /* APIService.swift in Sources */,
 				27A115AD29C9E5B200439340 /* SceneDelegate.swift in Sources */,
+				2781B40729E83035002E3877 /* Utills.swift in Sources */,
 				27B6BA3E29CB3DA400E9AB7C /* BoxOfficeResult.swift in Sources */,
 				27B6BA4229CB3DC800E9AB7C /* ViewMovieList.swift in Sources */,
 				27B6BA4429CB3DD700E9AB7C /* BoxOfficeViewModel.swift in Sources */,
