@@ -8,13 +8,13 @@
 import Foundation
 
 struct BoxOffice: Codable {
-    let boxOfficeResult: BoxOfficeResult
+    var boxOfficeResult: BoxOfficeResult
 }
 
 struct BoxOfficeResult: Codable {
-    let boxofficeType: String //        박스오피스 종류를 출력합니다.
+    var boxofficeType: String //        박스오피스 종류를 출력합니다.
     let showRange: String //        박스오피스 조회 일자를 출력합니다.
-    let dailyBoxOfficeList : [BoxOfficeItems]
+    var dailyBoxOfficeList : [BoxOfficeItems]
 }
 
 struct BoxOfficeItems: Codable {

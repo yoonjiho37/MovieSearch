@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ListCollectionViewCell: UICollectionViewCell {
+class BoxOfficeCollectionViewCell: UICollectionViewCell {
     static let cellIdentifier = "cellIdentifier"
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var rankLabel: UILabel!

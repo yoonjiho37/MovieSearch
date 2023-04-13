@@ -9,40 +9,42 @@ import Foundation
 import RxSwift
 
 protocol RankViewModelType {
-    var allList: Observable<[ViewList]> { get }
+    var allList: Observable<[ViewMovieList]> { get }
     
-    func fetchList()
+    func fetchList() -> AnyObserver<Void>
 }
 
-class RankViewModel: RankViewModelType {
+class BoxOfficeViewModel: RankViewModelType {
     let dispaseBag = DisposeBag()
     var nowPage: Int = 0
     
     let fetchableList: AnyObserver<Void>
-    let allList: Observable<[ViewList]>
+    let allList: Observable<[ViewMovieList]>
     
-    func fetchList() {
-        fetchableList.onNext(())
+    func fetchList() -> AnyObserver<Void> {
+        fetchableList
     }
+    
     
     init(domain: DomainType = Domain()) {
         let fetching = PublishSubject<Void>()
-        let list = BehaviorSubject<[ViewList]>(value: [])
+        let list = BehaviorSubject<[ViewMovieList]>(value: [])
         
-        //input
         self.fetchableList = fetching.asObserver()
         
+
+        //input
         fetching
-            .do(onNext: { print("viewModel ==>>") })
-            .flatMap(domain.setViewList)
-            .do(onError: { Error in
-                print("error in fetching")
-            })
-            .subscribe(onNext: list.onNext)
+            .flatMap { viewList -> Observable<[ViewMovieList]> in
+                return domain.setSearchResult()
+            }
+            .subscribe(onNext: list.onNext(_:))
             .disposed(by: dispaseBag)
         
         
         //output
         self.allList = list
+        
+        
     }
 }

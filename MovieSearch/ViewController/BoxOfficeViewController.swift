@@ -7,18 +7,19 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
-class ViewController: UIViewController {
+class BoxOfficeViewController: UIViewController {
     let viewModel: RankViewModelType
     let disposeBag = DisposeBag()
     
-    init(viewModel: RankViewModelType = RankViewModel()) {
+    init(viewModel: RankViewModelType = BoxOfficeViewModel()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.viewModel = RankViewModel()
+        self.viewModel = BoxOfficeViewModel()
         super.init(coder: aDecoder)
     }
     
@@ -26,29 +27,35 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupBinding()
         setupUI()
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        
     }
-    var boxOfficeList: [ViewList] = []
+    
+    var boxOfficeList: [ViewMovieList] = []
     var nowPage: Int = 0
     var currentIndex: CGFloat = 0
     
     var isOneStepPaging = true
     
+    let domain: DomainType = Domain()
+    
     func setupBinding() {
         //input
-        viewModel.fetchList()
-            
+        viewModel.fetchList().onNext({ print("fetch") }())
+
         //output
-        viewModel.allList.subscribe(onNext: { data in
-            self.boxOfficeList = data
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        })
+        viewModel.allList
+            .subscribe(onNext: { data in
+                self.boxOfficeList = data
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     func setupUI() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
         setFlowLayout()
     }
     
@@ -61,11 +68,11 @@ class ViewController: UIViewController {
 
 
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension BoxOfficeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.cellIdentifier, for: indexPath) as? ListCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoxOfficeCollectionViewCell.cellIdentifier, for: indexPath) as? BoxOfficeCollectionViewCell else { return UICollectionViewCell() }
         let item = boxOfficeList[indexPath.row]
-        cell.rankLabel.text = item.rank
+        cell.rankLabel.text = String(item.title)
         return cell
 
     }
