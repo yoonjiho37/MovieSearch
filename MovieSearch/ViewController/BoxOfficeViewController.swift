@@ -51,6 +51,19 @@ class BoxOfficeViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        viewModel.setOutletdatas()
+            .subscribe { item in
+                DispatchQueue.main.async {
+                    self.setupPageDatas(item: item[0])
+                }
+            }
+            .disposed(by: disposeBag)
+        
+    }
+    func setupPageDatas(item: ViewMovieList) {
+        rankAndNameLabel.text = "\(item.rank)위 / \(item.title)"
+        salesShare.text = "\(item.rating)세 관람가"
     }
     
     func setupUI() {
@@ -58,6 +71,9 @@ class BoxOfficeViewController: UIViewController {
         collectionView.dataSource = self
         setFlowLayout()
     }
+    
+    
+    
     
     //MARK: IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -111,8 +127,10 @@ extension BoxOfficeViewController: UICollectionViewDelegate, UICollectionViewDat
         } else {
             index = Int(round(estimatedIndex))
         }
-        nowPage = index
+        viewModel.setNowPage().onNext(index)
+        
         // 위 코드를 통해 페이징 될 좌표 값을 targetContentOffset에 대입
         targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cellWidthIncludingSpacing, y: 0)
     }
+    
 }
