@@ -20,9 +20,9 @@ class ViewMovieList {
     let genre: String  //kmdbUrl    액션,SF
     let posterURL: [String]
     
-    let rank: Int
+    var rank: Int
     
-    init(info: MovieInfo) {
+    init(info: MovieInfo,rank: Int) {
         self.movieId = info.movieId
         self.title = info.title.removeBlank()
         self.directorNm = info.directors.director[0].directorNm
@@ -33,7 +33,7 @@ class ViewMovieList {
         self.rating = info.rating
         self.genre = info.genre
         self.posterURL = info.posters.components(separatedBy: "|")
-        self.rank = 0
+        self.rank = rank
     }
     
     
@@ -49,10 +49,7 @@ class ViewMovieList {
         self.genre = genre
         self.posterURL = posterURL
         self.rank = rank
-    }
-    
-    
-  
+    }  
 }
 
 extension ViewMovieList: Equatable {

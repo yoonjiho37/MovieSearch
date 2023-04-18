@@ -43,27 +43,28 @@ class BoxOfficeViewController: UIViewController {
         viewModel.fetchList().onNext({ print("fetch") }())
 
         //output
-        viewModel.allList
+        viewModel.getAllList()
             .subscribe(onNext: { data in
                 self.boxOfficeList = data
+                self.viewModel.getNowPage(page: 0)
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
             })
             .disposed(by: disposeBag)
         
-        viewModel.setOutletdatas()
+        viewModel.getPageData()
             .subscribe { item in
                 DispatchQueue.main.async {
                     self.setupPageDatas(item: item[0])
                 }
             }
             .disposed(by: disposeBag)
-        
     }
+    
     func setupPageDatas(item: ViewMovieList) {
         rankAndNameLabel.text = "\(item.rank)위 / \(item.title)"
-        salesShare.text = "\(item.rating)세 관람가"
+        salesShare.text = "\(item.rating)"
     }
     
     func setupUI() {
@@ -87,10 +88,13 @@ class BoxOfficeViewController: UIViewController {
 extension BoxOfficeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoxOfficeCollectionViewCell.cellIdentifier, for: indexPath) as? BoxOfficeCollectionViewCell else { return UICollectionViewCell() }
-        let item = boxOfficeList[indexPath.row]
-        cell.rankLabel.text = String(item.title)
+        let item = boxOfficeList[indexPath.row]        
+        guard let imageURL = URL(string: item.posterURL[0]) else { return cell }
+        guard let imageData = try? Data(contentsOf: imageURL) else { return cell }
+        DispatchQueue.main.async {
+            cell.posterImageView.image = UIImage(data: imageData)
+        }
         return cell
-
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -99,7 +103,6 @@ extension BoxOfficeViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func setFlowLayout() {
         let flowLayout = UICollectionViewFlowLayout()
-        
         let screenWidthSize = UIScreen.main.bounds.width
         flowLayout.scrollDirection = .horizontal
         flowLayout.itemSize = CGSize(width: screenWidthSize - 120, height: screenWidthSize - 20)
@@ -116,7 +119,7 @@ extension BoxOfficeViewController: UICollectionViewDelegate, UICollectionViewDat
         
         // 이동한 x좌표 값과 item의 크기를 비교 후 페이징 값 설정
         let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
-        let index: Int
+        var index: Int
             
         // 스크롤 방향 체크
         // item 절반 사이즈 만큼 스크롤로 판단하여 올림, 내림 처리
@@ -127,8 +130,13 @@ extension BoxOfficeViewController: UICollectionViewDelegate, UICollectionViewDat
         } else {
             index = Int(round(estimatedIndex))
         }
-        viewModel.setNowPage().onNext(index)
-        
+      
+        if index < 0 {
+            index = 0
+        } else if index > 9 {
+            index = 9
+        }
+        viewModel.getNowPage(page: index)
         // 위 코드를 통해 페이징 될 좌표 값을 targetContentOffset에 대입
         targetContentOffset.pointee = CGPoint(x: CGFloat(index) * cellWidthIncludingSpacing, y: 0)
     }

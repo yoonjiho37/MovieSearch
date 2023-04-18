@@ -9,8 +9,7 @@ import Foundation
 import RxSwift
 
 protocol DomainType {
-    //    func fetchItems(fetc1: FetchFor, fetc2: String) -> Observable<[ViewMovieList]>
-    func setSearchResult() -> Observable<[ViewMovieList]>
+    func setBoxOfficeListToViewMovieList() -> Observable<[ViewMovieList]>
 }
 enum FetchFor {
     case search
@@ -19,31 +18,20 @@ enum FetchFor {
 
 class Domain: DomainType {
     let disposeBag = DisposeBag()
-    
-    
-//    func fetchItems(fetc1: FetchFor, fetc2: String) -> Observable<[ViewMovieList]> {
-//        switch fetc1 {
-//        case .search:
-//            return setViewList(queryValue: fetc2)
-//        case .boxofficeList:
-//            return setViewList(queryValue: fetc2)
-//        }
-//    }
-    func setSearchResult() -> Observable<[ViewMovieList]> {
-        let observableList = setBoxOfficeList().flatMap { boxOfficeList -> Observable<[ViewMovieList]> in
-            let obs = boxOfficeList.map { APIService.fetchSearchResultRx(queryValue: $0.movieNm)
-                .map {ViewMovieList(info: $0) } }
+        
+    func setBoxOfficeListToViewMovieList() -> Observable<[ViewMovieList]> {
+        let observableList = APIService.fetchBoxOfficeRx().flatMap { it -> Observable<[ViewMovieList]> in
+            let obs = it.dailyBoxOfficeList
+                .map { items in
+                    self.setSearchResult(queryValue: items.movieNm, rank: items.rank)
+                }
             return Observable.combineLatest(obs)
         }
         return observableList
     }
     
-    func setBoxOfficeList() -> Observable<[BoxOfficeItems]> {
-        return APIService.fetchBoxOfficeRx().map { $0.dailyBoxOfficeList.map { $0 } }
-        
+    func setSearchResult(queryValue: String, rank: String) -> Observable<ViewMovieList> {
+        return APIService.fetchSearchResultRx(queryValue: queryValue).map{ ViewMovieList(info: $0, rank: Int(rank)!)}
     }
-    
-    
-  
 }
 

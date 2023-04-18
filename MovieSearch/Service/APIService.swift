@@ -21,9 +21,8 @@ class APIService {
     static var boxOfficeKey: String = "8c7c736bd850cfc9c87b1245a20cf7e6"
    
     static func fetchBoxOffice(onComplete: @escaping (Result<BoxOfficeResult, Error>) -> Void) {
-        let urlString = boxOfficeMainURL + "key=\(boxOfficeKey)" + "&targetDt=\(Date().setYesterday())"
+        let urlString = boxOfficeMainURL + "key=\(boxOfficeKey)" + "&targetDt=\(Date().getYesterday())"
         guard let url: URL = URL(string: urlString) else { return }
-        
         URLSession.shared.dataTask(with: url) { data, res, err in
             if let err = err {
                 onComplete(.failure(err))
@@ -35,7 +34,6 @@ class APIService {
                                             code: httpResponse.statusCode)))
                 return
             }
-            
             decodeJsonData(onComplete: onComplete, decodeForm: .boxOfficeResult, data: data)
         }.resume()
     }
@@ -63,8 +61,7 @@ class APIService {
         }.resume()
     }
     
-    
-    //MARK: Fetch Datas Rx
+    //MARK: Send Fetched Results Rx
     static func fetchSearchResultRx(queryValue: String) -> Observable<MovieInfo> {
         return Observable.create({ emitter in
             fetchMovie(queryValue: queryValue) { result in
@@ -97,7 +94,6 @@ class APIService {
 
     
     //MARK: JsonDecoder
-    
     static func decodeJsonData<T>(onComplete: @escaping (Result<T, Error>) -> Void, decodeForm: dataForm, data: Data) {
         do {
             switch decodeForm {

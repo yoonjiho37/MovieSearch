@@ -147,7 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				27A115AE29C9E5B200439340 /* BoxOfficeViewController.swift */,
-				27B99A7C29CC8C480089C196 /* BoxOfficeCollectionViewCell.swift */,
+				277E79A129EE724800FAB650 /* BoxOfficeCell */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -166,6 +166,14 @@
 				27B99A7A29CC64860089C196 /* Domain.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		277E79A129EE724800FAB650 /* BoxOfficeCell */ = {
+			isa = PBXGroup;
+			children = (
+				27B99A7C29CC8C480089C196 /* BoxOfficeCollectionViewCell.swift */,
+			);
+			path = BoxOfficeCell;
 			sourceTree = "<group>";
 		};
 		2781B40529E8300C002E3877 /* Utills */ = {

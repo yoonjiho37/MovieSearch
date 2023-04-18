@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QJO-xR-Lmr">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,11 +14,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="BoxOfficeViewController" customModule="MovieSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZLd-Rk-zck">
-                                <rect key="frame" x="0.0" y="95" width="600" height="240"/>
+                                <rect key="frame" x="0.0" y="154" width="393" height="399"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dYR-7B-DVx">
                                     <size key="itemSize" width="286" height="367"/>
@@ -27,19 +28,12 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cellIdentifier" id="SgA-dm-6wN" customClass="BoxOfficeCollectionViewCell" customModule="MovieSearch" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="286" height="367"/>
+                                        <rect key="frame" x="53.666666666666664" y="0.0" width="286" height="367"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="HdC-6I-lgF">
                                             <rect key="frame" x="0.0" y="0.0" width="286" height="367"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9G-Xs-BpX">
-                                                    <rect key="frame" x="121.33333333333337" y="173" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vCj-I6-80Y">
                                                     <rect key="frame" x="0.0" y="0.0" width="286" height="367"/>
                                                 </imageView>
@@ -54,28 +48,28 @@
                                         <color key="backgroundColor" systemColor="linkColor"/>
                                         <size key="customSize" width="286" height="367"/>
                                         <connections>
-                                            <outlet property="rankLabel" destination="G9G-Xs-BpX" id="AM7-CE-3RT"/>
+                                            <outlet property="posterImageView" destination="vCj-I6-80Y" id="B51-sb-tig"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="L4S-sL-FZt">
-                                <rect key="frame" x="0.0" y="355" width="600" height="195"/>
+                                <rect key="frame" x="0.0" y="573" width="393" height="195"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zan-s5-ZPo">
-                                        <rect key="frame" x="279.33333333333331" y="0.0" width="41.333333333333314" height="20.333333333333332"/>
+                                        <rect key="frame" x="176" y="0.0" width="41.333333333333343" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfX-Xv-18e">
-                                        <rect key="frame" x="279.33333333333331" y="80.333333333333314" width="41.333333333333314" height="20.333333333333329"/>
+                                        <rect key="frame" x="176" y="80.333333333333371" width="41.333333333333343" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeS-6Y-WWo">
-                                        <rect key="frame" x="70" y="160.66666666666663" width="460" height="34.333333333333343"/>
+                                        <rect key="frame" x="70" y="160.66666666666663" width="253" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                     </button>
@@ -87,10 +81,10 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="xqc-Ay-mYO">
-                                <rect key="frame" x="146.66666666666663" y="49" width="313" height="31"/>
+                                <rect key="frame" x="146.66666666666666" y="108" width="106" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="일별" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsD-Si-Mcv">
-                                        <rect key="frame" x="0.0" y="0.0" width="247" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="Kn6-kb-VgI"/>
                                         </constraints>
@@ -99,7 +93,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pqf-ny-Cjo">
-                                        <rect key="frame" x="264" y="0.0" width="51" height="31"/>
+                                        <rect key="frame" x="57" y="0.0" width="51" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="31" id="do1-c9-SML"/>
                                             <constraint firstAttribute="width" secondItem="pqf-ny-Cjo" secondAttribute="height" multiplier="49:31" id="ikH-qK-ma6"/>

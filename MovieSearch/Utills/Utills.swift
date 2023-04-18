@@ -16,7 +16,7 @@ extension String {
 
 
 extension Date {
-    func setYesterday() -> String {
+    func getYesterday() -> String {
         let calender = Calendar.current
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"

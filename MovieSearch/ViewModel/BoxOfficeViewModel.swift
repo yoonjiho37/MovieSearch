@@ -8,77 +8,72 @@
 import Foundation
 import RxSwift
 
+
 protocol RankViewModelType {
-    var allList: Observable<[ViewMovieList]> { get }
-
     func fetchList() -> AnyObserver<Void>
-
-    func setNowPage() -> AnyObserver<Int>
-    func setOutletdatas() -> Observable<[ViewMovieList]>
-//    func showInfoPage(_ pageNum: Int) -> Observable<ViewMovieList>
-
+    func getAllList() -> Observable<[ViewMovieList]>
+    func getNowPage(page: Int)
+    func getPageData() -> Observable<[ViewMovieList]>
 }
 
 class BoxOfficeViewModel: RankViewModelType {
     let dispaseBag = DisposeBag()
     
-    let allList: Observable<[ViewMovieList]>
     let fetchableList: AnyObserver<Void>
+    let allListObservable: Observable<[ViewMovieList]>
+    let nowPageObserver: AnyObserver<Int>
+    var pageItemObservable: Observable<[ViewMovieList]>
     
     
-    let pageItem: Observable<[ViewMovieList]>
-    let nowPage: AnyObserver<Int>
-
+    
+    func getAllList() -> Observable<[ViewMovieList]> {
+        return allListObservable
+    }
     
     func fetchList() -> AnyObserver<Void> {
-        fetchableList
+        return fetchableList
     }
     
-    func setNowPage() -> AnyObserver<Int> {
-        nowPage
+    func getNowPage(page: Int){
+        return nowPageObserver.on(.next(page))
     }
     
-    func setOutletdatas() -> Observable<[ViewMovieList]> {
-        pageItem
+    func getPageData() -> Observable<[ViewMovieList]> {
+        return pageItemObservable
     }
-    
-//    func showInfoPage(_ pageNum: Int) -> Observable<ViewMovieList> {
-////        pageItem
-////            .map { $0[pageNum] }
-//    }
 
     
     init(domain: DomainType = Domain()) {
-        let fetching = PublishSubject<Void>()
-        let list = BehaviorSubject<[ViewMovieList]>(value: [])
+        let fetchingSubject = PublishSubject<Void>()
+        let listSubject = BehaviorSubject<[ViewMovieList]>(value: [])
         
-        let nowPage = PublishSubject<Int>()
-        let paging = PublishSubject<[ViewMovieList]>()
+        let pageSubject = PublishSubject<Int>()
+        let pagingSubject = PublishSubject<[ViewMovieList]>()
         
         //input
-        self.fetchableList = fetching.asObserver()
-        fetching
+        self.fetchableList = fetchingSubject.asObserver()
+        fetchingSubject
+            .debug("fetching ==>>")
             .flatMap { viewList -> Observable<[ViewMovieList]> in
-                return domain.setSearchResult()
+                return domain.setBoxOfficeListToViewMovieList()
             }
-            .subscribe(onNext: list.onNext(_:))
+            .subscribe(onNext: listSubject.onNext(_:))
             .disposed(by: dispaseBag)
         
         
-        self.nowPage = nowPage.asObserver()
-        nowPage
-            .flatMap { pageNum -> Observable<[ViewMovieList]> in
-                return list.map { $0.filter { $0.rank == pageNum} }
-            }
-            .subscribe(onNext: paging.onNext(_:))
+        self.nowPageObserver = pageSubject.asObserver()
+        pageSubject
+            .flatMap({ num -> Observable<[ViewMovieList]> in
+                let item = listSubject.element(at: 0).map { $0.filter{ $0.rank == num + 1} }
+                return item.element(at: 0)
+            })
+            .subscribe(onNext: pagingSubject.onNext(_:))
             .disposed(by: dispaseBag)
+        
         
         //output
-        self.allList = list
+        self.allListObservable = listSubject
         
-        self.pageItem = paging
-            
-        
-        
+        self.pageItemObservable = pagingSubject
     }
 }
