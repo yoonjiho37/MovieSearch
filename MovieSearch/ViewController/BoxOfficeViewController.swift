@@ -89,11 +89,8 @@ extension BoxOfficeViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoxOfficeCollectionViewCell.cellIdentifier, for: indexPath) as? BoxOfficeCollectionViewCell else { return UICollectionViewCell() }
         let item = boxOfficeList[indexPath.row]        
-        guard let imageURL = URL(string: item.posterURL[0]) else { return cell }
-        guard let imageData = try? Data(contentsOf: imageURL) else { return cell }
-        DispatchQueue.main.async {
-            cell.posterImageView.image = UIImage(data: imageData)
-        }
+        cell.getDataObserver.onNext(item)
+        
         return cell
     }
     
