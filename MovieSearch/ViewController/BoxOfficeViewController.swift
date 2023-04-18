@@ -23,6 +23,8 @@ class BoxOfficeViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    var boxOfficeList: [ViewMovieList] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBinding()
@@ -30,34 +32,24 @@ class BoxOfficeViewController: UIViewController {
         
     }
     
-    var boxOfficeList: [ViewMovieList] = []
-    var nowPage: Int = 0
-    var currentIndex: CGFloat = 0
-    
-    var isOneStepPaging = true
-    
-    let domain: DomainType = Domain()
-    
     func setupBinding() {
         //input
         viewModel.fetchList().onNext({ print("fetch") }())
 
         //output
         viewModel.getAllList()
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { data in
                 self.boxOfficeList = data
                 self.viewModel.getNowPage(page: 0)
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
+                self.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
         viewModel.getPageData()
+            .observe(on: MainScheduler.instance)
             .subscribe { item in
-                DispatchQueue.main.async {
-                    self.setupPageDatas(item: item[0])
-                }
+                self.setupPageDatas(item: item[0])
             }
             .disposed(by: disposeBag)
     }
@@ -74,9 +66,7 @@ class BoxOfficeViewController: UIViewController {
     }
     
     
-    
-    
-    //MARK: IBOutlets
+    //MARK: - InterfaceBuilder Links
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var rankAndNameLabel: UILabel!
     @IBOutlet weak var salesShare: UILabel!
