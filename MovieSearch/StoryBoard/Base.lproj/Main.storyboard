@@ -72,6 +72,9 @@
                                         <rect key="frame" x="70" y="160.66666666666663" width="253" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <segue destination="wQj-G8-FO3" kind="show" identifier="MovieInfoSegueIdentifier" id="usQ-IY-kNI"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -136,6 +139,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="991.60305343511448" y="-2.1126760563380285"/>
+        </scene>
+        <!--Movie Info View Controller-->
+        <scene sceneID="y07-dL-rEr">
+            <objects>
+                <viewController id="wQj-G8-FO3" customClass="MovieInfoViewController" customModule="MovieSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="68n-gs-d0b">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="smu-KQ-VFm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="bLC-5Y-WHz"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MND-Kz-oBw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1747" y="-2"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LP7-Gn-xkG">

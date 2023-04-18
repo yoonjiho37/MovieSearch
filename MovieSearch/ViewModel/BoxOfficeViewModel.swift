@@ -9,14 +9,14 @@ import Foundation
 import RxSwift
 
 
-protocol RankViewModelType {
+protocol BoxOfficeViewModelType {
     func fetchList() -> AnyObserver<Void>
     func getAllList() -> Observable<[ViewMovieList]>
     func getNowPage(page: Int)
     func getPageData() -> Observable<[ViewMovieList]>
 }
 
-class BoxOfficeViewModel: RankViewModelType {
+class BoxOfficeViewModel: BoxOfficeViewModelType {
     let dispaseBag = DisposeBag()
     
     let fetchableList: AnyObserver<Void>

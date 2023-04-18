@@ -10,10 +10,10 @@ import RxSwift
 import RxCocoa
 
 class BoxOfficeViewController: UIViewController {
-    let viewModel: RankViewModelType
+    let viewModel: BoxOfficeViewModelType
     let disposeBag = DisposeBag()
     
-    init(viewModel: RankViewModelType = BoxOfficeViewModel()) {
+    init(viewModel: BoxOfficeViewModelType = BoxOfficeViewModel()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -29,10 +29,10 @@ class BoxOfficeViewController: UIViewController {
         super.viewDidLoad()
         setupBinding()
         setupUI()
-        
     }
     
     func setupBinding() {
+        
         //input
         viewModel.fetchList().onNext({ print("fetch") }())
 
@@ -64,13 +64,29 @@ class BoxOfficeViewController: UIViewController {
         collectionView.dataSource = self
         setFlowLayout()
     }
-    
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let identifer = "MovieInfoSegueIdentifier"
+        if segue.identifier == identifer,
+           let seletedMovie = sender as? [ViewMovieList],
+           let movieInfoVC = segue.destination as? MovieInfoViewController {
+            let infoViewModel = MovieInfoViewModel(seletedMovie)
+            movieInfoVC.viewModel = infoViewModel
+        }
+    }
+
     //MARK: - InterfaceBuilder Links
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var rankAndNameLabel: UILabel!
     @IBOutlet weak var salesShare: UILabel!
     @IBOutlet weak var infoButton: UIButton!
+    @IBAction func touchUpInfoButton(_ sender: Any) {
+        viewModel.getPageData()
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] selectedMoive in
+                self?.performSegue(withIdentifier: MovieInfoViewController.identifer, sender: selectedMoive)
+            }
+            .disposed(by: disposeBag)
+    }
 }
 
 
