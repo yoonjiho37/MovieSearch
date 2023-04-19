@@ -21,14 +21,18 @@ class BoxOfficeCollectionViewCell: UICollectionViewCell {
         
         super.init(coder: aDecoder)
 
-        cellDataSubject.observe(on: MainScheduler.instance)
+        cellDataSubject
             .subscribe { [weak self] item in
                 guard let imageURL = URL(string: item.posterURL[0]) else {
                     self?.posterImageView.image = UIImage(named: "NoImageAvailable")
                     return
                 }
-                guard let imageData = try? Data(contentsOf: imageURL) else { return }
-                self?.posterImageView.image = UIImage(data: imageData)
+                URLSession.shared.dataTask(with: imageURL) { data, res, err in
+                    guard let data = data else { return }
+                    DispatchQueue.main.async {
+                        self?.posterImageView.image = UIImage(data: data)
+                    }
+                }.resume()
             }
             .disposed(by: cellDisposeBag)
     }
