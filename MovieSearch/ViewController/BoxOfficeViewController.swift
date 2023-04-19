@@ -55,6 +55,7 @@ class BoxOfficeViewController: UIViewController {
     }
     
     func setupPageDatas(item: ViewMovieList) {
+        print("데이터 확인 ==> \(item.rating)\(item.directorNm)")
         rankAndNameLabel.text = "\(item.rank)위 / \(item.title)"
         salesShare.text = "\(item.rating)"
     }

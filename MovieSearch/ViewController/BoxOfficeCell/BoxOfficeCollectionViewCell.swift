@@ -23,7 +23,10 @@ class BoxOfficeCollectionViewCell: UICollectionViewCell {
 
         cellDataSubject.observe(on: MainScheduler.instance)
             .subscribe { [weak self] item in
-                guard let imageURL = URL(string: item.posterURL[0]) else { return }
+                guard let imageURL = URL(string: item.posterURL[0]) else {
+                    self?.posterImageView.image = UIImage(named: "NoImageAvailable")
+                    return
+                }
                 guard let imageData = try? Data(contentsOf: imageURL) else { return }
                 self?.posterImageView.image = UIImage(data: imageData)
             }
@@ -33,6 +36,7 @@ class BoxOfficeCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         disposeBag = DisposeBag()
+        posterImageView.image = nil
     }
     
     //MARK: InterfaceBuilder Links

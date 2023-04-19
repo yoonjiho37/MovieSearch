@@ -25,12 +25,12 @@ class ViewMovieList {
     init(info: MovieInfo,rank: Int) {
         self.movieId = info.movieId
         self.title = info.title.removeBlank()
-        self.directorNm = info.directors.director[0].directorNm
+        self.directorNm = info.directors.director[0].directorNm.removeBlank()
         self.actors = info.actors
-        self.company = info.company
+        self.company = info.company.removeBlank()
         self.plot = info.plots.plot[0].plotText
         self.runtime = info.runtime
-        self.rating = info.rating
+        self.rating = info.rating.inputDataifBlank()
         self.genre = info.genre
         self.posterURL = info.posters.components(separatedBy: "|")
         self.rank = rank

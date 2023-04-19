@@ -153,8 +153,8 @@
 			children = (
 				27A115AE29C9E5B200439340 /* BoxOfficeViewController.swift */,
 				277E79A229EE853C00FAB650 /* MovieInfoViewController.swift */,
-				277E79A429EE854700FAB650 /* MovieInfoCell */,
 				277E79A129EE724800FAB650 /* BoxOfficeCell */,
+				277E79A429EE854700FAB650 /* MovieInfoCell */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
