@@ -15,12 +15,12 @@ protocol MovieInfoViewModelType {
 class MovieInfoViewModel: MovieInfoViewModelType {
     let disposeBag = DisposeBag()
     
-    let movieInfoObservable: Observable<[ViewMovieList]>
+    let movieInfoObservable: Observable<[ViewMovieItems]>
     func getMovieInfo() {
         
     }
     
-    init(_ selectedMovie: [ViewMovieList] = []) {
+    init(_ selectedMovie: [ViewMovieItems] = []) {
         let movieSubject = Observable.just(selectedMovie)
         
         self.movieInfoObservable = movieSubject

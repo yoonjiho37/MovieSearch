@@ -17,13 +17,31 @@ class APIService {
     }
     
     //MARK: Fetch - BoxOffice
-    static var boxOfficeMainURL: String = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?"
-    static var boxOfficeKey: String = "8c7c736bd850cfc9c87b1245a20cf7e6"
-   
+  
+     
+    static func getBoxOfficeURL(_ type: BoxOfficeType) -> URL {
+        let boxOfficeMainURL = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/"
+        let boxOfficeKey = "key=8c7c736bd850cfc9c87b1245a20cf7e6"
+        let dailyType = "searchDailyBoxOfficeList.json?"
+        let weeklyType = "searchWeeklyBoxOfficeList.json?"
+        let targetDt = "&targetDt=\(Date().getYesterday())"
+        let targetDtLastSunday = "&targetDt=\(Date().getLastSunday())"
+        var urlStr = ""
+        switch type {
+        case .daily:
+            urlStr = boxOfficeMainURL + dailyType + boxOfficeKey + targetDt
+        case .weekly:
+            urlStr = boxOfficeMainURL + weeklyType + boxOfficeKey + targetDtLastSunday + "&weekGb=0"
+        case .weekEnd:
+            urlStr = boxOfficeMainURL + weeklyType + boxOfficeKey + targetDtLastSunday + "&weekGb=1"
+        }
+        print("url ==> \(urlStr)")
+        guard let url = URL(string: urlStr) else { return URL(string: "")!}
+        return url
+    }
+    
     static func fetchBoxOffice(onComplete: @escaping (Result<BoxOfficeResult, Error>) -> Void) {
-        let urlString = boxOfficeMainURL + "key=\(boxOfficeKey)" + "&targetDt=\(Date().getYesterday())"
-        guard let url: URL = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { data, res, err in
+        URLSession.shared.dataTask(with: getBoxOfficeURL(.daily)) { data, res, err in
             if let err = err {
                 onComplete(.failure(err))
                 return
@@ -34,7 +52,23 @@ class APIService {
                                             code: httpResponse.statusCode)))
                 return
             }
-            decodeJsonData(onComplete: onComplete, decodeForm: .boxOfficeResult, data: data)
+            decodeJsonData(onComplete: onComplete, decodeForm: .boxOfficeResult,type: .daily, data: data)
+        }.resume()
+    }
+    
+    static func fetchBoxOfficeWeely(type: BoxOfficeType ,onComplete: @escaping (Result<BoxOfficeWeeklyReult, Error>) -> Void) {
+        URLSession.shared.dataTask(with: getBoxOfficeURL(type)) { data, res, err in
+            if let err = err {
+                onComplete(.failure(err))
+                return
+            }
+            guard let data = data else {
+                let httpResponse = res as! HTTPURLResponse
+                onComplete(.failure(NSError(domain: "no data",
+                                            code: httpResponse.statusCode)))
+                return
+            }
+            decodeJsonData(onComplete: onComplete, decodeForm: .boxOfficeResult,type: type, data: data)
         }.resume()
     }
     
@@ -57,7 +91,7 @@ class APIService {
                                             code: httpResponse.statusCode)))
                 return
             }
-            decodeJsonData(onComplete: onComplete, decodeForm: .searchResult, data: data)
+            decodeJsonData(onComplete: onComplete, decodeForm: .searchResult,type: nil, data: data)
         }.resume()
     }
     
@@ -79,7 +113,22 @@ class APIService {
     
     static func fetchBoxOfficeRx() -> Observable<BoxOfficeResult> {
         return Observable.create({ emitter in
-            fetchBoxOffice() {result in
+            fetchBoxOffice() { result in
+                switch result {
+                case let .success(data):
+                    emitter.onNext(data)
+                    emitter.onCompleted()
+                case let .failure(err):
+                    emitter.onError(err)
+                }
+            }
+            return Disposables.create()
+        })
+    }
+    
+    static func fetchBoxOfficeWeelyRx(type: BoxOfficeType) -> Observable<BoxOfficeWeeklyReult> {
+        return Observable.create({ emitter in
+            fetchBoxOfficeWeely(type: type) { result in
                 switch result {
                 case let .success(data):
                     emitter.onNext(data)
@@ -94,12 +143,20 @@ class APIService {
 
     
     //MARK: JsonDecoder
-    static func decodeJsonData<T>(onComplete: @escaping (Result<T, Error>) -> Void, decodeForm: dataForm, data: Data) {
+    static func decodeJsonData<T>(onComplete: @escaping (Result<T, Error>) -> Void, decodeForm: dataForm, type: BoxOfficeType?, data: Data) {
         do {
             switch decodeForm {
             case .boxOfficeResult:
-                let response = try JSONDecoder().decode(BoxOffice.self, from: data)
-                return onComplete(.success(response.boxOfficeResult as! T))
+                switch type {
+                case .daily:
+                    let response = try JSONDecoder().decode(BoxOffice.self, from: data)
+                    return onComplete(.success(response.boxOfficeResult as! T))
+                case .weekly, .weekEnd:
+                    let response = try JSONDecoder().decode(BoxOfficeWeekly.self, from: data)
+                    return onComplete(.success(response.boxOfficeResult as! T))
+                case .none: break
+                }
+                
             case .searchResult:
                 let response = try JSONDecoder().decode(SearchChannel.self, from: data)
                 return onComplete(.success(response.Data[0].Result[0] as! T))

@@ -13,10 +13,10 @@ class BoxOfficeCollectionViewCell: UICollectionViewCell {
     private let cellDisposeBag = DisposeBag()
     
     var disposeBag = DisposeBag()
-    let getDataObserver : AnyObserver<ViewMovieList>
+    let getDataObserver : AnyObserver<ViewMovieItems>
     
     required init?(coder aDecoder: NSCoder) {
-        let cellDataSubject = PublishSubject<ViewMovieList>()
+        let cellDataSubject = PublishSubject<ViewMovieItems>()
         getDataObserver = cellDataSubject.asObserver()
         
         super.init(coder: aDecoder)

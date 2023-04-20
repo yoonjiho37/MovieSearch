@@ -23,7 +23,7 @@ class BoxOfficeViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    var boxOfficeList: [ViewMovieList] = []
+    var boxOfficeList: [ViewMovieItems] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ class BoxOfficeViewController: UIViewController {
     func setupBinding() {
         
         //input
-        viewModel.fetchList().onNext({ print("fetch") }())
+        viewModel.fetchList(type: .weekEnd)
 
         //output
         viewModel.getAllList()
@@ -54,7 +54,7 @@ class BoxOfficeViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func setupPageDatas(item: ViewMovieList) {
+    func setupPageDatas(item: ViewMovieItems) {
         print("데이터 확인 ==> \(item.rating)\(item.directorNm)")
         rankAndNameLabel.text = "\(item.rank)위 / \(item.title)"
         salesShare.text = "\(item.rating)"
@@ -68,7 +68,7 @@ class BoxOfficeViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let identifer = "MovieInfoSegueIdentifier"
         if segue.identifier == identifer,
-           let seletedMovie = sender as? [ViewMovieList],
+           let seletedMovie = sender as? [ViewMovieItems],
            let movieInfoVC = segue.destination as? MovieInfoViewController {
             let infoViewModel = MovieInfoViewModel(seletedMovie)
             movieInfoVC.viewModel = infoViewModel

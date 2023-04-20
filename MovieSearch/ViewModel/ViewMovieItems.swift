@@ -9,6 +9,20 @@ import Foundation
 import RxSwift
 
 class ViewMovieList {
+    var boxOfficeType: BoxOfficeType
+    var showRange: String
+    var yearWeekTime: String?
+    var viewMovieList = [ViewMovieList]()
+    
+    init(boxOfficeType: BoxOfficeType, showRange: String, yearWeekTime: String?,viewMovieList: [ViewMovieList] = [ViewMovieList]()) {
+        self.boxOfficeType = boxOfficeType
+        self.showRange = showRange
+        self.yearWeekTime = yearWeekTime
+        self.viewMovieList = viewMovieList
+    }
+}
+
+class ViewMovieItems {
     let movieId: String  //등록ID    K
     let title: String  //영화명    서편제
     let directorNm: String  //감독명    김지훈
@@ -52,8 +66,8 @@ class ViewMovieList {
     }  
 }
 
-extension ViewMovieList: Equatable {
-    static func == (lhs: ViewMovieList, rhs: ViewMovieList) -> Bool {
+extension ViewMovieItems: Equatable {
+    static func == (lhs: ViewMovieItems, rhs: ViewMovieItems) -> Bool {
         return lhs.movieId == rhs.movieId && lhs.title == rhs.title && lhs.company == rhs.company && lhs.runtime == rhs.runtime && lhs.rating == rhs.rating && lhs.genre == rhs.genre && lhs.posterURL == rhs.posterURL && lhs.rank == rhs.rank
     }
 }

@@ -7,15 +7,34 @@
 
 import Foundation
 
+enum BoxOfficeType: String, Codable {
+    case daily = "일별 박스오피스"
+    case weekly = "주간 박스오피스"
+    case weekEnd = "주말 박스오피스"
+}
+
 struct BoxOffice: Codable {
     var boxOfficeResult: BoxOfficeResult
 }
 
 struct BoxOfficeResult: Codable {
-    var boxofficeType: String //        박스오피스 종류를 출력합니다.
+    var boxofficeType: BoxOfficeType //        박스오피스 종류를 출력합니다.
     let showRange: String //        박스오피스 조회 일자를 출력합니다.
     var dailyBoxOfficeList : [BoxOfficeItems]
+    
 }
+
+struct BoxOfficeWeekly: Codable {
+    var boxOfficeResult: BoxOfficeWeeklyReult
+}
+
+struct BoxOfficeWeeklyReult: Codable {
+    var boxofficeType: String //        박스오피스 종류를 출력합니다.
+    let showRange: String //        박스오피스 조회 일자를 출력합니다.
+    let yearWeekTime: String
+    var weeklyBoxOfficeList : [BoxOfficeItems]
+}
+
 
 struct BoxOfficeItems: Codable {
     let rnum : String //       순번을 출력합니다.

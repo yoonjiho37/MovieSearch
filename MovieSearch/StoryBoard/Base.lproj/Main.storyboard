@@ -127,7 +127,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ouo-z4-tvY">
-                        <barButtonItem key="rightBarButtonItem" systemItem="pause" id="QL5-dm-iXq"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="QL5-dm-iXq"/>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="ZLd-Rk-zck" id="O1A-fb-mWD"/>
