@@ -18,11 +18,6 @@ enum FetchFor {
 
 
 class Domain: DomainType {
-    let disposeBag = DisposeBag()
-    var dailyObserbale: Observable<[ViewMovieItems]>
-    var weeklyObservable: Observable<[ViewMovieItems]>
-    var weekEndObservable: Observable<[ViewMovieItems]>
-    
     
     func checkBoxOfficeWeely(type: BoxOfficeType) -> Observable<[ViewMovieItems]> {
         switch type {
@@ -60,14 +55,5 @@ class Domain: DomainType {
             .map { ViewMovieItems(info: $0, rank: Int(rank)!)}
     }
     
-    init() {
-        let daily = PublishSubject<[ViewMovieItems]>()
-        let weekly = PublishSubject<[ViewMovieItems]>()
-        let weekEnd = PublishSubject<[ViewMovieItems]>()
-        
-        self.dailyObserbale = daily.asObserver()
-        self.weeklyObservable = weekly.asObserver()
-        self.weekEndObservable = weekEnd.asObserver()
-    }
 }
 
