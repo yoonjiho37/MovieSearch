@@ -56,7 +56,7 @@ class Domain: DomainType {
     }
     
     func setSearchResult(queryValue: String, rank: String) -> Observable<ViewMovieItems> {
-        return APIService.fetchSearchResultRx(queryValue: queryValue)
+        return APIService.fetchSearchResultRx(queryValue: queryValue.removeChactors())
             .map { ViewMovieItems(info: $0, rank: Int(rank)!)}
     }
     

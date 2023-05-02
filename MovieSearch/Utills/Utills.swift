@@ -12,6 +12,9 @@ extension String {
         let firstBlack = self.components(separatedBy: " !HE").joined()
         return firstBlack.components(separatedBy: "  !HS ").joined()
     }
+    func removeChactors() -> String {
+        return self.components(separatedBy: ["!", "?", " "]).joined()
+    }
     func inputDataifBlank() -> String {
         if self == "" {
             return "전체이용가"
