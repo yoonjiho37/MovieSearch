@@ -9,19 +9,22 @@ import Foundation
 import RxSwift
 
 protocol MovieInfoViewModelType {
-    func getMovieInfo()
+    func getMovieInfo() -> Observable<ViewMovieItems?>
 }
 
 class MovieInfoViewModel: MovieInfoViewModelType {
     let disposeBag = DisposeBag()
     
-    let movieInfoObservable: Observable<[ViewMovieItems]>
-    func getMovieInfo() {
-        
+    let movieInfoObservable: Observable<ViewMovieItems?>
+    
+    func getMovieInfo() -> Observable<ViewMovieItems?> {
+        return movieInfoObservable
     }
     
-    init(_ selectedMovie: [ViewMovieItems] = []) {
+    init(_ selectedMovie: [ViewMovieItems]? = []) {
         let movieSubject = Observable.just(selectedMovie)
+            .map { $0!.first }
+            .debug()
         
         self.movieInfoObservable = movieSubject
     }

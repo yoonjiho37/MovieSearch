@@ -36,7 +36,7 @@ class ViewMovieItems {
     
     var rank: Int
     
-    init(info: MovieInfo,rank: Int) {
+    init(info: MovieInfo ,rank: Int) {
         self.movieId = info.movieId
         self.title = info.title.removeBlank()
         self.directorNm = info.directors.director[0].directorNm.removeBlank()

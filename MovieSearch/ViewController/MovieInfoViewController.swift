@@ -11,22 +11,109 @@ import RxSwift
 class MovieInfoViewController: UIViewController {
     static let identifer = "MovieInfoSegueIdentifier"
 
-    let disposeBag = DisposeBag()
     var viewModel: MovieInfoViewModelType
+    var disposeBag = DisposeBag()
     
     init(viewmodel: MovieInfoViewModelType = MovieInfoViewModel()) {
         self.viewModel = viewmodel
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder aDecoder: NSCoder) {
-        self.viewModel = MovieInfoViewModel()
+        viewModel = MovieInfoViewModel()
         super.init(coder: aDecoder)
     }
+    
+    var movieInfo: ViewMovieItems?
+    var cellCaseList: [CellCase] = []
+    var dataSource = [CellCase]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupBinding()
+        registerXib()
     }
     
+    private func setupBinding() {
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        
+        viewModel.getMovieInfo()
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { info in
+                self.movieInfo = info
+                guard let movieInfo = self.movieInfo else { return }
+                
+                let info1 = CellCase.info(movieInfo)
+                let info2 = CellCase.gallery(movieInfo)
+                let info3 = CellCase.plot(movieInfo)
+                let info4 = CellCase.cast(movieInfo)
+                self.dataSource = [info1, info2, info3, info4]
+                
+                self.tableView.reloadData()
+                
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    //MARK: InterfaceBuilder Link
+    @IBOutlet weak var tableView: UITableView!
+}
 
+extension MovieInfoViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return dataSource.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch dataSource[section] {
+        default: return 1
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellCase = dataSource[indexPath.section]
+        guard let movieInfo = movieInfo else {  return UITableViewCell() }
+        switch cellCase {
+        case .info(_):
+
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: InfomationTableViewCell.cellIndentifier, for: indexPath) as? InfomationTableViewCell else { return UITableViewCell() }
+            cell.inputData(data: movieInfo)
+            
+            return cell
+
+        case .gallery(_):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: GalleryTableViewCell.cellIndentifier, for: indexPath) as? GalleryTableViewCell else { return UITableViewCell() }
+            
+            return cell
+            
+        case .plot(_):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PlotTableViewCell.cellIndentifier, for: indexPath) as? PlotTableViewCell else { return UITableViewCell()}
+            cell.inputData(data: movieInfo)
+
+            return cell
+            
+        case .cast(_):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CastTableViewCell.cellIndentifier, for: indexPath) as? CastTableViewCell else { return UITableViewCell() }
+            cell.inputData(data: movieInfo)
+            return cell
+        }
+    }
+    
+    
+}
+
+
+extension MovieInfoViewController: UITableViewDelegate {
+    private func registerXib() {
+        print("gd")
+        let infoTVC = UINib(nibName: "InfomationTableViewCell", bundle: nil)
+        tableView.register(infoTVC, forCellReuseIdentifier: InfomationTableViewCell.cellIndentifier)
+        let galleryTVC = UINib(nibName: "GalleryTableViewCell", bundle: nil)
+        tableView.register(galleryTVC, forCellReuseIdentifier: GalleryTableViewCell.cellIndentifier)
+        let plotTVC = UINib(nibName: "PlotTableViewCell", bundle: nil)
+        tableView.register(plotTVC, forCellReuseIdentifier: PlotTableViewCell.cellIndentifier)
+        let castTVC = UINib(nibName: "CastTableViewCell", bundle: nil)
+        tableView.register(castTVC, forCellReuseIdentifier: CastTableViewCell.cellIndentifier)
+    }
 }
