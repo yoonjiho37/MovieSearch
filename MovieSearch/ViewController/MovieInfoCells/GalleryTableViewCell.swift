@@ -12,14 +12,56 @@ class GalleryTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        registerCVC()
+        setFlowLayout()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    var galleryData: ViewMovieItems?
+    
+    func inputData(data: ViewMovieItems) {
+        galleryData = data
+        collectionView.reloadData()
     }
+    
+    private func registerCVC() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        let galleryCVC = UINib(nibName: "GalleryCollectionViewCell", bundle: nil)
+        collectionView.register(galleryCVC, forCellWithReuseIdentifier: GalleryCollectionViewCell.cellIdentifier)
+    }
+    
     //MARK: InterfaceBuilder Links
-    @IBOutlet weak var galleryCollectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
+}
+
+extension GalleryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return galleryData?.posterURL.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.cellIdentifier, for: indexPath) as? GalleryCollectionViewCell else { return UICollectionViewCell()
+        }
+        let imageURLStr = galleryData?.posterURL[indexPath.item] ?? ""
+        guard let imageURL = URL(string: imageURLStr) else {
+            cell.imageView.image = UIImage(named: "NoImageAvailable")
+            return UICollectionViewCell()
+        }
+        URLSession.shared.dataTask(with: imageURL) { data, res, err in
+            guard let data = data else { return }
+            DispatchQueue.main.async {
+                cell.imageView.image = UIImage(data: data)
+            }
+        }.resume()
+        
+        return cell
+    }
+    
+    private func setFlowLayout() {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumLineSpacing = 10
+        flowLayout.itemSize = CGSize(width: 84, height: 110)
+        flowLayout.scrollDirection = .horizontal
+        collectionView.collectionViewLayout = flowLayout
+    }
 }

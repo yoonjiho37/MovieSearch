@@ -32,7 +32,7 @@ class Domain: DomainType {
         let observableList = APIService.fetchBoxOfficeRx().flatMap { result -> Observable<[ViewMovieItems]> in
             let obs = result.dailyBoxOfficeList
                 .map { items in
-                    self.setSearchResult(queryValue: items.movieNm, rank: items.rank)
+                    self.setSearchResult(queryValue: items.movieNm, bxofficeitem: items)
                 }
             return Observable.combineLatest(obs)
         }
@@ -43,16 +43,16 @@ class Domain: DomainType {
         let observableList = APIService.fetchBoxOfficeWeelyRx(type: type).flatMap { result -> Observable<[ViewMovieItems]> in
             let obs = result.weeklyBoxOfficeList
                 .map { items in
-                    self.setSearchResult(queryValue: items.movieNm, rank: items.rank)
+                    self.setSearchResult(queryValue: items.movieNm, bxofficeitem: items)
                 }
             return Observable.combineLatest(obs)
         }
         return observableList
     }
     
-    func setSearchResult(queryValue: String, rank: String) -> Observable<ViewMovieItems> {
+    func setSearchResult(queryValue: String, bxofficeitem: BoxOfficeItems) -> Observable<ViewMovieItems> {
         return APIService.fetchSearchResultRx(queryValue: queryValue.removeChactors())
-            .map { ViewMovieItems(info: $0, rank: Int(rank)!)}
+            .map { ViewMovieItems(info: $0, boxOffice: bxofficeitem)}
     }
     
 }

@@ -12,11 +12,12 @@ class CastTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     func inputData(data: ViewMovieItems) {
+        let actorNames = data.actors.actor.map { $0.actorNm }
         self.diractorLabel.text = data.directorNm
+        self.actorLabel.text = actorNames.joined(separator: ", ")
     }
     
     //MARK: InterfaceBuilder Links

@@ -23,6 +23,10 @@ class ViewMovieList {
 }
 
 class ViewMovieItems {
+    var likeBoolean: Bool = false
+    var whachLaterBoolean: Bool = false
+    
+    //MovieInfo
     let movieId: String  //등록ID    K
     let title: String  //영화명    서편제
     let directorNm: String  //감독명    김지훈
@@ -33,10 +37,25 @@ class ViewMovieItems {
     let rating: String  //대표관람등급    15세관람가
     let genre: String  //kmdbUrl    액션,SF
     let posterURL: [String]
+    let repRlsDate: String
     
+    //BoxOfficeItem
     var rank: Int
+    let audiAcc: String // 누적관람인원
+    let rankInten: String //        전일대비 순위의 증감분을 출력합니다.
+    let rankOldAndNew: String //     랭킹에 신규진입여부를 출력합니다. “OLD” : 기존 , “NEW” : 신규
+    var rankResult: String {
+        if rankOldAndNew == "NEW" {
+            return "New!"
+        } else if rankInten.components(separatedBy: "")[0] == "-" {
+            return "\(rankInten)↓"
+        } else {
+            return "\(rankInten)↑"
+        }
+    }
     
-    init(info: MovieInfo ,rank: Int) {
+    
+    init(info: MovieInfo ,boxOffice: BoxOfficeItems) {
         self.movieId = info.movieId
         self.title = info.title.removeBlank()
         self.directorNm = info.directors.director[0].directorNm.removeBlank()
@@ -47,11 +66,16 @@ class ViewMovieItems {
         self.rating = info.rating.inputDataifBlank()
         self.genre = info.genre
         self.posterURL = info.posters.components(separatedBy: "|")
-        self.rank = rank
+        self.repRlsDate = info.repRlsDate
+        self.audiAcc = boxOffice.audiAcc
+        
+        self.rankInten = boxOffice.rankInten
+        self.rankOldAndNew = boxOffice.rankOldAndNew
+        self.rank = Int(boxOffice.rank)!
     }
     
     
-    init(movieId: String, title: String, directorNm: String, actors: Actors, company: String, plot: String, runtime: String, rating: String, genre: String, posterURL: [String], rank: Int) {
+    init(movieId: String, title: String, directorNm: String, actors: Actors, company: String, plot: String, runtime: String, rating: String, genre: String, posterURL: [String], repRlsDate: String, audiAcc: String, rankInten: String, rankOldAndNew: String, rank: Int) {
         self.movieId = movieId
         self.title = title
         self.directorNm = directorNm
@@ -63,6 +87,10 @@ class ViewMovieItems {
         self.genre = genre
         self.posterURL = posterURL
         self.rank = rank
+        self.repRlsDate = repRlsDate
+        self.audiAcc = audiAcc
+        self.rankInten = rankInten
+        self.rankOldAndNew = rankOldAndNew
     }  
 }
 

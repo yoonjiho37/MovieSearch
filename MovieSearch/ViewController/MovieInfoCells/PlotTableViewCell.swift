@@ -12,7 +12,6 @@ class PlotTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     func inputData(data: ViewMovieItems) {

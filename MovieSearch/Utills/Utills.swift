@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     func removeBlank() -> String {
@@ -13,7 +14,7 @@ extension String {
         return firstBlack.components(separatedBy: "  !HS ").joined()
     }
     func removeChactors() -> String {
-        return self.components(separatedBy: ["!", "?", " "]).joined()
+        return self.components(separatedBy: ["!", "?", " ", "<", ">", ","]).joined()
     }
     func inputDataifBlank() -> String {
         if self == "" {
@@ -21,10 +22,24 @@ extension String {
         } else {
             return self
         }
-        
+    }
+    
+    func setUIImage() -> UIImage? {
+        let value = self
+        switch value {
+        case "12세관람가":
+            return UIImage(named: "ic_12")
+        case "15세관람가":
+            return UIImage(named: "ic_15")
+        case "18세관람가(청소년관람불가)":
+            return UIImage(named: "ic_19")
+        case "전체관람가":
+            return UIImage(named: "ic_all")
+        default:
+            return UIImage(named: "ic_all")
+        }
     }
 }
-
 
 extension Date {
     func getYesterday() -> String {

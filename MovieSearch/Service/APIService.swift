@@ -78,6 +78,7 @@ class APIService {
     
     static func fetchMovie(queryValue: String ,onComplete: @escaping (Result<MovieInfo,Error>) -> Void) {
         let queryurl: String = "\(movieInfoMainURL)collection=kmdb_new2&detail=Y&listCount=1&query=\(queryValue)&ServiceKey=\(ServiceKey)"
+        print("url2 => \(queryurl)")
         let encodedStr = queryurl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         guard let url = URL(string: encodedStr) else { return }
         URLSession.shared.dataTask(with: url) { data, res, err in
@@ -161,6 +162,19 @@ class APIService {
                 let response = try JSONDecoder().decode(SearchChannel.self, from: data)
                 return onComplete(.success(response.Data[0].Result[0] as! T))
             }
+        }catch let DecodingError.dataCorrupted(context) {
+            print(context)
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch {
+            print("error: ", error)
         }catch{
             return onComplete(.failure(NSError(domain: "Decoding Error", code: -1)))
         }

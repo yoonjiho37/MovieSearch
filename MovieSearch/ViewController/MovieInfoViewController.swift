@@ -76,37 +76,36 @@ extension MovieInfoViewController: UITableViewDataSource {
         guard let movieInfo = movieInfo else {  return UITableViewCell() }
         switch cellCase {
         case .info(_):
-
             guard let cell = tableView.dequeueReusableCell(withIdentifier: InfomationTableViewCell.cellIndentifier, for: indexPath) as? InfomationTableViewCell else { return UITableViewCell() }
             cell.inputData(data: movieInfo)
-            
             return cell
-
         case .gallery(_):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: GalleryTableViewCell.cellIndentifier, for: indexPath) as? GalleryTableViewCell else { return UITableViewCell() }
-            
+            cell.inputData(data: movieInfo)
             return cell
-            
         case .plot(_):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PlotTableViewCell.cellIndentifier, for: indexPath) as? PlotTableViewCell else { return UITableViewCell()}
             cell.inputData(data: movieInfo)
-
             return cell
-            
         case .cast(_):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CastTableViewCell.cellIndentifier, for: indexPath) as? CastTableViewCell else { return UITableViewCell() }
             cell.inputData(data: movieInfo)
             return cell
         }
     }
-    
-    
 }
 
 
 extension MovieInfoViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.rowHeight
+    }
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    
     private func registerXib() {
-        print("gd")
         let infoTVC = UINib(nibName: "InfomationTableViewCell", bundle: nil)
         tableView.register(infoTVC, forCellReuseIdentifier: InfomationTableViewCell.cellIndentifier)
         let galleryTVC = UINib(nibName: "GalleryTableViewCell", bundle: nil)
