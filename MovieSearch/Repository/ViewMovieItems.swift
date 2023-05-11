@@ -27,6 +27,8 @@ class ViewMovieItems {
     var whachLaterBoolean: Bool = false
     
     //MovieInfo
+    let baseDate: String
+    
     let movieId: String  //등록ID    K
     let title: String  //영화명    서편제
     let directorNm: String  //감독명    김지훈
@@ -56,6 +58,7 @@ class ViewMovieItems {
     
     
     init(info: MovieInfo ,boxOffice: BoxOfficeItems) {
+        self.baseDate = info.statDate
         self.movieId = info.movieId
         self.title = info.title.removeBlank()
         self.directorNm = info.directors.director[0].directorNm.removeBlank()
@@ -66,8 +69,8 @@ class ViewMovieItems {
         self.rating = info.rating.inputDataifBlank()
         self.genre = info.genre
         self.posterURL = info.posters.components(separatedBy: "|")
-        self.repRlsDate = info.repRlsDate
-        self.audiAcc = boxOffice.audiAcc
+        self.repRlsDate = info.repRlsDate.setDateFormat()
+        self.audiAcc = boxOffice.audiAcc.setNumberFormatter()
         
         self.rankInten = boxOffice.rankInten
         self.rankOldAndNew = boxOffice.rankOldAndNew
@@ -75,7 +78,8 @@ class ViewMovieItems {
     }
     
     
-    init(movieId: String, title: String, directorNm: String, actors: Actors, company: String, plot: String, runtime: String, rating: String, genre: String, posterURL: [String], repRlsDate: String, audiAcc: String, rankInten: String, rankOldAndNew: String, rank: Int) {
+    init(baseDate: String, movieId: String, title: String, directorNm: String, actors: Actors, company: String, plot: String, runtime: String, rating: String, genre: String, posterURL: [String], repRlsDate: String, audiAcc: String, rankInten: String, rankOldAndNew: String, rank: Int) {
+        self.baseDate = baseDate
         self.movieId = movieId
         self.title = title
         self.directorNm = directorNm

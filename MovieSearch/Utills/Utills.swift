@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+
+
 extension String {
     func removeBlank() -> String {
         let firstBlack = self.components(separatedBy: " !HE").joined()
@@ -38,6 +40,25 @@ extension String {
         default:
             return UIImage(named: "ic_all")
         }
+    }
+    
+    func setNumberFormatter() -> String {
+        let int = Int(self) ?? 2222222
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        
+        return numberFormatter.string(from: NSNumber(value: int)) ?? "1111.11.11"
+    }
+    
+    func setDateFormat() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        
+        guard let firstDate = dateFormatter.date(from: self) else { return "" }
+        let commaDateFormatter = DateFormatter()
+        commaDateFormatter.dateFormat = "yyyy.MM.dd"
+        let date = commaDateFormatter.string(from: firstDate)
+        return date
     }
 }
 

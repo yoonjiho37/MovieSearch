@@ -181,7 +181,6 @@
 		2773407C29D70DFF00150A08 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				27B6BA4129CB3DC800E9AB7C /* ViewMovieItems.swift */,
 				27B6BA4329CB3DD700E9AB7C /* BoxOfficeViewModel.swift */,
 				277E79A529EE856400FAB650 /* MovieInfoViewModel.swift */,
 			);
@@ -195,7 +194,6 @@
 				277E79A129EE724800FAB650 /* BoxOfficeCell */,
 				277E79A229EE853C00FAB650 /* MovieInfoViewController.swift */,
 				275F43112A02423500D3FB98 /* MovieInfoCells */,
-				277E79A429EE854700FAB650 /* MovieInfoCell */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -212,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				27B99A7A29CC64860089C196 /* Domain.swift */,
+				27B6BA4129CB3DC800E9AB7C /* ViewMovieItems.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -222,13 +221,6 @@
 				27B99A7C29CC8C480089C196 /* BoxOfficeCollectionViewCell.swift */,
 			);
 			path = BoxOfficeCell;
-			sourceTree = "<group>";
-		};
-		277E79A429EE854700FAB650 /* MovieInfoCell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MovieInfoCell;
 			sourceTree = "<group>";
 		};
 		2781B40529E8300C002E3877 /* Utills */ = {

@@ -22,7 +22,7 @@ class InfomationTableViewCell: UITableViewCell {
         getImage(data: data)
         
         self.audiACCLabel.text = "\(data.audiAcc)명"
-        self.rankLabel.text = "\(data.rank) / \(data.rankResult)위"
+        self.rankLabel.text = "\(data.rank) / \(data.rankResult)"
     }
     
     private func getImage(data: ViewMovieItems) {

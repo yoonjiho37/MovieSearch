@@ -58,6 +58,8 @@ class MovieInfoViewController: UIViewController {
     
     //MARK: InterfaceBuilder Link
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var watchLaterButton: UIButton!
 }
 
 extension MovieInfoViewController: UITableViewDataSource {

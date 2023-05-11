@@ -9,7 +9,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MovieInfoViewController" customModule="MovieSearch" customModuleProvider="target">
+            <connections>
+                <outlet property="likeButton" destination="GGT-dZ-9rH" id="GLd-Iw-tw7"/>
+                <outlet property="watchLaterButton" destination="08U-hX-xQe" id="qar-vk-ybL"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="246" id="KGk-i7-Jjw" customClass="InfomationTableViewCell" customModule="MovieSearch" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="246"/>
@@ -52,14 +57,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="wUq-c9-UzB">
                                 <rect key="frame" x="0.0" y="13.333333333333339" width="106" height="51.666666666666657"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="순위" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKA-Bd-UfD">
-                                        <rect key="frame" x="38.333333333333336" y="0.0" width="29.666666666666664" height="20.333333333333332"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="순위/변동" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKA-Bd-UfD">
+                                        <rect key="frame" x="21.333333333333332" y="0.0" width="63.666666666666671" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x위 x.x%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCC-pU-AfD">
-                                        <rect key="frame" x="20.666666666666664" y="31.333333333333314" width="64.666666666666686" height="20.333333333333329"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x위 New!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCC-pU-AfD">
+                                        <rect key="frame" x="19.666666666666664" y="31.333333333333314" width="66.666666666666686" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -106,25 +111,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="1M6-RF-xD3">
-                                <rect key="frame" x="214" y="0.0" width="106" height="78"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="1M6-RF-xD3">
+                                <rect key="frame" x="214" y="4.6666666666666572" width="106" height="69"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08U-hX-xQe">
-                                        <rect key="frame" x="19" y="0.0" width="68.333333333333329" height="34.333333333333336"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08U-hX-xQe">
+                                        <rect key="frame" x="7.3333333333333428" y="0.0" width="91.666666666666671" height="34"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="68.329999999999998" id="LLW-Dh-TBe"/>
                                             <constraint firstAttribute="height" constant="34.329999999999998" id="O4W-j9-gDn"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="tinted" title="나중에"/>
+                                        <buttonConfiguration key="configuration" style="tinted" title="나중에 볼 영상 추가"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGT-dZ-9rH">
-                                        <rect key="frame" x="19" y="45.333333333333343" width="68.333333333333329" height="32.666666666666657"/>
+                                        <rect key="frame" x="2" y="36" width="102" height="33"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="68.329999999999998" id="KkC-7H-MhZ"/>
                                             <constraint firstAttribute="height" constant="32.670000000000002" id="fuw-m5-o5h"/>
                                         </constraints>
-                                        <buttonConfiguration key="configuration" style="tinted" title="좋아요"/>
+                                        <buttonConfiguration key="configuration" style="tinted" title="좋아요 추가"/>
                                     </button>
                                 </subviews>
                             </stackView>
