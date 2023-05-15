@@ -15,7 +15,7 @@ class CastTableViewCell: UITableViewCell {
     }
 
     func inputData(data: ViewMovieItems) {
-        let actorNames = data.actors.actor.map { $0.actorNm }
+        let actorNames = data.actors
         self.diractorLabel.text = data.directorNm
         self.actorLabel.text = actorNames.joined(separator: ", ")
     }

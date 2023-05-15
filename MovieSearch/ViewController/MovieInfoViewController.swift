@@ -34,6 +34,10 @@ class MovieInfoViewController: UIViewController {
         registerXib()
     }
     
+    
+
+    
+    
     private func setupBinding() {
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -45,21 +49,41 @@ class MovieInfoViewController: UIViewController {
                 guard let movieInfo = self.movieInfo else { return }
                 
                 let info1 = CellCase.info(movieInfo)
-                let info2 = CellCase.gallery(movieInfo)
-                let info3 = CellCase.plot(movieInfo)
-                let info4 = CellCase.cast(movieInfo)
-                self.dataSource = [info1, info2, info3, info4]
+                let info2 = CellCase.buttons(movieInfo)
+                let info3 = CellCase.gallery(movieInfo)
+                let info4 = CellCase.plot(movieInfo)
+                let info5 = CellCase.cast(movieInfo)
+                self.dataSource = [info1, info2, info3, info4, info5]
                 
                 self.tableView.reloadData()
                 
             }
             .disposed(by: disposeBag)
+        
+        viewModel.getUpdateResult()
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { info in                
+                self.movieInfo = info.element
+                guard let movieInfo = self.movieInfo else { return }
+                
+                let info2 = CellCase.buttons(movieInfo)
+
+                self.dataSource[1] = info2
+                self.tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+            }
+            .disposed(by: disposeBag)
+        
+        
     }
     
     //MARK: InterfaceBuilder Link
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var watchLaterButton: UIButton!
+    @IBAction func touchWB(_ sender: UIButton) {
+        viewModel.getUpdateEvent(type: .watchLater)
+    }
+    @IBAction func touchLB(_ sender: UIButton) {
+        viewModel.getUpdateEvent(type: .like)
+    }
 }
 
 extension MovieInfoViewController: UITableViewDataSource {
@@ -79,6 +103,10 @@ extension MovieInfoViewController: UITableViewDataSource {
         switch cellCase {
         case .info(_):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: InfomationTableViewCell.cellIndentifier, for: indexPath) as? InfomationTableViewCell else { return UITableViewCell() }
+            cell.inputData(data: movieInfo)
+            return cell
+        case .buttons(_):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.cellIdentifier, for: indexPath) as? ButtonTableViewCell else { return UITableViewCell() }
             cell.inputData(data: movieInfo)
             return cell
         case .gallery(_):
@@ -110,6 +138,8 @@ extension MovieInfoViewController: UITableViewDelegate {
     private func registerXib() {
         let infoTVC = UINib(nibName: "InfomationTableViewCell", bundle: nil)
         tableView.register(infoTVC, forCellReuseIdentifier: InfomationTableViewCell.cellIndentifier)
+        let buttonTVC = UINib(nibName: "ButtonTableViewCell", bundle: nil)
+        tableView.register(buttonTVC, forCellReuseIdentifier: ButtonTableViewCell.cellIdentifier)
         let galleryTVC = UINib(nibName: "GalleryTableViewCell", bundle: nil)
         tableView.register(galleryTVC, forCellReuseIdentifier: GalleryTableViewCell.cellIndentifier)
         let plotTVC = UINib(nibName: "PlotTableViewCell", bundle: nil)

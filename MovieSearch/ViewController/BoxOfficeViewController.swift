@@ -23,13 +23,8 @@ class BoxOfficeViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    
-    
     var boxOfficeList: [ViewMovieItems] = []
 
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBinding()

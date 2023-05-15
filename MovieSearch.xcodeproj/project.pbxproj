@@ -17,7 +17,12 @@
 		275F43212A0243D600D3FB98 /* CastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 275F431F2A0243D600D3FB98 /* CastTableViewCell.xib */; };
 		276E74062A0AAE0700556754 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E74042A0AAE0700556754 /* GalleryCollectionViewCell.swift */; };
 		276E74072A0AAE0700556754 /* GalleryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276E74052A0AAE0700556754 /* GalleryCollectionViewCell.xib */; };
+		277267622A0CBFC900155C30 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277267612A0CBFC900155C30 /* CoreDataManager.swift */; };
+		277267652A0CCBEC00155C30 /* LocalMovieModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 277267632A0CCBEC00155C30 /* LocalMovieModel.xcdatamodeld */; };
+		277267672A0CDA7D00155C30 /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277267662A0CDA7C00155C30 /* DAO.swift */; };
 		2773407829D70D7900150A08 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773407729D70D7900150A08 /* SearchResult.swift */; };
+		277770242A124CB100C17593 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277770222A124CB100C17593 /* ButtonTableViewCell.swift */; };
+		277770252A124CB100C17593 /* ButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 277770232A124CB100C17593 /* ButtonTableViewCell.xib */; };
 		277E79A329EE853C00FAB650 /* MovieInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E79A229EE853C00FAB650 /* MovieInfoViewController.swift */; };
 		277E79A629EE856400FAB650 /* MovieInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E79A529EE856400FAB650 /* MovieInfoViewModel.swift */; };
 		2781B40729E83035002E3877 /* Utills.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2781B40629E83035002E3877 /* Utills.swift */; };
@@ -70,7 +75,12 @@
 		275F431F2A0243D600D3FB98 /* CastTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CastTableViewCell.xib; sourceTree = "<group>"; };
 		276E74042A0AAE0700556754 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		276E74052A0AAE0700556754 /* GalleryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryCollectionViewCell.xib; sourceTree = "<group>"; };
+		277267612A0CBFC900155C30 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		277267642A0CCBEC00155C30 /* LocalMovieModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalMovieModel.xcdatamodel; sourceTree = "<group>"; };
+		277267662A0CDA7C00155C30 /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
 		2773407729D70D7900150A08 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		277770222A124CB100C17593 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
+		277770232A124CB100C17593 /* ButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonTableViewCell.xib; sourceTree = "<group>"; };
 		277E79A229EE853C00FAB650 /* MovieInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoViewController.swift; sourceTree = "<group>"; };
 		277E79A529EE856400FAB650 /* MovieInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoViewModel.swift; sourceTree = "<group>"; };
 		2781B40629E83035002E3877 /* Utills.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utills.swift; sourceTree = "<group>"; };
@@ -139,6 +149,8 @@
 				27C934312A02521D00206325 /* CellCase.swift */,
 				275F43122A02427600D3FB98 /* InfomationTableViewCell.swift */,
 				275F43132A02427600D3FB98 /* InfomationTableViewCell.xib */,
+				277770222A124CB100C17593 /* ButtonTableViewCell.swift */,
+				277770232A124CB100C17593 /* ButtonTableViewCell.xib */,
 				275F431A2A02433F00D3FB98 /* GalleryTableViewCell.swift */,
 				275F431B2A02433F00D3FB98 /* GalleryTableViewCell.xib */,
 				276E74042A0AAE0700556754 /* GalleryCollectionViewCell.swift */,
@@ -151,9 +163,18 @@
 			path = MovieInfoCells;
 			sourceTree = "<group>";
 		};
+		277267682A0D018500155C30 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				277267632A0CCBEC00155C30 /* LocalMovieModel.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		2773407929D70D7D00150A08 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				277267682A0D018500155C30 /* CoreData */,
 				27B6BA3D29CB3DA400E9AB7C /* BoxOfficeResult.swift */,
 				2773407729D70D7900150A08 /* SearchResult.swift */,
 			);
@@ -201,6 +222,7 @@
 		2773407E29D70E5300150A08 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				277267612A0CBFC900155C30 /* CoreDataManager.swift */,
 				27B6BA3F29CB3DC000E9AB7C /* APIService.swift */,
 			);
 			path = Service;
@@ -209,6 +231,7 @@
 		2773407F29D70E5C00150A08 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				277267662A0CDA7C00155C30 /* DAO.swift */,
 				27B99A7A29CC64860089C196 /* Domain.swift */,
 				27B6BA4129CB3DC800E9AB7C /* ViewMovieItems.swift */,
 			);
@@ -423,6 +446,7 @@
 				275F43212A0243D600D3FB98 /* CastTableViewCell.xib in Resources */,
 				275F43192A0242C500D3FB98 /* PlotTableViewCell.xib in Resources */,
 				27A115B429C9E5B300439340 /* Assets.xcassets in Resources */,
+				277770252A124CB100C17593 /* ButtonTableViewCell.xib in Resources */,
 				27A115B229C9E5B200439340 /* Main.storyboard in Resources */,
 				275F431D2A02433F00D3FB98 /* GalleryTableViewCell.xib in Resources */,
 				276E74072A0AAE0700556754 /* GalleryCollectionViewCell.xib in Resources */,
@@ -555,12 +579,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				2773407829D70D7900150A08 /* SearchResult.swift in Sources */,
+				277267622A0CBFC900155C30 /* CoreDataManager.swift in Sources */,
 				275F43182A0242C500D3FB98 /* PlotTableViewCell.swift in Sources */,
 				27A115AF29C9E5B200439340 /* BoxOfficeViewController.swift in Sources */,
 				275F43202A0243D600D3FB98 /* CastTableViewCell.swift in Sources */,
 				27A115AB29C9E5B200439340 /* AppDelegate.swift in Sources */,
 				27B99A7D29CC8C480089C196 /* BoxOfficeCollectionViewCell.swift in Sources */,
 				27B6BA4029CB3DC000E9AB7C /* APIService.swift in Sources */,
+				277267672A0CDA7D00155C30 /* DAO.swift in Sources */,
+				277267652A0CCBEC00155C30 /* LocalMovieModel.xcdatamodeld in Sources */,
 				27C934322A02521D00206325 /* CellCase.swift in Sources */,
 				27A115AD29C9E5B200439340 /* SceneDelegate.swift in Sources */,
 				2781B40729E83035002E3877 /* Utills.swift in Sources */,
@@ -570,6 +597,7 @@
 				27B6BA4229CB3DC800E9AB7C /* ViewMovieItems.swift in Sources */,
 				277E79A629EE856400FAB650 /* MovieInfoViewModel.swift in Sources */,
 				27B6BA4429CB3DD700E9AB7C /* BoxOfficeViewModel.swift in Sources */,
+				277770242A124CB100C17593 /* ButtonTableViewCell.swift in Sources */,
 				275F43142A02427600D3FB98 /* InfomationTableViewCell.swift in Sources */,
 				27B99A7B29CC64860089C196 /* Domain.swift in Sources */,
 				277E79A329EE853C00FAB650 /* MovieInfoViewController.swift in Sources */,
@@ -920,6 +948,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		277267632A0CCBEC00155C30 /* LocalMovieModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				277267642A0CCBEC00155C30 /* LocalMovieModel.xcdatamodel */,
+			);
+			currentVersion = 277267642A0CCBEC00155C30 /* LocalMovieModel.xcdatamodel */;
+			path = LocalMovieModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 27A1159F29C9E5B200439340 /* Project object */;
 }

@@ -62,6 +62,23 @@ extension String {
     }
 }
 
+extension Bool {
+    func toggle() -> Bool {
+        print("will Set => \(self)")
+        if self {
+            let result: Bool = false
+            print("did Set => \(result)")
+
+            return result
+        } else {
+            let result: Bool = true
+            print("did Set => \(result)")
+            return result
+        }
+    }
+}
+
+
 extension Date {
     func getYesterday() -> String {
         let calender = Calendar.current

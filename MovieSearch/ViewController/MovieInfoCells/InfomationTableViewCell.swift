@@ -49,9 +49,6 @@ class InfomationTableViewCell: UITableViewCell {
     
     @IBOutlet weak var audiACCLabel: UILabel!
     @IBOutlet weak var rankLabel: UILabel!
-    
-    @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var watchLaterButton: UIButton!
 }
 
  

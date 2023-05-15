@@ -9,6 +9,7 @@ import Foundation
 
 enum CellCase {
     case info(ViewMovieItems)
+    case buttons(ViewMovieItems)
     case gallery(ViewMovieItems)
     case plot(ViewMovieItems)
     case cast(ViewMovieItems)
