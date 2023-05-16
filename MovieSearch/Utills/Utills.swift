@@ -6,11 +6,17 @@
 //
 
 import Foundation
+import UIKit
+
+
 
 extension String {
     func removeBlank() -> String {
         let firstBlack = self.components(separatedBy: " !HE").joined()
         return firstBlack.components(separatedBy: "  !HS ").joined()
+    }
+    func removeChactors() -> String {
+        return self.components(separatedBy: ["!", "?", " ", "<", ">", ","]).joined()
     }
     func inputDataifBlank() -> String {
         if self == "" {
@@ -18,7 +24,57 @@ extension String {
         } else {
             return self
         }
+    }
+    
+    func setUIImage() -> UIImage? {
+        let value = self
+        switch value {
+        case "12세관람가":
+            return UIImage(named: "ic_12")
+        case "15세관람가":
+            return UIImage(named: "ic_15")
+        case "18세관람가(청소년관람불가)":
+            return UIImage(named: "ic_19")
+        case "전체관람가":
+            return UIImage(named: "ic_all")
+        default:
+            return UIImage(named: "ic_all")
+        }
+    }
+    
+    func setNumberFormatter() -> String {
+        let int = Int(self) ?? 2222222
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
         
+        return numberFormatter.string(from: NSNumber(value: int)) ?? "1111.11.11"
+    }
+    
+    func setDateFormat() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        
+        guard let firstDate = dateFormatter.date(from: self) else { return "" }
+        let commaDateFormatter = DateFormatter()
+        commaDateFormatter.dateFormat = "yyyy.MM.dd"
+        let date = commaDateFormatter.string(from: firstDate)
+        return date
+    }
+}
+
+extension Bool {
+    func toggle() -> Bool {
+        print("will Set => \(self)")
+        if self {
+            let result: Bool = false
+            print("did Set => \(result)")
+
+            return result
+        } else {
+            let result: Bool = true
+            print("did Set => \(result)")
+            return result
+        }
     }
 }
 

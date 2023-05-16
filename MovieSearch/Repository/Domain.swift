@@ -18,11 +18,6 @@ enum FetchFor {
 
 
 class Domain: DomainType {
-    let disposeBag = DisposeBag()
-    var dailyObserbale: Observable<[ViewMovieItems]>
-    var weeklyObservable: Observable<[ViewMovieItems]>
-    var weekEndObservable: Observable<[ViewMovieItems]>
-    
     
     func checkBoxOfficeWeely(type: BoxOfficeType) -> Observable<[ViewMovieItems]> {
         switch type {
@@ -37,7 +32,7 @@ class Domain: DomainType {
         let observableList = APIService.fetchBoxOfficeRx().flatMap { result -> Observable<[ViewMovieItems]> in
             let obs = result.dailyBoxOfficeList
                 .map { items in
-                    self.setSearchResult(queryValue: items.movieNm, rank: items.rank)
+                    self.setSearchResult(queryValue: items.movieNm, bxofficeitem: items)
                 }
             return Observable.combineLatest(obs)
         }
@@ -48,26 +43,17 @@ class Domain: DomainType {
         let observableList = APIService.fetchBoxOfficeWeelyRx(type: type).flatMap { result -> Observable<[ViewMovieItems]> in
             let obs = result.weeklyBoxOfficeList
                 .map { items in
-                    self.setSearchResult(queryValue: items.movieNm, rank: items.rank)
+                    self.setSearchResult(queryValue: items.movieNm, bxofficeitem: items)
                 }
             return Observable.combineLatest(obs)
         }
         return observableList
     }
     
-    func setSearchResult(queryValue: String, rank: String) -> Observable<ViewMovieItems> {
-        return APIService.fetchSearchResultRx(queryValue: queryValue)
-            .map { ViewMovieItems(info: $0, rank: Int(rank)!)}
+    func setSearchResult(queryValue: String, bxofficeitem: BoxOfficeItems) -> Observable<ViewMovieItems> {
+        return APIService.fetchSearchResultRx(queryValue: queryValue.removeChactors())
+            .map { ViewMovieItems(info: $0, boxOffice: bxofficeitem)}
     }
     
-    init() {
-        let daily = PublishSubject<[ViewMovieItems]>()
-        let weekly = PublishSubject<[ViewMovieItems]>()
-        let weekEnd = PublishSubject<[ViewMovieItems]>()
-        
-        self.dailyObserbale = daily.asObserver()
-        self.weeklyObservable = weekly.asObserver()
-        self.weekEndObservable = weekEnd.asObserver()
-    }
 }
 

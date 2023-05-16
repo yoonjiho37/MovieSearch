@@ -10,8 +10,8 @@ import RxSwift
 import RxCocoa
 
 class BoxOfficeViewController: UIViewController {
-    let viewModel: BoxOfficeViewModelType
     let disposeBag = DisposeBag()
+    let viewModel: BoxOfficeViewModelType
     
     init(viewModel: BoxOfficeViewModelType = BoxOfficeViewModel()) {
         self.viewModel = viewModel
@@ -31,7 +31,18 @@ class BoxOfficeViewController: UIViewController {
         setupUI()
     }
     
-    func setupBinding() {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let identifer = segue.identifier ?? ""
+        
+        if identifer == MovieInfoViewController.identifer {
+            guard let seletedMovie = sender as? [ViewMovieItems] else { return }
+            guard let movieInfoVC = segue.destination as? MovieInfoViewController else { return }
+            let infoViewModel = MovieInfoViewModel(seletedMovie)
+            movieInfoVC.viewModel = infoViewModel
+        }
+    }
+    
+    private func setupBinding() {
         
         //input
         viewModel.fetchList(type: .weekEnd)
@@ -52,27 +63,26 @@ class BoxOfficeViewController: UIViewController {
                 self.setupPageDatas(item: item[0])
             }
             .disposed(by: disposeBag)
+        
+        viewModel.getInfoView()
+            .subscribe { [weak self] item in
+                self?.performSegue(withIdentifier: MovieInfoViewController.identifer, sender: item.element)
+            }
+            .disposed(by: disposeBag)
+
+        
     }
     
-    func setupPageDatas(item: ViewMovieItems) {
-        print("데이터 확인 ==> \(item.rating)\(item.directorNm)")
-        rankAndNameLabel.text = "\(item.rank)위 / \(item.title)"
-        salesShare.text = "\(item.rating)"
-    }
     
-    func setupUI() {
+    private func setupUI() {
         collectionView.delegate = self
         collectionView.dataSource = self
         setFlowLayout()
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let identifer = "MovieInfoSegueIdentifier"
-        if segue.identifier == identifer,
-           let seletedMovie = sender as? [ViewMovieItems],
-           let movieInfoVC = segue.destination as? MovieInfoViewController {
-            let infoViewModel = MovieInfoViewModel(seletedMovie)
-            movieInfoVC.viewModel = infoViewModel
-        }
+    
+    private func setupPageDatas(item: ViewMovieItems) {
+        rankAndNameLabel.text = "\(item.rank)위 / \(item.title)"
+        salesShare.text = "\(item.rating)"
     }
 
     //MARK: - InterfaceBuilder Links
@@ -80,13 +90,8 @@ class BoxOfficeViewController: UIViewController {
     @IBOutlet weak var rankAndNameLabel: UILabel!
     @IBOutlet weak var salesShare: UILabel!
     @IBOutlet weak var infoButton: UIButton!
-    @IBAction func touchUpInfoButton(_ sender: Any) {
-        viewModel.getPageData()
-            .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] selectedMoive in
-                self?.performSegue(withIdentifier: MovieInfoViewController.identifer, sender: selectedMoive)
-            }
-            .disposed(by: disposeBag)
+    @IBAction func touchUpInfoButton(sender: Any?) {
+        viewModel.getTapEvent()
     }
 }
 
@@ -105,7 +110,7 @@ extension BoxOfficeViewController: UICollectionViewDelegate, UICollectionViewDat
         return boxOfficeList.count
     }
     
-    func setFlowLayout() {
+    private func setFlowLayout() {
         let flowLayout = UICollectionViewFlowLayout()
         let screenWidthSize = UIScreen.main.bounds.width
         flowLayout.scrollDirection = .horizontal
