@@ -289,6 +289,46 @@
             </objects>
             <point key="canvasLocation" x="1796" y="723"/>
         </scene>
+        <!--Saved Movielist View Controller-->
+        <scene sceneID="17Z-NM-rEj">
+            <objects>
+                <viewController id="vyO-Yt-be6" customClass="SavedMovielistViewController" customModule="MovieSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GwN-Zm-z2X">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oyK-yt-EH3">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SavedMoviesTableViewCell" id="OX2-Gh-lc4" customClass="SavedMoviesTableViewCell" customModule="MovieSearch" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OX2-Gh-lc4" id="Kji-39-LKy">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="jq5-xU-D3p"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="oyK-yt-EH3" firstAttribute="top" secondItem="jq5-xU-D3p" secondAttribute="top" id="8YO-AD-TXU"/>
+                            <constraint firstItem="jq5-xU-D3p" firstAttribute="bottom" secondItem="oyK-yt-EH3" secondAttribute="bottom" id="T8V-UZ-dDs"/>
+                            <constraint firstItem="oyK-yt-EH3" firstAttribute="leading" secondItem="jq5-xU-D3p" secondAttribute="leading" id="oVz-qj-YL2"/>
+                            <constraint firstItem="jq5-xU-D3p" firstAttribute="trailing" secondItem="oyK-yt-EH3" secondAttribute="trailing" id="sVf-5e-t5i"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="oyK-yt-EH3" id="mib-0n-BMc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K6W-ZO-nOb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2604" y="723"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="LP7-Gn-xkG">
             <objects>
