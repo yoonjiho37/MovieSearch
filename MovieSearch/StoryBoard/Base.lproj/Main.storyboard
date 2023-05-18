@@ -292,7 +292,7 @@
         <!--Saved Movielist View Controller-->
         <scene sceneID="17Z-NM-rEj">
             <objects>
-                <viewController id="vyO-Yt-be6" customClass="SavedMovielistViewController" customModule="MovieSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SavedMovielistViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vyO-Yt-be6" customClass="SavedMovielistViewController" customModule="MovieSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GwN-Zm-z2X">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

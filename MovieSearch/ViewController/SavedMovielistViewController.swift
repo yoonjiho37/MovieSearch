@@ -9,29 +9,41 @@ import UIKit
 import RxSwift
 
 class SavedMovielistViewController: UIViewController {
+    static let storyBoardID = "SavedMovielistViewController"
+    
     let disposeBag = DisposeBag()
     let viewModel: SavedMovieListViewModelType
+    var listType: ListType?
     
-    init(viewModel: SavedMovieListViewModelType = SavedMovieListViewModel()) {
+    init(viewModel: SavedMovieListViewModelType = SavedMovieListViewModel(listType: nil)) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.viewModel = SavedMovieListViewModel()
+        self.viewModel = SavedMovieListViewModel(listType: self.listType)
         super.init(coder: aDecoder)
     }
     
-    let movieList: [ViewMovieItems] = []
-
+    var movieList: [ViewMovieItems] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-        
         registerXib()
+        setupBinding()
     }
     
+    private func setupBinding() {
+        viewModel.getMovieList()
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { list in
+                self.movieList = list
+                
+                self.tableView.reloadData()
+            })
+            .disposed(by: disposeBag)
+    }
+
 
     //MARK: Interface Link
     @IBOutlet weak var tableView: UITableView!

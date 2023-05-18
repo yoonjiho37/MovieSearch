@@ -35,9 +35,6 @@ class MovieInfoViewController: UIViewController {
     }
     
     
-
-    
-    
     private func setupBinding() {
         self.tableView.dataSource = self
         self.tableView.delegate = self

@@ -19,10 +19,18 @@ class SideMenuViewController: UIViewController {
         dismiss(animated: true)
     }
     @IBAction func showLikedMoviesButton(_ sender: Any) {
-        dismiss(animated: true)
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        guard let savedListView = storyBoard.instantiateViewController(identifier: SavedMovielistViewController.storyBoardID) as? SavedMovielistViewController else { return }
+        savedListView.listType = .liked
+        
+        self.navigationController?.pushViewController(savedListView, animated: true)
     }
     @IBAction func showMoviesToWatchLaterButton(_ sender: Any) {
-        dismiss(animated: true)
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        guard let savedListView = storyBoard.instantiateViewController(identifier: SavedMovielistViewController.storyBoardID) as? SavedMovielistViewController else { return }
+        savedListView.listType = .watchLater
+        
+        self.navigationController?.pushViewController(savedListView, animated: true)
     }
 
 }
