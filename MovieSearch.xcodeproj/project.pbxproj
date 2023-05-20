@@ -207,6 +207,7 @@
 				277267682A0D018500155C30 /* CoreData */,
 				27B6BA3D29CB3DA400E9AB7C /* BoxOfficeResult.swift */,
 				2773407729D70D7900150A08 /* SearchResult.swift */,
+				27B6BA4129CB3DC800E9AB7C /* ViewMovieItems.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -267,7 +268,6 @@
 			children = (
 				277267662A0CDA7C00155C30 /* DAO.swift */,
 				27B99A7A29CC64860089C196 /* Domain.swift */,
-				27B6BA4129CB3DC800E9AB7C /* ViewMovieItems.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";

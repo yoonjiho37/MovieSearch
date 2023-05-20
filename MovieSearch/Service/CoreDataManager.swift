@@ -119,7 +119,7 @@ class CoreDataManager {
                     
                 case .watchLater:
                     let watchLaterBoolean = objectUpdate[0].value(forKey: "watchLaterBoolean") as! Bool
-                    objectUpdate[0].setValue(watchLaterBoolean.toggle(), forKey: "likeBoolean")
+                    objectUpdate[0].setValue(watchLaterBoolean.toggle(), forKey: "watchLaterBoolean")
                 }
                    
             } else {
@@ -130,7 +130,7 @@ class CoreDataManager {
                     
                 case .watchLater:
                     let watchLaterBoolean = objectUpdate[0].value(forKey: "watchLaterBoolean") as! Bool
-                    objectUpdate[0].setValue(watchLaterBoolean.toggle(), forKey: "likeBoolean")
+                    objectUpdate[0].setValue(watchLaterBoolean.toggle(), forKey: "watchLaterBoolean")
                     
                 }
             }

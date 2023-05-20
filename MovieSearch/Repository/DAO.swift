@@ -51,16 +51,11 @@ class DAO: DAOType {
         return CoreDataManager.shared.fetchLocalListRX()
             .map { $0.map { ViewMovieItems(localInfo: $0) } }
             .map { list in
-                print("dao list 1 => \(list.count)")
                 guard let type = type else { return list}
                 switch type {
                 case .liked:
-                    let test = list.filter { $0.likeBoolean == true }
-                    print("dao list 2-1 => \(test)")
                     return list.filter { $0.likeBoolean == true }
                 case .watchLater:
-                    print("dao list 2-2")
-
                     return list.filter { $0.watchLaterBoolean == true}
                 }
             }
@@ -75,9 +70,3 @@ class DAO: DAOType {
    
    
 }
-
-
-
-//_ = obs.element(at: 0).map { $0[0].likeBoolean }
-//                        .subscribe(onNext: { self.boollll = $0 })
-//                    print("4 -->> \(self.boollll)")

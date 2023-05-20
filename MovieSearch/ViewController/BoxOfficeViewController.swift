@@ -40,7 +40,6 @@ class BoxOfficeViewController: UIViewController {
             let infoViewModel = MovieInfoViewModel(seletedMovie)
             movieInfoVC.viewModel = infoViewModel
             
-            print("seque completed ---")
         }
     }
     
