@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol DAOType {
-    func fetchCoreData(type: FetchCoreData, id: String?) -> Observable<[ViewMovieItems]>
+    func fetchCoreData(type: FetchCoreData, id: String?, listType: ListType?) -> Observable<[ViewMovieItems]>
     func updateItem(type: UpdateType, movie: ViewMovieItems) -> Observable<[ViewMovieItems]>
 }
 
@@ -23,19 +23,12 @@ enum UpdateType {
     case watchLater
 }
 
-
 class DAO: DAOType {
     
-    var boollll: Bool = true {
-        didSet {
-            print("4 didset --> \(boollll)")
-        }
-    }
-    
-    func fetchCoreData(type: FetchCoreData, id: String?) -> Observable<[ViewMovieItems]> {
+    func fetchCoreData(type: FetchCoreData, id: String?, listType: ListType?) -> Observable<[ViewMovieItems]> {
         switch type {
         case .fetchList:
-            return setList()
+            return setList(type: listType)
         case .fetchItem:
             return setItem(id: id)
         }
@@ -45,7 +38,7 @@ class DAO: DAOType {
         return CoreDataManager.shared.updateData(type: type, movie: movie)
             .flatMap { reult -> Observable<[ViewMovieItems]> in
                 if reult {
-                    return self.fetchCoreData(type: .fetchItem, id: movie.movieId)
+                    return self.fetchCoreData(type: .fetchItem, id: movie.movieId, listType: nil)
                 } else {
                     return Observable.just([])
                 }
@@ -54,14 +47,29 @@ class DAO: DAOType {
     
     
     
-    private func setList() -> Observable<[ViewMovieItems]> {
-        return CoreDataManager.shared.fetchLocalListRX(id: nil)
+    private func setList(type: ListType?) -> Observable<[ViewMovieItems]> {
+        return CoreDataManager.shared.fetchLocalListRX()
             .map { $0.map { ViewMovieItems(localInfo: $0) } }
+            .map { list in
+                print("dao list 1 => \(list.count)")
+                guard let type = type else { return list}
+                switch type {
+                case .liked:
+                    let test = list.filter { $0.likeBoolean == true }
+                    print("dao list 2-1 => \(test)")
+                    return list.filter { $0.likeBoolean == true }
+                case .watchLater:
+                    print("dao list 2-2")
+
+                    return list.filter { $0.watchLaterBoolean == true}
+                }
+            }
     }
     
     private func setItem(id: String?) -> Observable<[ViewMovieItems]> {
-        return CoreDataManager.shared.fetchLocalListRX(id: id)
+        return CoreDataManager.shared.fetchLocalListRX()
             .map { $0.map { ViewMovieItems(localInfo: $0 ) } }
+            .map { $0.filter { $0.movieId == id } }
     }
     
    

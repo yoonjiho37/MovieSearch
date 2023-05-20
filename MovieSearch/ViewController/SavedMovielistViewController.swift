@@ -9,19 +9,19 @@ import UIKit
 import RxSwift
 
 class SavedMovielistViewController: UIViewController {
-    static let storyBoardID = "SavedMovielistViewController"
+    static let identifier = "SavedMovielistSegueIdentifier"
     
     let disposeBag = DisposeBag()
-    let viewModel: SavedMovieListViewModelType
-    var listType: ListType?
+    var viewModel: SavedMovieListViewModelType
+    var listType: ListType = .liked
     
-    init(viewModel: SavedMovieListViewModelType = SavedMovieListViewModel(listType: nil)) {
+    init(viewModel: SavedMovieListViewModelType = SavedMovieListViewModel()) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.viewModel = SavedMovieListViewModel(listType: self.listType)
+        self.viewModel = SavedMovieListViewModel()
         super.init(coder: aDecoder)
     }
     
@@ -29,19 +29,24 @@ class SavedMovielistViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerXib()
         setupBinding()
+        registerXib()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.getAppearState(type: listType)
     }
     
     private func setupBinding() {
+        
         viewModel.getMovieList()
             .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { list in
                 self.movieList = list
-                
                 self.tableView.reloadData()
             })
             .disposed(by: disposeBag)
+        
     }
 
 
@@ -69,6 +74,9 @@ extension SavedMovielistViewController: UITableViewDelegate {
     }
     
     private func registerXib() {
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
         let savedMovieTVC = UINib(nibName: "SavedMoviesTableViewCell", bundle: nil)
         tableView.register(savedMovieTVC, forCellReuseIdentifier: SavedMoviesTableViewCell.cellIdentifier)
     }

@@ -256,7 +256,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="좋아요한 영화들"/>
                                         <connections>
-                                            <action selector="showLikedMoviesButton:" destination="knu-5s-dIU" eventType="touchUpInside" id="MVZ-pK-D3S"/>
+                                            <action selector="showLikedMoviesButtonWithSender:" destination="knu-5s-dIU" eventType="touchUpInside" id="OEE-NB-6OP"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nWt-bd-B87">
@@ -284,6 +284,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eAC-hC-Vqv"/>
+                    <connections>
+                        <segue destination="vyO-Yt-be6" kind="show" identifier="SavedMovielistSegueIdentifier" id="qhT-Sp-RuD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6oJ-by-1O6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -298,7 +301,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oyK-yt-EH3">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SavedMoviesTableViewCell" id="OX2-Gh-lc4" customClass="SavedMoviesTableViewCell" customModule="MovieSearch" customModuleProvider="target">
@@ -321,6 +324,7 @@
                             <constraint firstItem="jq5-xU-D3p" firstAttribute="trailing" secondItem="oyK-yt-EH3" secondAttribute="trailing" id="sVf-5e-t5i"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="THq-nw-Nsx"/>
                     <connections>
                         <outlet property="tableView" destination="oyK-yt-EH3" id="mib-0n-BMc"/>
                     </connections>

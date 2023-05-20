@@ -15,22 +15,27 @@ class SideMenuViewController: UIViewController {
 
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let identifer = segue.identifier ?? ""
+        if identifer == SavedMovielistViewController.identifier {
+            guard let typeSender = sender as? ListType else { return }
+            guard let movieListVC = segue.destination as? SavedMovielistViewController else { return }
+            
+            movieListVC.listType = typeSender
+            
+        }
+    }
+    
+    
     @IBAction func showMainButton(_ sender: Any) {
         dismiss(animated: true)
     }
-    @IBAction func showLikedMoviesButton(_ sender: Any) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        guard let savedListView = storyBoard.instantiateViewController(identifier: SavedMovielistViewController.storyBoardID) as? SavedMovielistViewController else { return }
-        savedListView.listType = .liked
+    @IBAction func showLikedMoviesButton(sender: Any?) {
+        self.performSegue(withIdentifier: SavedMovielistViewController.identifier, sender: ListType.liked)
         
-        self.navigationController?.pushViewController(savedListView, animated: true)
     }
     @IBAction func showMoviesToWatchLaterButton(_ sender: Any) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        guard let savedListView = storyBoard.instantiateViewController(identifier: SavedMovielistViewController.storyBoardID) as? SavedMovielistViewController else { return }
-        savedListView.listType = .watchLater
-        
-        self.navigationController?.pushViewController(savedListView, animated: true)
+        self.performSegue(withIdentifier: SavedMovielistViewController.identifier, sender: ListType.watchLater)
     }
 
 }

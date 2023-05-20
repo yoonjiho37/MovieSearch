@@ -39,6 +39,8 @@ class BoxOfficeViewController: UIViewController {
             guard let movieInfoVC = segue.destination as? MovieInfoViewController else { return }
             let infoViewModel = MovieInfoViewModel(seletedMovie)
             movieInfoVC.viewModel = infoViewModel
+            
+            print("seque completed ---")
         }
     }
     

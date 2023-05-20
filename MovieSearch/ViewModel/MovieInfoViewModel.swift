@@ -49,6 +49,7 @@ class MovieInfoViewModel: MovieInfoViewModelType {
         updateObserver = updatePublish.asObserver()
         updatePublish
             .flatMap { type -> Observable<ViewMovieItems> in
+                print("vm type ---")
                 return dao.updateItem(type: type, movie: selectedMovie![0])
                     .map { $0.first! }
             }
@@ -56,7 +57,7 @@ class MovieInfoViewModel: MovieInfoViewModelType {
             .disposed(by: disposeBag)
             
         
-        self.updateResultObserver = updateResult
+        self.updateResultObserver = updateResult.debug("info ---")
         
        
     }

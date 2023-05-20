@@ -19,7 +19,7 @@ class CoreDataManager {
     
     let itemModelName: String = "MovieItems"
     
-    func fetchLocalList(id: String?,onComplete: @escaping (Result<[NSManagedObject?],Error>) -> Void) {
+    func fetchLocalList(onComplete: @escaping (Result<[NSManagedObject?],Error>) -> Void) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
 
@@ -30,13 +30,21 @@ class CoreDataManager {
             if fetchedData.isEmpty {
                 onComplete(.success([]))
             } else {
-                if id == nil {
-                    onComplete(.success(fetchedData))
-                } else {
-                    let item = fetchedData.filter { $0.value(forKey: "movieId") as? String == id }
-                    onComplete(.success(item))
-                }
+                onComplete(.success(fetchedData))
             }
+            
+            
+            
+//            if fetchedData.isEmpty {
+//                onComplete(.success([]))
+//            } else {
+//                if id == nil {
+//                    onComplete(.success(fetchedData))
+//                } else {
+//                    let item = fetchedData.filter { $0.value(forKey: "movieId") as? String == id }
+//                    onComplete(.success(item))
+//                }
+//            }
         } catch let err as NSError {
             onComplete(.failure(err))
         }
@@ -141,9 +149,9 @@ class CoreDataManager {
     
     
     //MARK: Send Fetched Results Rx
-    func fetchLocalListRX(id: String?) -> Observable<[NSManagedObject?]> {
+    func fetchLocalListRX() -> Observable<[NSManagedObject?]> {
         return Observable.create ({ emitter in
-            self.fetchLocalList(id: id) { result in
+            self.fetchLocalList() { result in
                 switch result {
                 case let .success(data):
                     emitter.onNext(data)

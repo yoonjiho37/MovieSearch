@@ -10,6 +10,7 @@ import RxSwift
 
 protocol SavedMovieListViewModelType {
     func getMovieList() -> Observable<[ViewMovieItems]>
+    func getAppearState(type: ListType)
 }
 
 enum ListType {
@@ -20,35 +21,98 @@ enum ListType {
 class SavedMovieListViewModel: SavedMovieListViewModelType {
     let disposeBag = DisposeBag()
     
-    let movieInfoObservable: Observable<[ViewMovieItems]>
+    let movieListObservable: Observable<[ViewMovieItems]>
+    let appearState: AnyObserver<ListType>
     
     func getMovieList() -> Observable<[ViewMovieItems]> {
-        return movieInfoObservable
+        return movieListObservable
     }
-    
-    init(dao: DAOType = DAO(), listType: ListType?) {
-        
-        let listTypeObsJust = Observable<ListType>.just(listType!)
-        let movieInfoPublish = PublishSubject<[ViewMovieItems]>()
+    func getAppearState(type: ListType) {
+        appearState.on(.next(type))
+    }
 
-        var listTypePublish = PublishSubject<ListType>()
+    
+    init(dao: DAOType = DAO()) {
+        let movieListPublish = PublishSubject<[ViewMovieItems]>()
+        let listTypePublish = PublishSubject<ListType>()
+        
+        self.movieListObservable = movieListPublish
+        self.appearState = listTypePublish.asObserver()
         
         
-        listTypePublish = listTypeObsJust as! PublishSubject<ListType>
-        
-        listTypePublish.asObserver()
+        listTypePublish
             .flatMap { type -> Observable<[ViewMovieItems]> in
+                print("hi2")
                 switch type {
                 case .liked:
-                    return dao.fetchCoreData(type: .fetchList, id: nil)
+                    return dao.fetchCoreData(type: .fetchList, id: nil, listType: type)
                 case .watchLater:
-                    return dao.fetchCoreData(type: .fetchList, id: nil)
+                    return dao.fetchCoreData(type: .fetchList, id: nil, listType: type)
                 }
             }
-            .subscribe(onNext: movieInfoPublish.onNext(_:))
+            .subscribe(onNext: movieListPublish.onNext(_:))
             .disposed(by: disposeBag)
         
-        self.movieInfoObservable = movieInfoPublish
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        listTypeBehavior.asObserver()
+//            .flatMap { type -> Observable<[ViewMovieItems]> in
+//                print("vm type = \(String(describing: type))")
+//                switch type {
+//                case .liked:
+//                    return dao.fetchCoreData(type: .fetchList, id: nil, listType: type)
+//                case .watchLater:
+//                    return dao.fetchCoreData(type: .fetchList, id: nil, listType: type)
+//                default:
+//                    return Observable.merge([])
+//                }
+//            }
+//            .subscribe(onNext: movieListPublish.onNext(_:))
+//            .disposed(by: disposeBag)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        let listTypeBehavior = BehaviorSubject<ListType?>(value: listType)
+//
+//        let movieListPublish = PublishSubject<[ViewMovieItems]>()
+//        self.movieListObservable = movieListPublish
+//
+//
+//        listTypeBehavior.asObserver()
+//            .flatMap { type -> Observable<[ViewMovieItems]> in
+//                print("vm type = \(String(describing: type))")
+//                switch type {
+//                case .liked:
+//                    return dao.fetchCoreData(type: .fetchList, id: nil, listType: type)
+//                case .watchLater:
+//                    return dao.fetchCoreData(type: .fetchList, id: nil, listType: type)
+//                default:
+//                    return Observable.merge([])
+//                }
+//            }
+//            .subscribe(onNext: movieListPublish.onNext(_:))
+//            .disposed(by: disposeBag)
+//
+        
+
     }
 }
