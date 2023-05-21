@@ -45,9 +45,9 @@ class SavedMovieListViewModel: SavedMovieListViewModelType {
                 print("hi2")
                 switch type {
                 case .liked:
-                    return dao.fetchCoreData(type: .fetchList, id: nil, listType: type)
+                    return dao.fetchCoreData(type: .fetchList, code: nil, listType: type)
                 case .watchLater:
-                    return dao.fetchCoreData(type: .fetchList, id: nil, listType: type)
+                    return dao.fetchCoreData(type: .fetchList, code: nil, listType: type)
                 }
             }
             .subscribe(onNext: movieListPublish.onNext(_:))

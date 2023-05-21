@@ -33,18 +33,6 @@ class CoreDataManager {
                 onComplete(.success(fetchedData))
             }
             
-            
-            
-//            if fetchedData.isEmpty {
-//                onComplete(.success([]))
-//            } else {
-//                if id == nil {
-//                    onComplete(.success(fetchedData))
-//                } else {
-//                    let item = fetchedData.filter { $0.value(forKey: "movieId") as? String == id }
-//                    onComplete(.success(item))
-//                }
-//            }
         } catch let err as NSError {
             onComplete(.failure(err))
         }
@@ -69,7 +57,7 @@ class CoreDataManager {
         
     }
     
-    func deleteMovie(id: String, onCpmpleted: @escaping (Bool) -> ()) {
+    func deleteMovie(code: String, onCpmpleted: @escaping (Bool) -> ()) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
@@ -77,7 +65,7 @@ class CoreDataManager {
         
         do {
             let fetchedData = try context.fetch(fetchRequest)
-            let deleteObject = fetchedData.filter { $0.value(forKey: "movieId") as! String == id }
+            let deleteObject = fetchedData.filter { $0.value(forKey: "movieCode") as! String == code }
 
             if deleteObject.isEmpty == false {
                 context.delete(deleteObject[0])
@@ -104,13 +92,13 @@ class CoreDataManager {
         do {
             let fetchedData = try context.fetch(fetchRequest)
 
-            let objectUpdate = fetchedData.filter { $0.value(forKey: "movieId") as? String == movie.movieId }
+            let objectUpdate = fetchedData.filter { $0.value(forKey: "movieCode") as? String == movie.movieCode }
 
             if objectUpdate.isEmpty {
                 self.saveMovie(movie: movie)
                 
                 let fetchedData = try context.fetch(fetchRequest)
-                let objectUpdate = fetchedData.filter { $0.value(forKey: "movieId") as? String == movie.movieId }
+                let objectUpdate = fetchedData.filter { $0.value(forKey: "movieCode") as? String == movie.movieCode }
                 switch type {
                 case .like:
 
@@ -188,6 +176,7 @@ extension NSManagedObject {
         self.setValue(viewMovieItems.baseDate, forKey: "baseDate")
         self.setValue(viewMovieItems.audiAcc, forKey: "audiAcc")
         self.setValue(viewMovieItems.actors, forKey: "actors")
+        self.setValue(viewMovieItems.movieCode, forKey: "movieCode")
     }
 }
 

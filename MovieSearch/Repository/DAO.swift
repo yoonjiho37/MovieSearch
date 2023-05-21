@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol DAOType {
-    func fetchCoreData(type: FetchCoreData, id: String?, listType: ListType?) -> Observable<[ViewMovieItems]>
+    func fetchCoreData(type: FetchCoreData, code: String?, listType: ListType?) -> Observable<[ViewMovieItems]>
     func updateItem(type: UpdateType, movie: ViewMovieItems) -> Observable<[ViewMovieItems]>
 }
 
@@ -25,12 +25,12 @@ enum UpdateType {
 
 class DAO: DAOType {
     
-    func fetchCoreData(type: FetchCoreData, id: String?, listType: ListType?) -> Observable<[ViewMovieItems]> {
+    func fetchCoreData(type: FetchCoreData, code: String?, listType: ListType?) -> Observable<[ViewMovieItems]> {
         switch type {
         case .fetchList:
             return setList(type: listType)
         case .fetchItem:
-            return setItem(id: id)
+            return setItem(code: code)
         }
     }
         
@@ -38,7 +38,7 @@ class DAO: DAOType {
         return CoreDataManager.shared.updateData(type: type, movie: movie)
             .flatMap { reult -> Observable<[ViewMovieItems]> in
                 if reult {
-                    return self.fetchCoreData(type: .fetchItem, id: movie.movieId, listType: nil)
+                    return self.fetchCoreData(type: .fetchItem, code: movie.movieCode, listType: nil)
                 } else {
                     return Observable.just([])
                 }
@@ -61,10 +61,10 @@ class DAO: DAOType {
             }
     }
     
-    private func setItem(id: String?) -> Observable<[ViewMovieItems]> {
+    private func setItem(code: String?) -> Observable<[ViewMovieItems]> {
         return CoreDataManager.shared.fetchLocalListRX()
             .map { $0.map { ViewMovieItems(localInfo: $0 ) } }
-            .map { $0.filter { $0.movieId == id } }
+            .map { $0.filter { $0.movieCode == code } }
     }
     
    
