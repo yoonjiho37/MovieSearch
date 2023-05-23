@@ -32,6 +32,7 @@ class SavedMovielistViewController: UIViewController {
         setupBinding()
         registerXib()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.getAppearState(type: listType)
@@ -48,6 +49,18 @@ class SavedMovielistViewController: UIViewController {
             .disposed(by: disposeBag)
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let identifer = segue.identifier ?? ""
+        
+        if identifer == MovieInfoViewController.identifer {
+            guard let seletedMovie = sender as? [ViewMovieItems] else { return }
+            guard let movieInfoVC = segue.destination as? MovieInfoViewController else { return }
+            let infoViewModel = MovieInfoViewModel(seletedMovie)
+            movieInfoVC.viewModel = infoViewModel
+        }
+    }
+    
 
 
     //MARK: Interface Link
@@ -71,7 +84,11 @@ extension SavedMovielistViewController: UITableViewDataSource {
 extension SavedMovielistViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let seletedItem = [movieList[indexPath.row]]
+        self.performSegue(withIdentifier: MovieInfoViewController.identifer, sender: seletedItem)
     }
+    
+    
     
     private func registerXib() {
         self.tableView.delegate = self

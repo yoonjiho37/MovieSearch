@@ -42,7 +42,6 @@ class SavedMovieListViewModel: SavedMovieListViewModelType {
         
         listTypePublish
             .flatMap { type -> Observable<[ViewMovieItems]> in
-                print("hi2")
                 switch type {
                 case .liked:
                     return dao.fetchCoreData(type: .fetchList, code: nil, listType: type)
@@ -54,19 +53,11 @@ class SavedMovieListViewModel: SavedMovieListViewModelType {
             .disposed(by: disposeBag)
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+    }
+}
+
+
 //        listTypeBehavior.asObserver()
 //            .flatMap { type -> Observable<[ViewMovieItems]> in
 //                print("vm type = \(String(describing: type))")
@@ -81,16 +72,16 @@ class SavedMovieListViewModel: SavedMovieListViewModelType {
 //            }
 //            .subscribe(onNext: movieListPublish.onNext(_:))
 //            .disposed(by: disposeBag)
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
 //        let listTypeBehavior = BehaviorSubject<ListType?>(value: listType)
 //
 //        let movieListPublish = PublishSubject<[ViewMovieItems]>()
@@ -112,7 +103,3 @@ class SavedMovieListViewModel: SavedMovieListViewModelType {
 //            .subscribe(onNext: movieListPublish.onNext(_:))
 //            .disposed(by: disposeBag)
 //
-        
-
-    }
-}
