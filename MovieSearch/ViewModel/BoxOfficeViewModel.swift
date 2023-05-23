@@ -89,6 +89,5 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
             .map({ item in
                 return item
             })
-            .debug("asdasdasd")
     }
 }

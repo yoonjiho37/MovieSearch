@@ -101,7 +101,6 @@ class CoreDataManager {
                 let objectUpdate = fetchedData.filter { $0.value(forKey: "movieCode") as? String == movie.movieCode }
                 switch type {
                 case .like:
-
                     let likeBoolean = objectUpdate[0].value(forKey: "likeBoolean") as! Bool
                     objectUpdate[0].setValue(likeBoolean.toggle(), forKey: "likeBoolean")
                     
@@ -109,7 +108,6 @@ class CoreDataManager {
                     let watchLaterBoolean = objectUpdate[0].value(forKey: "watchLaterBoolean") as! Bool
                     objectUpdate[0].setValue(watchLaterBoolean.toggle(), forKey: "watchLaterBoolean")
                 }
-                   
             } else {
                 switch type {
                 case .like:
@@ -119,7 +117,6 @@ class CoreDataManager {
                 case .watchLater:
                     let watchLaterBoolean = objectUpdate[0].value(forKey: "watchLaterBoolean") as! Bool
                     objectUpdate[0].setValue(watchLaterBoolean.toggle(), forKey: "watchLaterBoolean")
-                    
                 }
             }
             

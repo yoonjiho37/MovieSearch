@@ -24,8 +24,8 @@ class ViewMovieList {
 }
 
 class ViewMovieItems {
-    var likeBoolean: Bool = true
-    var watchLaterBoolean: Bool = true
+    var likeBoolean: Bool = false
+    var watchLaterBoolean: Bool = false
     
     //MovieInfo
     let baseDate: String
