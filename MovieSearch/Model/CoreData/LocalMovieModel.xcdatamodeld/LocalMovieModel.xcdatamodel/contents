@@ -8,6 +8,7 @@
         <attribute name="directorNm" optional="YES" attributeType="String"/>
         <attribute name="genre" optional="YES" attributeType="String"/>
         <attribute name="likeBoolean" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="movieCode" optional="YES" attributeType="String"/>
         <attribute name="movieId" optional="YES" attributeType="String"/>
         <attribute name="plot" optional="YES" attributeType="String"/>
         <attribute name="posterURLs" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>

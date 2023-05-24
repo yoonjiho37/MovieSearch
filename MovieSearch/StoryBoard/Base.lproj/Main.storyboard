@@ -128,6 +128,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ouo-z4-tvY">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="line.3.horizontal" catalog="system" id="BIf-Eo-vfW">
+                            <connections>
+                                <segue destination="0gw-cg-AkS" kind="show" id="ufG-s4-4qM"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" id="QL5-dm-iXq"/>
                     </navigationItem>
                     <connections>
@@ -205,7 +210,129 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MND-Kz-oBw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1745.8015267175572" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="3363" y="-2"/>
+        </scene>
+        <!--Custom Menu Navigation Controller-->
+        <scene sceneID="JGz-Io-PnU">
+            <objects>
+                <navigationController id="0gw-cg-AkS" customClass="CustomMenuNavigationController" customModule="MovieSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="mJR-Cd-SGb"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EkX-kG-w2k">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="knu-5s-dIU" kind="relationship" relationship="rootViewController" id="D3Z-eB-LvF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ygl-u9-dTg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="992" y="723"/>
+        </scene>
+        <!--Side Menu View Controller-->
+        <scene sceneID="lqC-VE-zFk">
+            <objects>
+                <viewController storyboardIdentifier="SideMenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="knu-5s-dIU" customClass="SideMenuViewController" customModule="MovieSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3LS-jD-hWm">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="CZc-90-gSO">
+                                <rect key="frame" x="128.66666666666669" y="102" width="135.66666666666669" height="150"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dd1-Tc-Wtj">
+                                        <rect key="frame" x="0.0" y="0.0" width="135.66666666666666" height="70"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Main"/>
+                                        <connections>
+                                            <action selector="showMainButton:" destination="knu-5s-dIU" eventType="touchUpInside" id="Yh0-5v-scV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8E-9O-c19">
+                                        <rect key="frame" x="0.0" y="70" width="135.66666666666666" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="h7i-5s-cbB"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="좋아요한 영화들"/>
+                                        <connections>
+                                            <action selector="showLikedMoviesButtonWithSender:" destination="knu-5s-dIU" eventType="touchUpInside" id="OEE-NB-6OP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nWt-bd-B87">
+                                        <rect key="frame" x="0.0" y="110" width="135.66666666666666" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="hd5-YR-i0c"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="나중에 볼 영화들"/>
+                                        <connections>
+                                            <action selector="showMoviesToWatchLaterButton:" destination="knu-5s-dIU" eventType="touchUpInside" id="yM3-GF-r4b"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="ks2-gn-3kO"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="V0w-5X-rq7"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="CZc-90-gSO" firstAttribute="top" secondItem="3LS-jD-hWm" secondAttribute="top" constant="102" id="bdj-TE-DWp"/>
+                            <constraint firstItem="CZc-90-gSO" firstAttribute="centerX" secondItem="V0w-5X-rq7" secondAttribute="centerX" id="ffq-tU-vc6"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="eAC-hC-Vqv"/>
+                    <connections>
+                        <segue destination="vyO-Yt-be6" kind="show" identifier="SavedMovielistSegueIdentifier" id="qhT-Sp-RuD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6oJ-by-1O6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1796" y="723"/>
+        </scene>
+        <!--Saved Movielist View Controller-->
+        <scene sceneID="17Z-NM-rEj">
+            <objects>
+                <viewController storyboardIdentifier="SavedMovielistViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vyO-Yt-be6" customClass="SavedMovielistViewController" customModule="MovieSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GwN-Zm-z2X">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oyK-yt-EH3">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SavedMoviesTableViewCell" id="OX2-Gh-lc4" customClass="SavedMoviesTableViewCell" customModule="MovieSearch" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OX2-Gh-lc4" id="Kji-39-LKy">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="jq5-xU-D3p"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="oyK-yt-EH3" firstAttribute="top" secondItem="jq5-xU-D3p" secondAttribute="top" id="8YO-AD-TXU"/>
+                            <constraint firstItem="jq5-xU-D3p" firstAttribute="bottom" secondItem="oyK-yt-EH3" secondAttribute="bottom" id="T8V-UZ-dDs"/>
+                            <constraint firstItem="oyK-yt-EH3" firstAttribute="leading" secondItem="jq5-xU-D3p" secondAttribute="leading" id="oVz-qj-YL2"/>
+                            <constraint firstItem="jq5-xU-D3p" firstAttribute="trailing" secondItem="oyK-yt-EH3" secondAttribute="trailing" id="sVf-5e-t5i"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="THq-nw-Nsx"/>
+                    <connections>
+                        <outlet property="tableView" destination="oyK-yt-EH3" id="mib-0n-BMc"/>
+                        <segue destination="wQj-G8-FO3" kind="show" identifier="MovieInfoSegueIdentifier" id="QZY-il-Gs9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K6W-ZO-nOb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2604" y="723"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LP7-Gn-xkG">
@@ -226,7 +353,11 @@
             <point key="canvasLocation" x="160" y="-2"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="QZY-il-Gs9"/>
+    </inferredMetricsTieBreakers>
     <resources>
+        <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

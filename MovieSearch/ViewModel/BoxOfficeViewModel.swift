@@ -45,7 +45,6 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
         return pageItemObservable
     }
     func getTapEvent() {
-        print("222")
         tapButtonObserver.on(.next(()))
     }
     func getInfoView() -> Observable<[ViewMovieItems]> {
@@ -90,6 +89,5 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
             .map({ item in
                 return item
             })
-            .debug("asdasdasd")
     }
 }

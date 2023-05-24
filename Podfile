@@ -8,6 +8,7 @@ target 'MovieSearch' do
   # Pods for MovieSearch
   pod 'RxSwift', '~> 6.5.0'
   pod 'RxCocoa', '~> 6.5.0'
+  pod 'SideMenu'
 
   target 'MovieSearchTests' do
     inherit! :search_paths

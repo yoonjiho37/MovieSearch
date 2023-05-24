@@ -5,22 +5,26 @@ PODS:
   - RxRelay (6.5.0):
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
+  - SideMenu (6.5.0)
 
 DEPENDENCIES:
   - RxCocoa (~> 6.5.0)
   - RxSwift (~> 6.5.0)
+  - SideMenu
 
 SPEC REPOS:
   trunk:
     - RxCocoa
     - RxRelay
     - RxSwift
+    - SideMenu
 
 SPEC CHECKSUMS:
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
 
-PODFILE CHECKSUM: fc760457ebcd035ab6f0c07f985123c157d570b5
+PODFILE CHECKSUM: dd7b12f39e140537d5e6c63e5e0b4c860903e837
 
 COCOAPODS: 1.12.0

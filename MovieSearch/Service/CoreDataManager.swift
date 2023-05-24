@@ -19,7 +19,7 @@ class CoreDataManager {
     
     let itemModelName: String = "MovieItems"
     
-    func fetchLocalList(id: String?,onComplete: @escaping (Result<[NSManagedObject?],Error>) -> Void) {
+    func fetchLocalList(onComplete: @escaping (Result<[NSManagedObject?],Error>) -> Void) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
 
@@ -30,13 +30,9 @@ class CoreDataManager {
             if fetchedData.isEmpty {
                 onComplete(.success([]))
             } else {
-                if id == nil {
-                    onComplete(.success(fetchedData))
-                } else {
-                    let item = fetchedData.filter { $0.value(forKey: "movieId") as? String == id }
-                    onComplete(.success(item))
-                }
+                onComplete(.success(fetchedData))
             }
+            
         } catch let err as NSError {
             onComplete(.failure(err))
         }
@@ -61,7 +57,7 @@ class CoreDataManager {
         
     }
     
-    func deleteMovie(id: String, onCpmpleted: @escaping (Bool) -> ()) {
+    func deleteMovie(code: String, onCpmpleted: @escaping (Bool) -> ()) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
@@ -69,7 +65,7 @@ class CoreDataManager {
         
         do {
             let fetchedData = try context.fetch(fetchRequest)
-            let deleteObject = fetchedData.filter { $0.value(forKey: "movieId") as! String == id }
+            let deleteObject = fetchedData.filter { $0.value(forKey: "movieCode") as! String == code }
 
             if deleteObject.isEmpty == false {
                 context.delete(deleteObject[0])
@@ -96,24 +92,22 @@ class CoreDataManager {
         do {
             let fetchedData = try context.fetch(fetchRequest)
 
-            let objectUpdate = fetchedData.filter { $0.value(forKey: "movieId") as? String == movie.movieId }
+            let objectUpdate = fetchedData.filter { $0.value(forKey: "movieCode") as? String == movie.movieCode }
 
             if objectUpdate.isEmpty {
                 self.saveMovie(movie: movie)
                 
                 let fetchedData = try context.fetch(fetchRequest)
-                let objectUpdate = fetchedData.filter { $0.value(forKey: "movieId") as? String == movie.movieId }
+                let objectUpdate = fetchedData.filter { $0.value(forKey: "movieCode") as? String == movie.movieCode }
                 switch type {
                 case .like:
-
                     let likeBoolean = objectUpdate[0].value(forKey: "likeBoolean") as! Bool
                     objectUpdate[0].setValue(likeBoolean.toggle(), forKey: "likeBoolean")
                     
                 case .watchLater:
                     let watchLaterBoolean = objectUpdate[0].value(forKey: "watchLaterBoolean") as! Bool
-                    objectUpdate[0].setValue(watchLaterBoolean.toggle(), forKey: "likeBoolean")
+                    objectUpdate[0].setValue(watchLaterBoolean.toggle(), forKey: "watchLaterBoolean")
                 }
-                   
             } else {
                 switch type {
                 case .like:
@@ -122,8 +116,7 @@ class CoreDataManager {
                     
                 case .watchLater:
                     let watchLaterBoolean = objectUpdate[0].value(forKey: "watchLaterBoolean") as! Bool
-                    objectUpdate[0].setValue(watchLaterBoolean.toggle(), forKey: "likeBoolean")
-                    
+                    objectUpdate[0].setValue(watchLaterBoolean.toggle(), forKey: "watchLaterBoolean")
                 }
             }
             
@@ -141,9 +134,9 @@ class CoreDataManager {
     
     
     //MARK: Send Fetched Results Rx
-    func fetchLocalListRX(id: String?) -> Observable<[NSManagedObject?]> {
+    func fetchLocalListRX() -> Observable<[NSManagedObject?]> {
         return Observable.create ({ emitter in
-            self.fetchLocalList(id: id) { result in
+            self.fetchLocalList() { result in
                 switch result {
                 case let .success(data):
                     emitter.onNext(data)
@@ -180,6 +173,7 @@ extension NSManagedObject {
         self.setValue(viewMovieItems.baseDate, forKey: "baseDate")
         self.setValue(viewMovieItems.audiAcc, forKey: "audiAcc")
         self.setValue(viewMovieItems.actors, forKey: "actors")
+        self.setValue(viewMovieItems.movieCode, forKey: "movieCode")
     }
 }
 

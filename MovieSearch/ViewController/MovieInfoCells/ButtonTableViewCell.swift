@@ -15,18 +15,22 @@ class ButtonTableViewCell: UITableViewCell {
 
     func inputData(data: ViewMovieItems) {
         if data.likeBoolean {
-            likeButton.titleLabel?.text = "좋아요 취소"
+            print("do1")
+            likeButton.setTitle("좋아요 취소", for: .normal)
             likeButton.tintColor = .red
         } else {
-            likeButton.titleLabel?.text = "좋아요"
+            print("do1-2")
+            likeButton.setTitle("좋아요 추가", for: .normal)
             likeButton.tintColor = .systemBlue
         }
         
         if data.watchLaterBoolean {
-            watchLaterButton.titleLabel?.text = "나중에 볼 영화 취소"
+            print("do2")
+            watchLaterButton.setTitle("나중에 볼 영화 취소", for: .normal)
             watchLaterButton.tintColor = .red
         } else {
-            watchLaterButton.titleLabel?.text = "나중에 볼 영화 추가"
+            print("do2-2")
+            watchLaterButton.setTitle("나중에 볼 영화 추가", for: .normal)
             watchLaterButton.tintColor = .systemBlue
         }
     }

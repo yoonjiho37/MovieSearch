@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2735B3082A151D950007607C /* SavedMoviesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2735B3062A151D950007607C /* SavedMoviesTableViewCell.swift */; };
+		2735B3092A151D950007607C /* SavedMoviesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2735B3072A151D950007607C /* SavedMoviesTableViewCell.xib */; };
 		275F43142A02427600D3FB98 /* InfomationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F43122A02427600D3FB98 /* InfomationTableViewCell.swift */; };
 		275F43152A02427600D3FB98 /* InfomationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 275F43132A02427600D3FB98 /* InfomationTableViewCell.xib */; };
 		275F43182A0242C500D3FB98 /* PlotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275F43162A0242C500D3FB98 /* PlotTableViewCell.swift */; };
@@ -17,6 +19,10 @@
 		275F43212A0243D600D3FB98 /* CastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 275F431F2A0243D600D3FB98 /* CastTableViewCell.xib */; };
 		276E74062A0AAE0700556754 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276E74042A0AAE0700556754 /* GalleryCollectionViewCell.swift */; };
 		276E74072A0AAE0700556754 /* GalleryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276E74052A0AAE0700556754 /* GalleryCollectionViewCell.xib */; };
+		276F19E92A150BCF00151D07 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276F19E82A150BCF00151D07 /* SideMenuViewController.swift */; };
+		276F19EB2A150BE000151D07 /* CustomMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276F19EA2A150BE000151D07 /* CustomMenuNavigationController.swift */; };
+		276F19F02A1512D200151D07 /* SavedMovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276F19EF2A1512D200151D07 /* SavedMovieListViewModel.swift */; };
+		276F19F42A15140100151D07 /* SavedMovielistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276F19F32A15140100151D07 /* SavedMovielistViewController.swift */; };
 		277267622A0CBFC900155C30 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277267612A0CBFC900155C30 /* CoreDataManager.swift */; };
 		277267652A0CCBEC00155C30 /* LocalMovieModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 277267632A0CCBEC00155C30 /* LocalMovieModel.xcdatamodeld */; };
 		277267672A0CDA7D00155C30 /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277267662A0CDA7C00155C30 /* DAO.swift */; };
@@ -65,6 +71,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2735B3062A151D950007607C /* SavedMoviesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedMoviesTableViewCell.swift; sourceTree = "<group>"; };
+		2735B3072A151D950007607C /* SavedMoviesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SavedMoviesTableViewCell.xib; sourceTree = "<group>"; };
 		275F43122A02427600D3FB98 /* InfomationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfomationTableViewCell.swift; sourceTree = "<group>"; };
 		275F43132A02427600D3FB98 /* InfomationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfomationTableViewCell.xib; sourceTree = "<group>"; };
 		275F43162A0242C500D3FB98 /* PlotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlotTableViewCell.swift; sourceTree = "<group>"; };
@@ -75,6 +83,10 @@
 		275F431F2A0243D600D3FB98 /* CastTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CastTableViewCell.xib; sourceTree = "<group>"; };
 		276E74042A0AAE0700556754 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		276E74052A0AAE0700556754 /* GalleryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryCollectionViewCell.xib; sourceTree = "<group>"; };
+		276F19E82A150BCF00151D07 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		276F19EA2A150BE000151D07 /* CustomMenuNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenuNavigationController.swift; sourceTree = "<group>"; };
+		276F19EF2A1512D200151D07 /* SavedMovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedMovieListViewModel.swift; sourceTree = "<group>"; };
+		276F19F32A15140100151D07 /* SavedMovielistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SavedMovielistViewController.swift; path = "/Users/yunjiho/Desktop/ios/ios_project(public)/MovieSearch/MovieSearch/ViewController/SavedMovielistViewController.swift"; sourceTree = "<absolute>"; };
 		277267612A0CBFC900155C30 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		277267642A0CCBEC00155C30 /* LocalMovieModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalMovieModel.xcdatamodel; sourceTree = "<group>"; };
 		277267662A0CDA7C00155C30 /* DAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
@@ -143,6 +155,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2735B30A2A151DAB0007607C /* SavedMovieCell */ = {
+			isa = PBXGroup;
+			children = (
+				2735B3062A151D950007607C /* SavedMoviesTableViewCell.swift */,
+				2735B3072A151D950007607C /* SavedMoviesTableViewCell.xib */,
+			);
+			path = SavedMovieCell;
+			sourceTree = "<group>";
+		};
 		275F43112A02423500D3FB98 /* MovieInfoCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +184,15 @@
 			path = MovieInfoCells;
 			sourceTree = "<group>";
 		};
+		276F19EC2A150BF200151D07 /* SideMenuViewController */ = {
+			isa = PBXGroup;
+			children = (
+				276F19E82A150BCF00151D07 /* SideMenuViewController.swift */,
+				276F19EA2A150BE000151D07 /* CustomMenuNavigationController.swift */,
+			);
+			path = SideMenuViewController;
+			sourceTree = "<group>";
+		};
 		277267682A0D018500155C30 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +207,7 @@
 				277267682A0D018500155C30 /* CoreData */,
 				27B6BA3D29CB3DA400E9AB7C /* BoxOfficeResult.swift */,
 				2773407729D70D7900150A08 /* SearchResult.swift */,
+				27B6BA4129CB3DC800E9AB7C /* ViewMovieItems.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -195,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				27A115B029C9E5B200439340 /* Main.storyboard */,
+				276F19EC2A150BF200151D07 /* SideMenuViewController */,
 			);
 			path = StoryBoard;
 			sourceTree = "<group>";
@@ -204,6 +236,7 @@
 			children = (
 				27B6BA4329CB3DD700E9AB7C /* BoxOfficeViewModel.swift */,
 				277E79A529EE856400FAB650 /* MovieInfoViewModel.swift */,
+				276F19EF2A1512D200151D07 /* SavedMovieListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -215,6 +248,8 @@
 				277E79A129EE724800FAB650 /* BoxOfficeCell */,
 				277E79A229EE853C00FAB650 /* MovieInfoViewController.swift */,
 				275F43112A02423500D3FB98 /* MovieInfoCells */,
+				276F19F32A15140100151D07 /* SavedMovielistViewController.swift */,
+				2735B30A2A151DAB0007607C /* SavedMovieCell */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -233,7 +268,6 @@
 			children = (
 				277267662A0CDA7C00155C30 /* DAO.swift */,
 				27B99A7A29CC64860089C196 /* Domain.swift */,
-				27B6BA4129CB3DC800E9AB7C /* ViewMovieItems.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -446,6 +480,7 @@
 				275F43212A0243D600D3FB98 /* CastTableViewCell.xib in Resources */,
 				275F43192A0242C500D3FB98 /* PlotTableViewCell.xib in Resources */,
 				27A115B429C9E5B300439340 /* Assets.xcassets in Resources */,
+				2735B3092A151D950007607C /* SavedMoviesTableViewCell.xib in Resources */,
 				277770252A124CB100C17593 /* ButtonTableViewCell.xib in Resources */,
 				27A115B229C9E5B200439340 /* Main.storyboard in Resources */,
 				275F431D2A02433F00D3FB98 /* GalleryTableViewCell.xib in Resources */,
@@ -581,19 +616,24 @@
 				2773407829D70D7900150A08 /* SearchResult.swift in Sources */,
 				277267622A0CBFC900155C30 /* CoreDataManager.swift in Sources */,
 				275F43182A0242C500D3FB98 /* PlotTableViewCell.swift in Sources */,
+				276F19EB2A150BE000151D07 /* CustomMenuNavigationController.swift in Sources */,
 				27A115AF29C9E5B200439340 /* BoxOfficeViewController.swift in Sources */,
 				275F43202A0243D600D3FB98 /* CastTableViewCell.swift in Sources */,
 				27A115AB29C9E5B200439340 /* AppDelegate.swift in Sources */,
 				27B99A7D29CC8C480089C196 /* BoxOfficeCollectionViewCell.swift in Sources */,
 				27B6BA4029CB3DC000E9AB7C /* APIService.swift in Sources */,
 				277267672A0CDA7D00155C30 /* DAO.swift in Sources */,
+				276F19F02A1512D200151D07 /* SavedMovieListViewModel.swift in Sources */,
 				277267652A0CCBEC00155C30 /* LocalMovieModel.xcdatamodeld in Sources */,
+				2735B3082A151D950007607C /* SavedMoviesTableViewCell.swift in Sources */,
 				27C934322A02521D00206325 /* CellCase.swift in Sources */,
 				27A115AD29C9E5B200439340 /* SceneDelegate.swift in Sources */,
 				2781B40729E83035002E3877 /* Utills.swift in Sources */,
+				276F19F42A15140100151D07 /* SavedMovielistViewController.swift in Sources */,
 				276E74062A0AAE0700556754 /* GalleryCollectionViewCell.swift in Sources */,
 				275F431C2A02433F00D3FB98 /* GalleryTableViewCell.swift in Sources */,
 				27B6BA3E29CB3DA400E9AB7C /* BoxOfficeResult.swift in Sources */,
+				276F19E92A150BCF00151D07 /* SideMenuViewController.swift in Sources */,
 				27B6BA4229CB3DC800E9AB7C /* ViewMovieItems.swift in Sources */,
 				277E79A629EE856400FAB650 /* MovieInfoViewModel.swift in Sources */,
 				27B6BA4429CB3DD700E9AB7C /* BoxOfficeViewModel.swift in Sources */,
