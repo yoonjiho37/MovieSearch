@@ -17,6 +17,7 @@ class SideMenuViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let identifer = segue.identifier ?? ""
+        
         if identifer == SavedMovielistViewController.identifier {
             guard let typeSender = sender as? ListType else { return }
             guard let movieListVC = segue.destination as? SavedMovielistViewController else { return }

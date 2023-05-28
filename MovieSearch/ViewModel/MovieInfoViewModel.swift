@@ -71,6 +71,7 @@ class MovieInfoViewModel: MovieInfoViewModelType {
         
         
         self.movieInfoObservable = movieSubject
+            
 
         
         updateObserver = updateSubject.asObserver()

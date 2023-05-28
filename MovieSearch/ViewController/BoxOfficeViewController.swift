@@ -24,7 +24,7 @@ class BoxOfficeViewController: UIViewController {
     }
     
     var boxOfficeList: [ViewMovieItems] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBinding()
@@ -41,11 +41,11 @@ class BoxOfficeViewController: UIViewController {
             movieInfoVC.viewModel = infoViewModel
         }
     }
-    
+    var testaaa: ViewRankList?
     private func setupBinding() {
-        
+      
         //input
-        viewModel.fetchList(type: .weekEnd)
+        viewModel.fetchList(type: .weekly)
 
         //output
         viewModel.getAllList()

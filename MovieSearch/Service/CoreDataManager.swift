@@ -17,7 +17,11 @@ enum LocalType {
 class CoreDataManager {
     static let shared: CoreDataManager = CoreDataManager()
     
-    let itemModelName: String = "MovieItems"
+    let rankModelName: String = "RankList"
+    let itemModelName: String = "LikedList"
+    
+    
+    //MAKR: LikedList
     
     func fetchLocalList(onComplete: @escaping (Result<[NSManagedObject?],Error>) -> Void) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -47,7 +51,7 @@ class CoreDataManager {
         guard let itemEntity = NSEntityDescription.entity(forEntityName: itemModelName, in: context) else { return }
 
         let listobject = NSManagedObject(entity: itemEntity, insertInto: context)
-        listobject.setvalues(viewMovieItems: movie)
+        listobject.setValues(viewMovieItems: movie)
         
         do {
             try context.save()
@@ -83,7 +87,7 @@ class CoreDataManager {
     }
     
     
-    func updateData(type: UpdateType,movie: ViewMovieItems) -> Observable<Bool> {
+    func updateData(type: UpdateType, movie: ViewMovieItems) -> Observable<Bool> {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
 
@@ -149,11 +153,31 @@ class CoreDataManager {
         })
     }
     
+    //MARK: RankList
     
+//    func fetchLocalRankList(listType: BoxOfficeType, onComplete: @escaping (Result<[NSManagedObject?],Error>) -> Void) {
+//
+//    }
+//
+//
+//
+//    func coverUpRankList(list: [ViewMovieItems]) {
+//
+//    }
+//
+//    func fetchLocalRankListRX(listType: BoxOfficeType) -> Observable<[NSManagedObject?]> {
+//
+//    }
 }
 
+
+
+
+
+
 extension NSManagedObject {
-    func setvalues(viewMovieItems: ViewMovieItems) {
+    
+    func setValues(viewMovieItems: ViewMovieItems) {
         self.setValue(viewMovieItems.watchLaterBoolean, forKey: "watchLaterBoolean")
         self.setValue(viewMovieItems.likeBoolean, forKey: "likeBoolean")
         self.setValue(viewMovieItems.title, forKey: "title")
@@ -163,7 +187,7 @@ extension NSManagedObject {
         self.setValue(viewMovieItems.rankOldAndNew, forKey: "rankOldAndNew")
         self.setValue(viewMovieItems.rankInten, forKey: "rankInten")
         self.setValue(viewMovieItems.rank, forKey: "rank")
-        self.setValue(viewMovieItems.posterURL, forKey: "posterURLs")
+        self.setValue(viewMovieItems.posterURLs, forKey: "posterURLs")
         self.setValue(viewMovieItems.plot, forKey: "plot")
         self.setValue(viewMovieItems.movieId, forKey: "movieId")
         self.setValue(viewMovieItems.likeBoolean, forKey: "likeBoolean")

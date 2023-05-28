@@ -24,12 +24,11 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
     let fetchableList: AnyObserver<BoxOfficeType>
     let nowPageObserver: AnyObserver<Int>
     let tapButtonObserver: AnyObserver<Void>
+   
     
     let allListObservable: Observable<[ViewMovieItems]>
     var pageItemObservable: Observable<[ViewMovieItems]>
     var infoViewItemObservable: Observable<[ViewMovieItems]>
-    
-    
     
     
     func fetchList(type: BoxOfficeType) {
@@ -52,7 +51,7 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
     }
 
     
-    init(domain: DomainType = Domain()) {
+    init(dao: DAOType = DAO(), domain: DomainType = Domain()) {
         let fetchingSubject = PublishSubject<BoxOfficeType>()
         let listSubject = BehaviorSubject<[ViewMovieItems]>(value: [])
         let tapButtonSubject = PublishSubject<Void>()
@@ -60,14 +59,18 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
         let pageSubject = PublishSubject<Int>()
         let pagingSubject = PublishSubject<[ViewMovieItems]>()
         
+        
+
         //input
         self.fetchableList = fetchingSubject.asObserver()
         fetchingSubject
             .flatMap { type -> Observable<[ViewMovieItems]> in
                 return domain.checkBoxOfficeWeely(type: type)
+                    .map { $0.testViewMoviewList }
             }
             .subscribe(onNext: listSubject.onNext(_:))
             .disposed(by: dispaseBag)
+        
         
         
         self.nowPageObserver = pageSubject.asObserver()

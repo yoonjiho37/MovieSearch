@@ -67,13 +67,8 @@ struct MovieInfo: Codable {
     let Codes: Codes
     let CommCodes: CommCodes
     let ALIAS: String
-
 }
-//extension MovieInfo: Equatable {
-//    static func == (lhs: MovieInfo, rhs: MovieInfo) -> Bool {
-//        return lhs.movieId == rhs.movieId && lhs.title == rhs.title && lhs.company == rhs.company && lhs.runtime == rhs.runtime && lhs.rating == rhs.rating && lhs.genre == rhs.genre && lhs.posters == rhs.posters
-//    }
-//}
+
 
 struct Directors: Codable {
     let director: [Director]
@@ -96,9 +91,6 @@ struct Plots: Codable {
     struct Plot: Codable {
         let plotLang: String  //제작년도    2011
         let plotText: String  //줄거리    제주도 남단, 7광구의.....
-        static func == (lhs: Plot, rhs: Plot) -> Bool {
-            return lhs.plotLang == rhs.plotLang && lhs.plotText == rhs.plotText
-        }
     }
 }
 struct Ratings: Codable {

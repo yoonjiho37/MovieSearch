@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import CoreData
 
 protocol DAOType {
     func fetchCoreData(type: FetchCoreData, code: String?, listType: ListType?) -> Observable<[ViewMovieItems]>
@@ -45,8 +46,6 @@ class DAO: DAOType {
             }
     }
     
-    
-    
     private func setList(type: ListType?) -> Observable<[ViewMovieItems]> {
         return CoreDataManager.shared.fetchLocalListRX()
             .map { $0.map { ViewMovieItems(localInfo: $0) } }
@@ -66,7 +65,17 @@ class DAO: DAOType {
             .map { $0.map { ViewMovieItems(localInfo: $0 ) } }
             .map { $0.filter { $0.movieCode == code } }
     }
-    
-   
-   
+     
+}
+
+
+extension DAO {
+//    func setRankList(listype: BoxOfficeType) -> Observable<[ViewMovieItems]> {
+//
+//    }
+//
+//
+//    func coverUpRankList(list: [ViewMovieItems]) {
+//
+//    }
 }

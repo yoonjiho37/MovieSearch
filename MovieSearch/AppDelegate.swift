@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //MARK: - CoreData
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "LocalMovieModel")
+        let container = NSPersistentContainer(name: "LocalLists")
         container.loadPersistentStores { (storeDescription, err) in
             if let err = err as NSError? {
                 print("bye")
