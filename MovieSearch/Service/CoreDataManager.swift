@@ -17,11 +17,12 @@ enum LocalType {
 class CoreDataManager {
     static let shared: CoreDataManager = CoreDataManager()
     
-    let rankModelName: String = "RankList"
+
     let itemModelName: String = "LikedList"
+    let rankListName: String = "RankList"
+    let rankItemsName: String = "RankItems"
     
-    
-    //MAKR: LikedList
+    //MARK: LikedList
     
     func fetchLocalList(onComplete: @escaping (Result<[NSManagedObject?],Error>) -> Void) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -70,7 +71,7 @@ class CoreDataManager {
         do {
             let fetchedData = try context.fetch(fetchRequest)
             let deleteObject = fetchedData.filter { $0.value(forKey: "movieCode") as! String == code }
-
+            
             if deleteObject.isEmpty == false {
                 context.delete(deleteObject[0])
             }
@@ -154,20 +155,104 @@ class CoreDataManager {
     }
     
     //MARK: RankList
+    func fetchLocalRankList(listType: BoxOfficeType, onComplete: @escaping (Result<NSManagedObject?,Error>) -> Void) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: rankListName)
+        
+        do {
+            let fetchedData = try context.fetch(fetchRequest)
+            
+            if fetchedData.isEmpty {
+                return 
+            } else {
+                let filterdData = fetchedData.filter { $0.value(forKey: "type") as! String == listType.rawValue }
+                
+                if filterdData.isEmpty {
+                    onComplete(.success(filterdData[0]))
+                } else {
+                    onComplete(.success(nil))
+                    
+                }
+            }
+        } catch let err as NSError {
+            onComplete(.failure(err))
+            return
+        }
+    }
     
-//    func fetchLocalRankList(listType: BoxOfficeType, onComplete: @escaping (Result<[NSManagedObject?],Error>) -> Void) {
-//
-//    }
-//
-//
-//
-//    func coverUpRankList(list: [ViewMovieItems]) {
-//
-//    }
-//
-//    func fetchLocalRankListRX(listType: BoxOfficeType) -> Observable<[NSManagedObject?]> {
-//
-//    }
+    func fetchLocalRankListRX(listType: BoxOfficeType) -> Observable<NSManagedObject?> {
+        return Observable.create({ emitter in
+            self.fetchLocalRankList(listType: listType) { result in
+                switch result {
+                case let .success(data):
+                    emitter.onNext(data)
+                    emitter.onCompleted()
+                case let .failure(err):
+                    emitter.onError(err)
+                }
+            }
+            return Disposables.create()
+        })
+    }
+    
+    func coverUpRankList(data: ViewRankList) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        
+        
+        deleteRankList(type: data.boxOfficeType)
+        
+        let rankListObject = NSEntityDescription.insertNewObject(forEntityName: rankListName, into: context) as! RankList
+        rankListObject.setValue(data.boxOfficeType.rawValue, forKey: "type")
+        rankListObject.setValue(data.showRange, forKey: "showRange")
+
+        let rankItems = data.viewMovieList
+        
+        for item in rankItems {
+            let itemObject = NSEntityDescription.insertNewObject(forEntityName: rankItemsName, into: context) as! RankItems
+            itemObject.setValues(viewMovieItems: item)
+            rankListObject.addToRankItems(itemObject)
+        }
+        do {
+            try context.save()
+            print("save - success =>")
+            
+        } catch {
+            context.rollback()
+            print("save - fail =>")
+
+        }
+    }
+    
+    func deleteRankList(type: BoxOfficeType) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: rankListName)
+        
+        do {
+            let fetchedData = try context.fetch(fetchRequest)
+            
+            let deleteObject = fetchedData.filter { $0.value(forKey: "type") as! String == type.rawValue }
+            
+            if deleteObject.isEmpty == false {
+                context.delete(deleteObject[0])
+            }
+            do {
+                try context.save()
+            } catch let err as NSError {
+                fatalError("Unresolved error \(err), \(err.userInfo)")
+            }
+            
+        } catch let err as NSError {
+            fatalError("Unresolved error \(err), \(err.userInfo)")
+        }
+        
+        
+    }
 }
 
 

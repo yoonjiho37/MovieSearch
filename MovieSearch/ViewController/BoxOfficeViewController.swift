@@ -41,11 +41,11 @@ class BoxOfficeViewController: UIViewController {
             movieInfoVC.viewModel = infoViewModel
         }
     }
-    var testaaa: ViewRankList?
+
     private func setupBinding() {
       
         //input
-        viewModel.fetchList(type: .weekly)
+        viewModel.fetchList(type: .daily)
 
         //output
         viewModel.getAllList()
@@ -53,6 +53,7 @@ class BoxOfficeViewController: UIViewController {
             .subscribe(onNext: { data in
                 self.boxOfficeList = data
                 self.viewModel.getNowPage(page: 0)
+                print("VC => \(data)")
                 self.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -77,6 +78,7 @@ class BoxOfficeViewController: UIViewController {
     private func setupUI() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        showMenuOrAlret()
         setFlowLayout()
     }
     
@@ -90,12 +92,49 @@ class BoxOfficeViewController: UIViewController {
     @IBOutlet weak var rankAndNameLabel: UILabel!
     @IBOutlet weak var salesShare: UILabel!
     @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet var showMenuButton: UIBarButtonItem!
     @IBAction func touchUpInfoButton(sender: Any?) {
         viewModel.getTapEvent()
     }
+    
 }
 
-
+extension BoxOfficeViewController {
+    private func showMenuOrAlret() {
+        if #available(iOS 14.0, *) {
+            self.showMenuButton = UIBarButtonItem(menu: getUIMenu() )
+        } else {
+            self.showMenuButton = UIBarButtonItem(title: "",
+                                                  style: .plain,
+                                                  target: self,
+                                                  action: #selector(getActionAlert))
+        }
+    }
+    
+    private func getUIMenu() -> UIMenu {
+        var menuItems: [UIAction] {
+            return [
+                UIAction(title: "일별 박스오피스",handler: { _ in self.viewModel.fetchList(type: .daily)}),
+                UIAction(title: "주간 박스오피스",handler: { _ in self.viewModel.fetchList(type: .weekly)}),
+                UIAction(title: "주말 박스오피스",handler: { _ in self.viewModel.fetchList(type: .weekEnd)})
+            ]
+        }
+        var menu: UIMenu {
+            return UIMenu(title: "", children: menuItems)
+        }
+        return menu
+    }
+    
+    @objc func getActionAlert() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let boxOfficeType: [BoxOfficeType] = [.daily, .weekly, .weekEnd]
+        
+        for type in boxOfficeType {
+            alert.addAction(UIAlertAction(title: type.rawValue, style: .default, handler: { _ in self.viewModel.fetchList(type: type)}))
+        }
+        self.present(alert, animated: true)
+    }
+}
 
 extension BoxOfficeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

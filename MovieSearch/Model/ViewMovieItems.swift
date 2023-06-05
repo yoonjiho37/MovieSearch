@@ -9,43 +9,26 @@ import Foundation
 import CoreData
 import RxSwift
 
-class BoxOfficeInfo {
-    var boxOfficeType: BoxOfficeType
-    var showRange: String
-    var yearWeekTime: String?
-    
-    init(boxOfficeType: String, showRange: String, yearWeekTime: String?) {
-        self.boxOfficeType = BoxOfficeType(rawValue: boxOfficeType) ?? .daily
-        self.showRange = showRange
-        self.yearWeekTime = yearWeekTime
-    }
-    
-    init(localInfo: NSManagedObject?) {
-        self.boxOfficeType = BoxOfficeType(rawValue: localInfo?.value(forKey: "boxOfficeType") as! String )!
-        self.showRange = localInfo?.value(forKey: "showRange") as! String
-        self.yearWeekTime = localInfo?.value(forKey: "yearWeekTime") as? String
-
-    }
-}
 
 class ViewRankList {
     var boxOfficeType: BoxOfficeType
     var showRange: String
     var viewMovieList: [ViewMovieItems]
-    var testViewMoviewList: [ViewMovieItems]
     
     init(boxOfficeType: BoxOfficeType, showRange: String, viewMovieList: [ViewMovieItems]) {
         self.boxOfficeType = boxOfficeType
         self.showRange = showRange
         self.viewMovieList = []
-        self.testViewMoviewList = viewMovieList
     }
     
     init(localList: NSManagedObject?) {
-        self.boxOfficeType = BoxOfficeType(rawValue: (localList?.value(forKey: "") as! String ) )!
-        self.showRange = localList?.value(forKey: "") as! String
-        self.viewMovieList = [ViewMovieItems]()
-        self.testViewMoviewList = [ViewMovieItems]()
+        self.boxOfficeType = BoxOfficeType(rawValue: (localList?.value(forKey: "type") as! String ) )!
+        self.showRange = localList?.value(forKey: "showRange") as! String
+        let nsSetList = localList?.value(forKey: "rankItems") as? Set<RankItems>
+        let settedList = nsSetList.map { $0.map { ViewMovieItems(rankInfo: $0) } }!
+        self.viewMovieList = settedList.sorted(by: { return $0.rank < $1.rank } )
+            
+            
     }
 }
 
@@ -83,7 +66,27 @@ class ViewMovieItems {
             return "\(rankInten)↑"
         }
     }
-    
+    init(rankInfo: RankItems) {
+        self.baseDate = rankInfo.baseDate ?? ""
+        self.movieId = rankInfo.movieId ?? ""
+        self.title = rankInfo.title ?? ""
+        self.directorNm = rankInfo.directorNm ?? ""
+        self.actors = rankInfo.actors ?? []
+        self.company = rankInfo.company ?? ""
+        self.plot = rankInfo.plot ?? ""
+        self.runtime = rankInfo.runtime ?? ""
+        self.rating = rankInfo.rating ?? ""
+        self.genre = rankInfo.genre ?? ""
+        self.posterURLs = rankInfo.posterURLs ?? []
+        self.rank = Int(rankInfo.rank)
+        self.repRlsDate = rankInfo.repRlsDate ?? ""
+        self.audiAcc = rankInfo.audiAcc ?? ""
+        self.movieCode = rankInfo.movieCode ?? ""
+        self.rankInten = rankInfo.rankInten ?? ""
+        self.rankOldAndNew = rankInfo.rankOldAndNew ?? ""
+        self.likeBoolean = false
+        self.watchLaterBoolean = false
+    }
     
     init(localInfo: NSManagedObject?) {
         
@@ -109,6 +112,7 @@ class ViewMovieItems {
         self.watchLaterBoolean = localInfo?.value(forKey: "watchLaterBoolean") as! Bool
     }
     
+  
     
     init(info: MovieInfo, boxOffice: BoxOfficeItems) {
         

@@ -2,6 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:RankList+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:RankList+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
+      location = "group:RankItems+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:RankItems+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:MovieSearch.xcodeproj">
    </FileRef>
    <FileRef

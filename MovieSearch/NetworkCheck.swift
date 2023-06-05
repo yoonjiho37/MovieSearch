@@ -27,7 +27,6 @@ final class NetworkCheck {
     }
     
     func checkConneted() -> Bool {
-        print("checkConneted => \(isConnedted)")
         return isConnedted
     }
     

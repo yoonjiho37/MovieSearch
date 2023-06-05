@@ -29,7 +29,7 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
     let allListObservable: Observable<[ViewMovieItems]>
     var pageItemObservable: Observable<[ViewMovieItems]>
     var infoViewItemObservable: Observable<[ViewMovieItems]>
-    
+    var errorMassageOvervable: Observable<NSError>
     
     func fetchList(type: BoxOfficeType) {
         fetchableList.onNext(type)
@@ -54,22 +54,51 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
     init(dao: DAOType = DAO(), domain: DomainType = Domain()) {
         let fetchingSubject = PublishSubject<BoxOfficeType>()
         let listSubject = BehaviorSubject<[ViewMovieItems]>(value: [])
-        let tapButtonSubject = PublishSubject<Void>()
+        let setViewRankListSubject = PublishSubject<ViewRankList>()
         
+        let tapButtonSubject = PublishSubject<Void>()
         let pageSubject = PublishSubject<Int>()
         let pagingSubject = PublishSubject<[ViewMovieItems]>()
-        
+        let errorSubject = PublishSubject<Error>()
         
 
         //input
         self.fetchableList = fetchingSubject.asObserver()
         fetchingSubject
-            .flatMap { type -> Observable<[ViewMovieItems]> in
-                return domain.checkBoxOfficeWeely(type: type)
-                    .map { $0.testViewMoviewList }
+            .flatMap { type -> Observable<ViewRankList> in
+                if NetworkCheck.shared.checkConneted() {
+                    print("VM - API Fetch")
+                    return domain.checkBoxOfficeWeely(type: type)
+                } else {
+                    print("VM - Local Fetch")
+                    return dao.setRankList(listype: type)
+                }
             }
+            .subscribe(onNext: setViewRankListSubject.onNext(_:),
+                       onError: errorSubject.onNext(_:))
+            .disposed(by: dispaseBag)
+
+
+        setViewRankListSubject.debug("hi")
+            .map({ list in
+                let list3 = list.viewMovieList
+                print("dddd \(list3.count)")
+                return list.viewMovieList
+            })
             .subscribe(onNext: listSubject.onNext(_:))
             .disposed(by: dispaseBag)
+        
+        setViewRankListSubject.debug("bye")
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { rankList in
+                if NetworkCheck.shared.checkConneted() {
+                    CoreDataManager.shared.coverUpRankList(data: rankList)
+                }
+            }
+            .disposed(by: dispaseBag)
+        
+        
+        
         
         
         
@@ -92,5 +121,6 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
             .map({ item in
                 return item
             })
+        self.errorMassageOvervable = errorSubject.map { $0 as NSError}
     }
 }

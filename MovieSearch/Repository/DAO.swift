@@ -12,6 +12,8 @@ import CoreData
 protocol DAOType {
     func fetchCoreData(type: FetchCoreData, code: String?, listType: ListType?) -> Observable<[ViewMovieItems]>
     func updateItem(type: UpdateType, movie: ViewMovieItems) -> Observable<[ViewMovieItems]>
+    func setRankList(listype: BoxOfficeType) -> Observable<ViewRankList>
+    func coverUpRankList(list: ViewRankList)
 }
 
 enum FetchCoreData {
@@ -70,12 +72,12 @@ class DAO: DAOType {
 
 
 extension DAO {
-//    func setRankList(listype: BoxOfficeType) -> Observable<[ViewMovieItems]> {
-//
-//    }
-//
-//
-//    func coverUpRankList(list: [ViewMovieItems]) {
-//
-//    }
+    func setRankList(listype: BoxOfficeType) -> Observable<ViewRankList> {
+        return CoreDataManager.shared.fetchLocalRankListRX(listType: listype)
+            .map { ViewRankList(localList: $0) }
+    }
+
+    func coverUpRankList(list: ViewRankList) {
+        CoreDataManager.shared.coverUpRankList(data: list)
+    }
 }
