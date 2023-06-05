@@ -16,6 +16,7 @@ protocol BoxOfficeViewModelType {
     func getPageData() -> Observable<[ViewMovieItems]>
     func getTapEvent()
     func getInfoView() -> Observable<[ViewMovieItems]>
+    func getErrorMassage() -> Observable<NSError>
 }
 
 class BoxOfficeViewModel: BoxOfficeViewModelType {
@@ -49,7 +50,9 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
     func getInfoView() -> Observable<[ViewMovieItems]> {
         return infoViewItemObservable
     }
-
+    func getErrorMassage() -> Observable<NSError> {
+        return errorMassageOvervable
+    }
     
     init(dao: DAOType = DAO(), domain: DomainType = Domain()) {
         let fetchingSubject = PublishSubject<BoxOfficeType>()
@@ -67,10 +70,8 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
         fetchingSubject
             .flatMap { type -> Observable<ViewRankList> in
                 if NetworkCheck.shared.checkConneted() {
-                    print("VM - API Fetch")
                     return domain.checkBoxOfficeWeely(type: type)
                 } else {
-                    print("VM - Local Fetch")
                     return dao.setRankList(listype: type)
                 }
             }
@@ -79,16 +80,14 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
             .disposed(by: dispaseBag)
 
 
-        setViewRankListSubject.debug("hi")
-            .map({ list in
-                let list3 = list.viewMovieList
-                print("dddd \(list3.count)")
+        setViewRankListSubject
+            .map { list in
                 return list.viewMovieList
-            })
+            }
             .subscribe(onNext: listSubject.onNext(_:))
             .disposed(by: dispaseBag)
         
-        setViewRankListSubject.debug("bye")
+        setViewRankListSubject
             .observe(on: MainScheduler.asyncInstance)
             .subscribe { rankList in
                 if NetworkCheck.shared.checkConneted() {

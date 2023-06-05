@@ -18,7 +18,6 @@ class APIService {
     
     //MARK: Fetch - BoxOffice
   
-     
     static func getBoxOfficeURL(_ type: BoxOfficeType) -> URL {
         let boxOfficeMainURL = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/"
         let boxOfficeKey = "key=8c7c736bd850cfc9c87b1245a20cf7e6"
@@ -47,7 +46,7 @@ class APIService {
             }
             guard let data = data else {
                 let httpResponse = res as! HTTPURLResponse
-                onComplete(.failure(NSError(domain: "no data",
+                onComplete(.failure(NSError(domain: "Network data error - daily",
                                             code: httpResponse.statusCode)))
                 return
             }
@@ -63,7 +62,7 @@ class APIService {
             }
             guard let data = data else {
                 let httpResponse = res as! HTTPURLResponse
-                onComplete(.failure(NSError(domain: "no data",
+                onComplete(.failure(NSError(domain: "Network data error - weekly",
                                             code: httpResponse.statusCode)))
                 return
             }
@@ -86,7 +85,7 @@ class APIService {
             }
             guard let data = data else {
                 let httpResponse = res as! HTTPURLResponse
-                onComplete(.failure(NSError(domain: "no data",
+                onComplete(.failure(NSError(domain: "Network data error - Search 오류",
                                             code: httpResponse.statusCode)))
                 return
             }
@@ -161,7 +160,7 @@ class APIService {
                 return onComplete(.success(response.Data[0].Result[0] as! T))
             }
         } catch {
-            return onComplete(.failure(NSError(domain: "Decoding Error", code: -1)))
+            return onComplete(.failure(NSError(domain: "Data Decoding Error", code: -1)))
         }
     }
 }

@@ -14,7 +14,7 @@ protocol MovieInfoViewModelType {
     
     func getUpdateEvent(type: UpdateType)
     func getUpdateResult() -> Observable<ViewMovieItems>
-
+    func getErrorMassage() -> Observable<NSError>
 }
 
 class MovieInfoViewModel: MovieInfoViewModelType {
@@ -25,7 +25,8 @@ class MovieInfoViewModel: MovieInfoViewModelType {
     
     let updateObserver: AnyObserver<UpdateType>
     let updateResultObserver: Observable<ViewMovieItems>
-    
+    var errorMassageOvervable: Observable<NSError>
+
     func getAppearEvent() {
         getAppearEventObserver.on(.next(()))
     }
@@ -38,7 +39,9 @@ class MovieInfoViewModel: MovieInfoViewModelType {
     func getUpdateResult() -> Observable<ViewMovieItems> {
         return updateResultObserver
     }
-    
+    func getErrorMassage() -> Observable<NSError> {
+        return errorMassageOvervable
+    }
     
     
     init(dao: DAOType = DAO(),_ selectedMovie: [ViewMovieItems]? = []) {
@@ -47,13 +50,16 @@ class MovieInfoViewModel: MovieInfoViewModelType {
         
         let updateSubject = PublishSubject<UpdateType>()
         let updateResult = PublishSubject<ViewMovieItems>()
-        
+        let errorSubject = PublishSubject<Error>()
+
         
         self.getAppearEventObserver = viewAppearSubject.asObserver()
         
         viewAppearSubject
             .flatMap { event -> Observable<ViewMovieItems> in
-                guard let selectedMovie = selectedMovie?.first else { return Observable.merge([]) }
+                guard let selectedMovie = selectedMovie?.first else {
+                    return Observable.merge([])
+                }
                 let movieCode = selectedMovie.movieCode
                 let fetchedMovie = dao.fetchCoreData(type: .fetchItem, code: movieCode, listType: nil)
                     .flatMap { list -> Observable<ViewMovieItems> in
@@ -80,13 +86,15 @@ class MovieInfoViewModel: MovieInfoViewModelType {
                 return dao.updateItem(type: type, movie: selectedMovie![0])
                     .map { $0.first! }
             }
-            .subscribe(onNext: updateResult.onNext(_:))
+            .subscribe(onNext: updateResult.onNext(_:)
+                       ,onError: errorSubject.onNext(_:))
             .disposed(by: disposeBag)
             
         
         self.updateResultObserver = updateResult
         
-       
+        self.errorMassageOvervable = errorSubject.map { $0 as NSError}
+
     }
     
 }

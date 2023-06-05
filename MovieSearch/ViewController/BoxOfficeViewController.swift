@@ -71,6 +71,12 @@ class BoxOfficeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
+        viewModel.getErrorMassage()
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { [weak self] err in
+                self?.showErrorAlert(message: err)
+            }
+            .disposed(by: disposeBag)
         
     }
     
@@ -132,6 +138,20 @@ extension BoxOfficeViewController {
         for type in boxOfficeType {
             alert.addAction(UIAlertAction(title: type.rawValue, style: .default, handler: { _ in self.viewModel.fetchList(type: type)}))
         }
+        self.present(alert, animated: true)
+    }
+    
+    private func showErrorAlert(message: NSError) {
+        let message = message.domain
+        let alert = UIAlertController(title: "오류 발생", message: "\(message)", preferredStyle: .alert)
+        let appDownAction = UIAlertAction(title: "앱 종료", style: .cancel, handler: { _ in
+            UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                exit(0)
+            }
+        })
+        alert.addAction(appDownAction)
+        
         self.present(alert, animated: true)
     }
 }

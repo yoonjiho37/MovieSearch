@@ -41,7 +41,6 @@ class MovieInfoViewController: UIViewController {
     
     
     private func setupBinding() {
-        print("setup ---")
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -77,7 +76,10 @@ class MovieInfoViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        
+        viewModel.getErrorMassage()
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { err in self.showErrorAlert(message: err)})
+            .disposed(by: disposeBag)
     }
     
     //MARK: InterfaceBuilder Link
@@ -87,6 +89,22 @@ class MovieInfoViewController: UIViewController {
     }
     @IBAction func touchLB(_ sender: UIButton) {
         viewModel.getUpdateEvent(type: .like)
+    }
+}
+
+extension MovieInfoViewController {
+    private func showErrorAlert(message: NSError) {
+        let message = message.domain
+        let alert = UIAlertController(title: "오류 발생", message: "\(message)", preferredStyle: .alert)
+        let appDownAction = UIAlertAction(title: "앱 종료", style: .cancel, handler: { _ in
+            UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                exit(0)
+            }
+        })
+        alert.addAction(appDownAction)
+        
+        self.present(alert, animated: true)
     }
 }
 
