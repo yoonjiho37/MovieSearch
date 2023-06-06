@@ -53,7 +53,6 @@ class BoxOfficeViewController: UIViewController {
             .subscribe(onNext: { data in
                 self.boxOfficeList = data
                 self.viewModel.getNowPage(page: 0)
-                print("VC => \(data)")
                 self.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -105,24 +104,35 @@ class BoxOfficeViewController: UIViewController {
     
 }
 
+
+
 extension BoxOfficeViewController {
     private func showMenuOrAlret() {
+        print("do")
         if #available(iOS 14.0, *) {
-            self.showMenuButton = UIBarButtonItem(menu: getUIMenu() )
+            showMenuButton.menu = getUIMenu()
         } else {
-            self.showMenuButton = UIBarButtonItem(title: "",
-                                                  style: .plain,
-                                                  target: self,
-                                                  action: #selector(getActionAlert))
+            showMenuButton.target = self
+            showMenuButton.action = #selector(getActionAlert)
         }
     }
     
     private func getUIMenu() -> UIMenu {
         var menuItems: [UIAction] {
             return [
-                UIAction(title: "일별 박스오피스",handler: { _ in self.viewModel.fetchList(type: .daily)}),
-                UIAction(title: "주간 박스오피스",handler: { _ in self.viewModel.fetchList(type: .weekly)}),
-                UIAction(title: "주말 박스오피스",handler: { _ in self.viewModel.fetchList(type: .weekEnd)})
+                UIAction(title: "일별 박스오피스",handler: { _ in
+                    self.viewModel.fetchList(type: .daily)
+                    self.showMenuButton.title = "일별"
+                }),
+                UIAction(title: "주간 박스오피스",handler: { _ in
+                    self.viewModel.fetchList(type: .weekly)
+                    self.showMenuButton.title = "주간"
+
+                }),
+                UIAction(title: "주말 박스오피스",handler: { _ in
+                    self.viewModel.fetchList(type: .weekEnd)
+                    self.showMenuButton.title = "주말"
+                })
             ]
         }
         var menu: UIMenu {
@@ -136,7 +146,10 @@ extension BoxOfficeViewController {
         let boxOfficeType: [BoxOfficeType] = [.daily, .weekly, .weekEnd]
         
         for type in boxOfficeType {
-            alert.addAction(UIAlertAction(title: type.rawValue, style: .default, handler: { _ in self.viewModel.fetchList(type: type)}))
+            alert.addAction(UIAlertAction(title: type.rawValue, style: .default, handler: { _ in
+                self.viewModel.fetchList(type: type)
+                self.showMenuButton.title = type.rawValue.components(separatedBy: " ")[0]
+            }))
         }
         self.present(alert, animated: true)
     }
