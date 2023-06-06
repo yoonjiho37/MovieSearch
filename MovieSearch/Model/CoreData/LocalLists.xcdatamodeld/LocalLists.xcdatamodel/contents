@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="MovieItems" representedClassName="MovieItems" syncable="YES" codeGenerationType="class">
+    <entity name="LikedList" representedClassName="LikedList" syncable="YES" codeGenerationType="class">
         <attribute name="actors" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <attribute name="audiAcc" optional="YES" attributeType="String"/>
         <attribute name="baseDate" optional="YES" attributeType="String"/>
-        <attribute name="boxOfficeType" optional="YES" attributeType="String"/>
         <attribute name="company" optional="YES" attributeType="String"/>
         <attribute name="directorNm" optional="YES" attributeType="String"/>
         <attribute name="genre" optional="YES" attributeType="String"/>
@@ -13,22 +12,19 @@
         <attribute name="movieId" optional="YES" attributeType="String"/>
         <attribute name="plot" optional="YES" attributeType="String"/>
         <attribute name="posterURLs" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
-        <attribute name="rank" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rank" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="rankInten" optional="YES" attributeType="String"/>
         <attribute name="rankOldAndNew" optional="YES" attributeType="String"/>
         <attribute name="rating" optional="YES" attributeType="String"/>
         <attribute name="repRlsDate" optional="YES" attributeType="String"/>
         <attribute name="runtime" optional="YES" attributeType="String"/>
-        <attribute name="showRange" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="watchLaterBoolean" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="yearWeekTime" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="RankList" representedClassName="MovieItems" syncable="YES" codeGenerationType="class">
+    <entity name="RankItems" representedClassName="RankItems" syncable="YES" codeGenerationType="class">
         <attribute name="actors" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <attribute name="audiAcc" optional="YES" attributeType="String"/>
         <attribute name="baseDate" optional="YES" attributeType="String"/>
-        <attribute name="boxOfficeType" optional="YES" attributeType="String"/>
         <attribute name="company" optional="YES" attributeType="String"/>
         <attribute name="directorNm" optional="YES" attributeType="String"/>
         <attribute name="genre" optional="YES" attributeType="String"/>
@@ -37,15 +33,19 @@
         <attribute name="movieId" optional="YES" attributeType="String"/>
         <attribute name="plot" optional="YES" attributeType="String"/>
         <attribute name="posterURLs" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
-        <attribute name="rank" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="rank" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="rankInten" optional="YES" attributeType="String"/>
         <attribute name="rankOldAndNew" optional="YES" attributeType="String"/>
         <attribute name="rating" optional="YES" attributeType="String"/>
         <attribute name="repRlsDate" optional="YES" attributeType="String"/>
         <attribute name="runtime" optional="YES" attributeType="String"/>
-        <attribute name="showRange" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="watchLaterBoolean" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="yearWeekTime" optional="YES" attributeType="String"/>
+        <relationship name="rankList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RankList" inverseName="rankItems" inverseEntity="RankList"/>
+    </entity>
+    <entity name="RankList" representedClassName="RankList" syncable="YES" codeGenerationType="class">
+        <attribute name="showRange" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="rankItems" optional="YES" toMany="YES" maxCount="10" deletionRule="Cascade" destinationEntity="RankItems" inverseName="rankList" inverseEntity="RankItems"/>
     </entity>
 </model>

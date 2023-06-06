@@ -56,15 +56,3 @@ struct BoxOfficeItems: Codable {
     let scrnCnt: String //       해당일자에 상영한 스크린수를 출력합니다.
     let showCnt: String //       해당일자에 상영된 횟수를 출력합니다.
 }
-
-extension BoxOfficeItems: Equatable {
-    static func == (lhs: BoxOfficeItems, rhs: BoxOfficeItems) -> Bool {
-        return lhs.rnum == rhs.rnum && lhs.rank == rhs.rank && lhs.rankInten == rhs.rankInten && lhs.rankOldAndNew == rhs.rankOldAndNew && lhs.movieCd == rhs.movieCd && lhs.movieNm == rhs.movieNm && lhs.openDt == rhs.openDt && lhs.salesAmt == rhs.salesAmt && lhs.salesShare == rhs.salesShare && lhs.salesInten == rhs.salesInten && lhs.salesChange == rhs.salesChange && lhs.salesAcc == rhs.salesAcc && lhs.audiCnt == rhs.audiCnt && lhs.audiInten == rhs.audiInten && lhs.audiChange == rhs.audiChange && lhs.audiAcc == rhs.audiAcc && lhs.scrnCnt == rhs.scrnCnt && lhs.showCnt == rhs.showCnt
-    }
-}
-
-extension BoxOfficeResult: Equatable {
-    static func == (lhs: BoxOfficeResult, rhs: BoxOfficeResult) -> Bool {
-        return lhs.boxofficeType == rhs.boxofficeType && lhs.showRange == rhs.showRange
-    }
-}

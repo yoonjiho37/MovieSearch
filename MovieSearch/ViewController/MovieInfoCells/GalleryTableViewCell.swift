@@ -36,13 +36,13 @@ class GalleryTableViewCell: UITableViewCell {
 
 extension GalleryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return galleryData?.posterURL.count ?? 0
+        return galleryData?.posterURLs.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.cellIdentifier, for: indexPath) as? GalleryCollectionViewCell else { return UICollectionViewCell()
         }
-        let imageURLStr = galleryData?.posterURL[indexPath.item] ?? ""
+        let imageURLStr = galleryData?.posterURLs[indexPath.item] ?? ""
         guard let imageURL = URL(string: imageURLStr) else {
             cell.imageView.image = UIImage(named: "NoImageAvailable")
             return UICollectionViewCell()

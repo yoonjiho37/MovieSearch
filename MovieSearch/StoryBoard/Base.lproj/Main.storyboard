@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZLd-Rk-zck">
-                                <rect key="frame" x="0.0" y="154" width="393" height="399"/>
+                                <rect key="frame" x="0.0" y="154" width="393" height="350"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dYR-7B-DVx">
                                     <size key="itemSize" width="286" height="367"/>
@@ -55,7 +55,7 @@
                                 </cells>
                             </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="L4S-sL-FZt">
-                                <rect key="frame" x="0.0" y="573" width="393" height="195"/>
+                                <rect key="frame" x="0.0" y="524" width="393" height="195"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zan-s5-ZPo">
                                         <rect key="frame" x="176" y="0.0" width="41.333333333333343" height="20.333333333333332"/>
@@ -84,62 +84,35 @@
                                     <constraint firstAttribute="trailing" secondItem="xeS-6Y-WWo" secondAttribute="trailing" constant="70" id="ver-n8-wYQ"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="xqc-Ay-mYO">
-                                <rect key="frame" x="146.66666666666666" y="108" width="106" height="31"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="일별" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsD-Si-Mcv">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="Kn6-kb-VgI"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pqf-ny-Cjo">
-                                        <rect key="frame" x="57" y="0.0" width="51" height="31"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="31" id="do1-c9-SML"/>
-                                            <constraint firstAttribute="width" secondItem="pqf-ny-Cjo" secondAttribute="height" multiplier="49:31" id="ikH-qK-ma6"/>
-                                            <constraint firstAttribute="width" constant="49" id="s6g-yt-D0u"/>
-                                        </constraints>
-                                    </switch>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="31" id="U4I-Zm-aRn"/>
-                                    <constraint firstItem="vsD-Si-Mcv" firstAttribute="centerY" secondItem="pqf-ny-Cjo" secondAttribute="centerY" id="hLT-G1-WEK"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="106" id="rYR-SM-xFj"/>
-                                </constraints>
-                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZLd-Rk-zck" secondAttribute="trailing" id="29B-bj-7Mh"/>
+                            <constraint firstItem="ZLd-Rk-zck" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="51" id="4gh-4G-ddQ"/>
                             <constraint firstItem="ZLd-Rk-zck" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6ip-Wr-kNi"/>
                             <constraint firstItem="L4S-sL-FZt" firstAttribute="top" secondItem="ZLd-Rk-zck" secondAttribute="bottom" constant="20" id="GNa-ka-Lgy"/>
                             <constraint firstItem="L4S-sL-FZt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Hgn-Fd-BQU"/>
-                            <constraint firstItem="ZLd-Rk-zck" firstAttribute="top" secondItem="xqc-Ay-mYO" secondAttribute="bottom" constant="15" id="JsT-q9-ubk"/>
-                            <constraint firstItem="xqc-Ay-mYO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="5" id="OS4-X3-9jK"/>
-                            <constraint firstItem="xqc-Ay-mYO" firstAttribute="leading" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="146.66999999999999" id="brI-nf-VgO"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xqc-Ay-mYO" secondAttribute="trailing" constant="140.33000000000001" id="hdI-pJ-SZA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="L4S-sL-FZt" secondAttribute="bottom" constant="50" id="kIm-I1-56S"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="L4S-sL-FZt" secondAttribute="trailing" id="yd6-HG-051"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="Ouo-z4-tvY">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="line.3.horizontal" catalog="system" id="BIf-Eo-vfW">
                             <connections>
                                 <segue destination="0gw-cg-AkS" kind="show" id="ufG-s4-4qM"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="QL5-dm-iXq"/>
+                        <barButtonItem key="rightBarButtonItem" title="일별" id="QL5-dm-iXq"/>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="ZLd-Rk-zck" id="O1A-fb-mWD"/>
                         <outlet property="infoButton" destination="xeS-6Y-WWo" id="51I-0n-uaL"/>
                         <outlet property="rankAndNameLabel" destination="zan-s5-ZPo" id="IHJ-Zm-Ug4"/>
                         <outlet property="salesShare" destination="kfX-Xv-18e" id="YaT-Jk-S8G"/>
+                        <outlet property="showMenuButton" destination="QL5-dm-iXq" id="dzS-A7-qzR"/>
                         <segue destination="wQj-G8-FO3" kind="show" identifier="MovieInfoSegueIdentifier" id="PRV-Nc-ogK"/>
                     </connections>
                 </viewController>
@@ -156,7 +129,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fgz-EQ-3lQ">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="InfomationTableViewCell" id="Zpy-fM-0Qw">
@@ -354,7 +327,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="QZY-il-Gs9"/>
+        <segue reference="PRV-Nc-ogK"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>

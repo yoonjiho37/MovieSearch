@@ -23,7 +23,7 @@ class BoxOfficeCollectionViewCell: UICollectionViewCell {
 
         cellDataSubject
             .subscribe { [weak self] item in
-                guard let imageURL = URL(string: item.posterURL[0]) else {
+                guard let imageURL = URL(string: item.posterURLs[0]) else {
                     self?.posterImageView.image = UIImage(named: "NoImageAvailable")
                     return
                 }

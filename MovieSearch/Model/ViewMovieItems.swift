@@ -9,17 +9,26 @@ import Foundation
 import CoreData
 import RxSwift
 
-class ViewMovieList {
+
+class ViewRankList {
     var boxOfficeType: BoxOfficeType
     var showRange: String
-    var yearWeekTime: String?
-    var viewMovieList = [ViewMovieList]()
+    var viewMovieList: [ViewMovieItems]
     
-    init(boxOfficeType: BoxOfficeType, showRange: String, yearWeekTime: String?,viewMovieList: [ViewMovieList] = [ViewMovieList]()) {
+    init(boxOfficeType: BoxOfficeType, showRange: String, viewMovieList: [ViewMovieItems]) {
         self.boxOfficeType = boxOfficeType
         self.showRange = showRange
-        self.yearWeekTime = yearWeekTime
-        self.viewMovieList = viewMovieList
+        self.viewMovieList = []
+    }
+    
+    init(localList: NSManagedObject?) {
+        self.boxOfficeType = BoxOfficeType(rawValue: (localList?.value(forKey: "type") as! String ) )!
+        self.showRange = localList?.value(forKey: "showRange") as! String
+        let nsSetList = localList?.value(forKey: "rankItems") as? Set<RankItems>
+        let settedList = nsSetList.map { $0.map { ViewMovieItems(rankInfo: $0) } }!
+        self.viewMovieList = settedList.sorted(by: { return $0.rank < $1.rank } )
+            
+            
     }
 }
 
@@ -39,13 +48,13 @@ class ViewMovieItems {
     let runtime: String  //대표상영시간    112
     let rating: String  //대표관람등급    15세관람가
     let genre: String  //kmdbUrl    액션,SF
-    let posterURL: [String]
+    let posterURLs: [String]
     let repRlsDate: String
     
     //BoxOfficeItem
     var rank: Int
     let audiAcc: String // 누적관람인원
-    let movieCode: String
+    let movieCode: String// 영화 코드
     let rankInten: String //        전일대비 순위의 증감분을 출력합니다.
     let rankOldAndNew: String //     랭킹에 신규진입여부를 출력합니다. “OLD” : 기존 , “NEW” : 신규
     var rankResult: String {
@@ -57,8 +66,30 @@ class ViewMovieItems {
             return "\(rankInten)↑"
         }
     }
+    init(rankInfo: RankItems) {
+        self.baseDate = rankInfo.baseDate ?? ""
+        self.movieId = rankInfo.movieId ?? ""
+        self.title = rankInfo.title ?? ""
+        self.directorNm = rankInfo.directorNm ?? ""
+        self.actors = rankInfo.actors ?? []
+        self.company = rankInfo.company ?? ""
+        self.plot = rankInfo.plot ?? ""
+        self.runtime = rankInfo.runtime ?? ""
+        self.rating = rankInfo.rating ?? ""
+        self.genre = rankInfo.genre ?? ""
+        self.posterURLs = rankInfo.posterURLs ?? []
+        self.rank = Int(rankInfo.rank)
+        self.repRlsDate = rankInfo.repRlsDate ?? ""
+        self.audiAcc = rankInfo.audiAcc ?? ""
+        self.movieCode = rankInfo.movieCode ?? ""
+        self.rankInten = rankInfo.rankInten ?? ""
+        self.rankOldAndNew = rankInfo.rankOldAndNew ?? ""
+        self.likeBoolean = false
+        self.watchLaterBoolean = false
+    }
     
     init(localInfo: NSManagedObject?) {
+        
         self.baseDate = localInfo?.value(forKey: "baseDate") as! String
         self.movieId = localInfo?.value(forKey: "movieId") as! String
         self.title = localInfo?.value(forKey: "title") as! String
@@ -69,7 +100,7 @@ class ViewMovieItems {
         self.runtime = localInfo?.value(forKey: "runtime") as! String
         self.rating = localInfo?.value(forKey: "rating") as! String
         self.genre = localInfo?.value(forKey: "genre") as! String
-        self.posterURL = localInfo?.value(forKey: "posterURLs") as! [String]
+        self.posterURLs = localInfo?.value(forKey: "posterURLs") as! [String]
         self.rank = localInfo?.value(forKey: "rank") as! Int
         self.repRlsDate = localInfo?.value(forKey: "repRlsDate") as! String
         self.audiAcc = localInfo?.value(forKey: "audiAcc") as! String
@@ -81,8 +112,10 @@ class ViewMovieItems {
         self.watchLaterBoolean = localInfo?.value(forKey: "watchLaterBoolean") as! Bool
     }
     
+  
     
-    init(info: MovieInfo ,boxOffice: BoxOfficeItems) {
+    init(info: MovieInfo, boxOffice: BoxOfficeItems) {
+        
         self.baseDate = info.statDate
         self.movieId = info.movieId
         self.title = info.title.removeBlank()
@@ -93,7 +126,7 @@ class ViewMovieItems {
         self.runtime = info.runtime
         self.rating = info.rating.inputDataifBlank()
         self.genre = info.genre
-        self.posterURL = info.posters.components(separatedBy: "|")
+        self.posterURLs = info.posters.components(separatedBy: "|")
         self.repRlsDate = info.repRlsDate.setDateFormat()
         
         self.audiAcc = boxOffice.audiAcc.setNumberFormatter()
@@ -115,18 +148,12 @@ class ViewMovieItems {
         self.runtime = runtime
         self.rating = rating
         self.genre = genre
-        self.posterURL = posterURL
+        self.posterURLs = posterURL
         self.rank = rank
         self.repRlsDate = repRlsDate
         self.audiAcc = audiAcc
         self.movieCode = movieCode
         self.rankInten = rankInten
         self.rankOldAndNew = rankOldAndNew
-    }  
-}
-
-extension ViewMovieItems: Equatable {
-    static func == (lhs: ViewMovieItems, rhs: ViewMovieItems) -> Bool {
-        return lhs.movieId == rhs.movieId && lhs.title == rhs.title && lhs.company == rhs.company && lhs.runtime == rhs.runtime && lhs.rating == rhs.rating && lhs.genre == rhs.genre && lhs.posterURL == rhs.posterURL && lhs.rank == rhs.rank
     }
 }

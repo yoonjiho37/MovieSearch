@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //MARK: - CoreData
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "LocalMovieModel")
+        let container = NSPersistentContainer(name: "LocalLists")
         container.loadPersistentStores { (storeDescription, err) in
             if let err = err as NSError? {
                 print("bye")
@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        NetworkCheck.shared.startMonitoring()
         return true
     }
 

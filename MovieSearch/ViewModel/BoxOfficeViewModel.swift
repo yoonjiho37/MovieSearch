@@ -16,6 +16,7 @@ protocol BoxOfficeViewModelType {
     func getPageData() -> Observable<[ViewMovieItems]>
     func getTapEvent()
     func getInfoView() -> Observable<[ViewMovieItems]>
+    func getErrorMassage() -> Observable<NSError>
 }
 
 class BoxOfficeViewModel: BoxOfficeViewModelType {
@@ -24,13 +25,12 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
     let fetchableList: AnyObserver<BoxOfficeType>
     let nowPageObserver: AnyObserver<Int>
     let tapButtonObserver: AnyObserver<Void>
+   
     
     let allListObservable: Observable<[ViewMovieItems]>
     var pageItemObservable: Observable<[ViewMovieItems]>
     var infoViewItemObservable: Observable<[ViewMovieItems]>
-    
-    
-    
+    var errorMassageOvervable: Observable<NSError>
     
     func fetchList(type: BoxOfficeType) {
         fetchableList.onNext(type)
@@ -50,24 +50,55 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
     func getInfoView() -> Observable<[ViewMovieItems]> {
         return infoViewItemObservable
     }
-
+    func getErrorMassage() -> Observable<NSError> {
+        return errorMassageOvervable
+    }
     
-    init(domain: DomainType = Domain()) {
+    init(dao: DAOType = DAO(), domain: DomainType = Domain()) {
         let fetchingSubject = PublishSubject<BoxOfficeType>()
         let listSubject = BehaviorSubject<[ViewMovieItems]>(value: [])
-        let tapButtonSubject = PublishSubject<Void>()
+        let setViewRankListSubject = PublishSubject<ViewRankList>()
         
+        let tapButtonSubject = PublishSubject<Void>()
         let pageSubject = PublishSubject<Int>()
         let pagingSubject = PublishSubject<[ViewMovieItems]>()
+        let errorSubject = PublishSubject<Error>()
         
+
         //input
         self.fetchableList = fetchingSubject.asObserver()
         fetchingSubject
-            .flatMap { type -> Observable<[ViewMovieItems]> in
-                return domain.checkBoxOfficeWeely(type: type)
+            .flatMap { type -> Observable<ViewRankList> in
+                if NetworkCheck.shared.checkConneted() {
+                    return domain.checkBoxOfficeWeely(type: type)
+                } else {
+                    return dao.setRankList(listype: type)
+                }
+            }
+            .subscribe(onNext: setViewRankListSubject.onNext(_:),
+                       onError: errorSubject.onNext(_:))
+            .disposed(by: dispaseBag)
+
+
+        setViewRankListSubject
+            .map { list in
+                return list.viewMovieList
             }
             .subscribe(onNext: listSubject.onNext(_:))
             .disposed(by: dispaseBag)
+        
+        setViewRankListSubject
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { rankList in
+                if NetworkCheck.shared.checkConneted() {
+                    CoreDataManager.shared.coverUpRankList(data: rankList)
+                }
+            }
+            .disposed(by: dispaseBag)
+        
+        
+        
+        
         
         
         self.nowPageObserver = pageSubject.asObserver()
@@ -89,5 +120,6 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
             .map({ item in
                 return item
             })
+        self.errorMassageOvervable = errorSubject.map { $0 as NSError}
     }
 }

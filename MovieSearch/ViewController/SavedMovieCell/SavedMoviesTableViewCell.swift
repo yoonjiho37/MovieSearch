@@ -20,7 +20,7 @@ class SavedMoviesTableViewCell: UITableViewCell {
     }
     
     private func setImage(data: ViewMovieItems) {
-        let imageURLStr = data.posterURL[0]
+        let imageURLStr = data.posterURLs[0]
         guard let imageURL = URL(string: imageURLStr) else {
             self.posterImageView.image = UIImage(named: "NoImageAvailable")
             return

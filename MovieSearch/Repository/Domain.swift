@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol DomainType {
-    func checkBoxOfficeWeely(type: BoxOfficeType) -> Observable<[ViewMovieItems]>
+    func checkBoxOfficeWeely(type: BoxOfficeType) -> Observable<ViewRankList>
 }
 enum FetchFor {
     case search
@@ -19,7 +19,7 @@ enum FetchFor {
 
 class Domain: DomainType {
     
-    func checkBoxOfficeWeely(type: BoxOfficeType) -> Observable<[ViewMovieItems]> {
+    func checkBoxOfficeWeely(type: BoxOfficeType) -> Observable<ViewRankList> {
         switch type {
         case .daily:
             return setBoxOfficeList()
@@ -28,32 +28,53 @@ class Domain: DomainType {
         }
     }
     
-    func setBoxOfficeList() -> Observable<[ViewMovieItems]> {
-        let observableList = APIService.fetchBoxOfficeRx().flatMap { result -> Observable<[ViewMovieItems]> in
-            let obs = result.dailyBoxOfficeList
-                .map { items in
-                    self.setSearchResult(queryValue: items.movieNm, bxofficeitem: items)
+    func setBoxOfficeList() -> Observable<ViewRankList> {
+        let observableList = APIService.fetchBoxOfficeRx()
+            .flatMap { result -> Observable<ViewRankList> in
+                let resultItems = ViewRankList(boxOfficeType: result.boxofficeType, showRange: result.showRange, viewMovieList: [])
+                let obs = result.dailyBoxOfficeList
+                    .map { items in
+                        self.setSearchResultToViewMovieList(boxOfficeItem: items)
+                    }
+                let resultObs = Observable.just(resultItems)
+                let listObs = Observable.combineLatest(obs)
+                
+                return Observable.zip(resultObs, listObs) { ranklist, list -> ViewRankList in
+                    let result = ranklist
+                    result.viewMovieList = list
+                    return result
                 }
-            return Observable.combineLatest(obs)
-        }
+            }
+            
+        
+        return observableList
+    }
+
+    
+    func setBoxOfficeListWeely(type: BoxOfficeType) -> Observable<ViewRankList> {
+        let observableList = APIService.fetchBoxOfficeWeelyRx(type: type)
+            .flatMap { result -> Observable<ViewRankList> in
+                let resultItems = ViewRankList(boxOfficeType: BoxOfficeType(rawValue: result.boxofficeType) ?? .daily, showRange: result.showRange, viewMovieList: [])
+                let obs = result.weeklyBoxOfficeList
+                    .map { items in
+                        self.setSearchResultToViewMovieList(boxOfficeItem: items)
+                    }
+                let resultObs = Observable.just(resultItems)
+                let listObs = Observable.combineLatest(obs)
+                
+                return Observable.zip(resultObs, listObs) { ranklist, list -> ViewRankList in
+                    let result = ranklist
+                    result.viewMovieList = list
+                    
+                    return result
+                }
+            }
         return observableList
     }
     
-    func setBoxOfficeListWeely(type: BoxOfficeType) -> Observable<[ViewMovieItems]> {
-        let observableList = APIService.fetchBoxOfficeWeelyRx(type: type).flatMap { result -> Observable<[ViewMovieItems]> in
-            let obs = result.weeklyBoxOfficeList
-                .map { items in
-                    self.setSearchResult(queryValue: items.movieNm, bxofficeitem: items)
-                }
-            return Observable.combineLatest(obs)
-        }
-        return observableList
+    private func setSearchResultToViewMovieList(boxOfficeItem: BoxOfficeItems) -> Observable<ViewMovieItems> {
+        return APIService.fetchSearchResultRx(queryValue: boxOfficeItem.movieNm.removeBlank().removeChactors() )
+            .map { ViewMovieItems(info: $0, boxOffice: boxOfficeItem) }
     }
-    
-    func setSearchResult(queryValue: String, bxofficeitem: BoxOfficeItems) -> Observable<ViewMovieItems> {
-        return APIService.fetchSearchResultRx(queryValue: queryValue.removeChactors())
-            .map { ViewMovieItems(info: $0, boxOffice: bxofficeitem)}
-    }
-    
 }
 

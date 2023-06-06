@@ -24,7 +24,7 @@ class BoxOfficeViewController: UIViewController {
     }
     
     var boxOfficeList: [ViewMovieItems] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBinding()
@@ -41,11 +41,11 @@ class BoxOfficeViewController: UIViewController {
             movieInfoVC.viewModel = infoViewModel
         }
     }
-    
+
     private func setupBinding() {
-        
+      
         //input
-        viewModel.fetchList(type: .weekEnd)
+        viewModel.fetchList(type: .daily)
 
         //output
         viewModel.getAllList()
@@ -70,6 +70,12 @@ class BoxOfficeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
 
+        viewModel.getErrorMassage()
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { [weak self] err in
+                self?.showErrorAlert(message: err)
+            }
+            .disposed(by: disposeBag)
         
     }
     
@@ -77,6 +83,7 @@ class BoxOfficeViewController: UIViewController {
     private func setupUI() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        showMenuOrAlret()
         setFlowLayout()
     }
     
@@ -90,12 +97,77 @@ class BoxOfficeViewController: UIViewController {
     @IBOutlet weak var rankAndNameLabel: UILabel!
     @IBOutlet weak var salesShare: UILabel!
     @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet var showMenuButton: UIBarButtonItem!
     @IBAction func touchUpInfoButton(sender: Any?) {
         viewModel.getTapEvent()
     }
+    
 }
 
 
+
+extension BoxOfficeViewController {
+    private func showMenuOrAlret() {
+        print("do")
+        if #available(iOS 14.0, *) {
+            showMenuButton.menu = getUIMenu()
+        } else {
+            showMenuButton.target = self
+            showMenuButton.action = #selector(getActionAlert)
+        }
+    }
+    
+    private func getUIMenu() -> UIMenu {
+        var menuItems: [UIAction] {
+            return [
+                UIAction(title: "일별 박스오피스",handler: { _ in
+                    self.viewModel.fetchList(type: .daily)
+                    self.showMenuButton.title = "일별"
+                }),
+                UIAction(title: "주간 박스오피스",handler: { _ in
+                    self.viewModel.fetchList(type: .weekly)
+                    self.showMenuButton.title = "주간"
+
+                }),
+                UIAction(title: "주말 박스오피스",handler: { _ in
+                    self.viewModel.fetchList(type: .weekEnd)
+                    self.showMenuButton.title = "주말"
+                })
+            ]
+        }
+        var menu: UIMenu {
+            return UIMenu(title: "", children: menuItems)
+        }
+        return menu
+    }
+    
+    @objc func getActionAlert() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let boxOfficeType: [BoxOfficeType] = [.daily, .weekly, .weekEnd]
+        
+        for type in boxOfficeType {
+            alert.addAction(UIAlertAction(title: type.rawValue, style: .default, handler: { _ in
+                self.viewModel.fetchList(type: type)
+                self.showMenuButton.title = type.rawValue.components(separatedBy: " ")[0]
+            }))
+        }
+        self.present(alert, animated: true)
+    }
+    
+    private func showErrorAlert(message: NSError) {
+        let message = message.domain
+        let alert = UIAlertController(title: "오류 발생", message: "\(message)", preferredStyle: .alert)
+        let appDownAction = UIAlertAction(title: "앱 종료", style: .cancel, handler: { _ in
+            UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                exit(0)
+            }
+        })
+        alert.addAction(appDownAction)
+        
+        self.present(alert, animated: true)
+    }
+}
 
 extension BoxOfficeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
