@@ -61,6 +61,7 @@ class MovieInfoViewModel: MovieInfoViewModelType {
                     return Observable.merge([])
                 }
                 let movieCode = selectedMovie.movieCode
+                print("InfoView1 ]]] \(selectedMovie.title) / code \(selectedMovie.movieCode)")
                 let fetchedMovie = dao.fetchCoreData(type: .fetchItem, code: movieCode, listType: nil)
                     .flatMap { list -> Observable<ViewMovieItems> in
                         if list.isEmpty {

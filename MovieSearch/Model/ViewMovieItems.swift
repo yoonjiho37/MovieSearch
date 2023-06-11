@@ -27,8 +27,6 @@ class ViewRankList {
         let nsSetList = localList?.value(forKey: "rankItems") as? Set<RankItems>
         let settedList = nsSetList.map { $0.map { ViewMovieItems(rankInfo: $0) } }!
         self.viewMovieList = settedList.sorted(by: { return $0.rank < $1.rank } )
-            
-            
     }
 }
 
@@ -113,8 +111,7 @@ class ViewMovieItems {
     }
     
   
-    
-    init(info: MovieInfo, boxOffice: BoxOfficeItems) {
+    init(info: MovieInfo, boxOffice: BoxOfficeItems?) {
         
         self.baseDate = info.statDate
         self.movieId = info.movieId
@@ -128,12 +125,13 @@ class ViewMovieItems {
         self.genre = info.genre
         self.posterURLs = info.posters.components(separatedBy: "|")
         self.repRlsDate = info.repRlsDate.setDateFormat()
+        self.movieCode = info.Codes.Code.first?.CodeNo ?? info.CommCodes.CommCode.first?.CodeNo ?? ""
         
-        self.audiAcc = boxOffice.audiAcc.setNumberFormatter()
-        self.movieCode = boxOffice.movieCd
-        self.rankInten = boxOffice.rankInten
-        self.rankOldAndNew = boxOffice.rankOldAndNew
-        self.rank = Int(boxOffice.rank)!
+        self.audiAcc = boxOffice?.audiAcc.setNumberFormatter() ?? "집계 불가"
+        self.rankInten = boxOffice?.rankInten ?? ""
+        self.rankOldAndNew = boxOffice?.rankOldAndNew ?? ""
+        let rankStr = boxOffice?.rank ?? ""
+        self.rank = Int(rankStr) ?? 0
     }
     
     

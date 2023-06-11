@@ -10,6 +10,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Search Bar View Controller-->
+        <scene sceneID="lOr-LR-8Vd">
+            <objects>
+                <viewController storyboardIdentifier="SearchBarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="09D-MR-Q2f" customClass="SearchBarViewController" customModule="MovieSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Djb-pd-Fmp">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="5zb-lY-txk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="zt9-ZJ-1HS"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cbe-Zk-VXG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="992" y="-690"/>
+        </scene>
         <!--Box Office View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -104,7 +120,14 @@
                                 <segue destination="0gw-cg-AkS" kind="show" id="ufG-s4-4qM"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="일별" id="QL5-dm-iXq"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="일별" id="QL5-dm-iXq"/>
+                            <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="PCR-Ed-bsy">
+                                <connections>
+                                    <action selector="showSearchVC" destination="BYZ-38-t0r" id="rzz-ss-ngu"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -123,7 +146,7 @@
         <!--Movie Info View Controller-->
         <scene sceneID="y07-dL-rEr">
             <objects>
-                <viewController id="wQj-G8-FO3" customClass="MovieInfoViewController" customModule="MovieSearch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieInfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wQj-G8-FO3" customClass="MovieInfoViewController" customModule="MovieSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="68n-gs-d0b">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -331,6 +354,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
