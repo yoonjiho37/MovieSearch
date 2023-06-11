@@ -96,11 +96,7 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
             }
             .disposed(by: dispaseBag)
         
-        
-        
-        
-        
-        
+
         self.nowPageObserver = pageSubject.asObserver()
         pageSubject
             .flatMap({ num -> Observable<[ViewMovieItems]> in
@@ -111,7 +107,6 @@ class BoxOfficeViewModel: BoxOfficeViewModelType {
             .disposed(by: dispaseBag)
         
         self.tapButtonObserver = tapButtonSubject.asObserver()
-        
         
         //output
         self.allListObservable = listSubject

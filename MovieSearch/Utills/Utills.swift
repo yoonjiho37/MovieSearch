@@ -12,8 +12,11 @@ import UIKit
 
 extension String {
     func removeBlank() -> String {
-        let firstBlack = self.components(separatedBy: " !HE").joined()
-        return firstBlack.components(separatedBy: "  !HS ").joined()
+        let firstBlank = self.components(separatedBy: " !HE ").joined()
+        let scondBlank = firstBlank.components(separatedBy: " !HS ").joined()
+        let frontBlank = scondBlank.trimmingCharacters(in: .whitespaces)
+        
+        return frontBlank
     }
     func removeChactors() -> String {
         return self.components(separatedBy: ["!", "?", " ", "<", ">", ","]).joined()

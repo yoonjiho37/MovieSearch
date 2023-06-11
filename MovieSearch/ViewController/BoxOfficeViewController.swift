@@ -51,6 +51,7 @@ class BoxOfficeViewController: UIViewController {
         viewModel.getAllList()
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { data in
+                
                 self.boxOfficeList = data
                 self.viewModel.getNowPage(page: 0)
                 self.collectionView.reloadData()
@@ -98,6 +99,10 @@ class BoxOfficeViewController: UIViewController {
     @IBOutlet weak var salesShare: UILabel!
     @IBOutlet weak var infoButton: UIButton!
     @IBOutlet var showMenuButton: UIBarButtonItem!
+    @IBAction func showSearchVC() {
+        guard let searchVC = storyboard?.instantiateViewController(identifier: SearchBarViewController.storyBoardId) else { return }
+        self.navigationController?.pushViewController(searchVC, animated: true)
+    }
     @IBAction func touchUpInfoButton(sender: Any?) {
         viewModel.getTapEvent()
     }

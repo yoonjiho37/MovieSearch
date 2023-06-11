@@ -62,7 +62,7 @@ class CoreDataManager {
         return nil
     }
     
-    func deleteMovie(code: String) -> NSError? {
+    func deleteMovie(title: String) -> NSError? {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
@@ -70,7 +70,7 @@ class CoreDataManager {
         
         do {
             let fetchedData = try context.fetch(fetchRequest)
-            let deleteObject = fetchedData.filter { $0.value(forKey: "movieCode") as! String == code }
+            let deleteObject = fetchedData.filter { $0.value(forKey: "title") as! String == title }
             
             if deleteObject.isEmpty == false {
                 context.delete(deleteObject[0])
@@ -97,13 +97,13 @@ class CoreDataManager {
         do {
             let fetchedData = try context.fetch(fetchRequest)
 
-            let objectUpdate = fetchedData.filter { $0.value(forKey: "movieCode") as? String == movie.movieCode }
+            let objectUpdate = fetchedData.filter { $0.value(forKey: "title") as? String == movie.title }
 
             if objectUpdate.isEmpty {
                 _ = self.saveMovie(movie: movie)
                 
                 let fetchedData = try context.fetch(fetchRequest)
-                let objectUpdate = fetchedData.filter { $0.value(forKey: "movieCode") as? String == movie.movieCode }
+                let objectUpdate = fetchedData.filter { $0.value(forKey: "title") as? String == movie.title }
                 switch type {
                 case .like:
                     let likeBoolean = objectUpdate[0].value(forKey: "likeBoolean") as! Bool

@@ -44,9 +44,9 @@ class SavedMovieListViewModel: SavedMovieListViewModelType {
             .flatMap { type -> Observable<[ViewMovieItems]> in
                 switch type {
                 case .liked:
-                    return dao.fetchCoreData(type: .fetchList, code: nil, listType: type)
+                    return dao.fetchCoreData(type: .fetchList, title: nil, listType: type)
                 case .watchLater:
-                    return dao.fetchCoreData(type: .fetchList, code: nil, listType: type)
+                    return dao.fetchCoreData(type: .fetchList, title: nil, listType: type)
                 }
             }
             .subscribe(onNext: movieListPublish.onNext(_:))
