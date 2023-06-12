@@ -73,7 +73,6 @@ class Domain: DomainType {
     
     func setSearchResultToViewMovieList(_ queryValue: String?, _ boxOfficeItem: BoxOfficeItems?) -> Observable<ViewMovieItems> {
         if boxOfficeItem == nil {
-            print("VM3 ]] ==> \(queryValue)")
             return APIService.fetchSearchResultRx(queryValue: queryValue!.removeChactors() )
                 .map { ViewMovieItems(info: $0, boxOffice: nil)}
         } else {

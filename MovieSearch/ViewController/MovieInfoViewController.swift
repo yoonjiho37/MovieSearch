@@ -32,6 +32,7 @@ class MovieInfoViewController: UIViewController {
         super.viewDidLoad()
         setupBinding()
         registerXib()
+        setViewColor()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +83,7 @@ class MovieInfoViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    
     //MARK: InterfaceBuilder Link
     @IBOutlet weak var tableView: UITableView!
     @IBAction func touchWB(_ sender: UIButton) {
@@ -105,6 +107,16 @@ extension MovieInfoViewController {
         alert.addAction(appDownAction)
         
         self.present(alert, animated: true)
+    }
+    
+    private func setViewColor() {
+        let gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor.systemIndigo.cgColor, UIColor.cyan.cgColor]
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        self.tableView.backgroundColor = UIColor.clear
     }
 }
 

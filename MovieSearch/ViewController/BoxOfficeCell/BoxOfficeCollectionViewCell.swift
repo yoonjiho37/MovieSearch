@@ -37,6 +37,11 @@ class BoxOfficeCollectionViewCell: UICollectionViewCell {
             .disposed(by: cellDisposeBag)
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        posterImageView.layer.cornerRadius = 10
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         disposeBag = DisposeBag()

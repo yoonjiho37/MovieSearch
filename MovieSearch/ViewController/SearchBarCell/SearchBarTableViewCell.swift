@@ -12,10 +12,16 @@ class SearchBarTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setLayoutPropertys()
     }
 
     func inputData(data: String) {
         titleLable.text = data
+    }
+    
+    private func setLayoutPropertys() {
+        self.backgroundColor = UIColor.clear
+        titleLable.textColor = .white
     }
     
     @IBOutlet weak var titleLable: UILabel!

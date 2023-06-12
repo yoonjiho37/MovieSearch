@@ -12,6 +12,7 @@ class SavedMoviesTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setLayoutPropertys()
     }
     
     func inputData(data: ViewMovieItems) {
@@ -31,6 +32,12 @@ class SavedMoviesTableViewCell: UITableViewCell {
                 self.posterImageView.image = UIImage(data: data)
             }
         }.resume()
+    }
+    
+    private func setLayoutPropertys() {
+        self.backgroundColor = UIColor.clear
+        titleLabel.textColor = UIColor.white
+        self.posterImageView.layer.cornerRadius = 10
     }
     
     @IBOutlet weak var titleLabel: UILabel!

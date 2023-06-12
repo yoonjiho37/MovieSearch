@@ -9,6 +9,16 @@ import Foundation
 import UIKit
 
 
+extension UIColor {
+    var darkGreen: CGColor {
+        guard let color = UIColor(named: "darkGreen")?.cgColor else { return UIColor.black.cgColor}
+        return color
+    }
+    var lightGreen: CGColor {
+        return UIColor(named: "lightGreen")?.cgColor ?? UIColor.black.cgColor
+    }
+}
+
 
 extension String {
     func removeBlank() -> String {

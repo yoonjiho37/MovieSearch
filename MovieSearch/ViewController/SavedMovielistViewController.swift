@@ -31,6 +31,7 @@ class SavedMovielistViewController: UIViewController {
         super.viewDidLoad()
         setupBinding()
         registerXib()
+        setViewColor()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,7 +61,15 @@ class SavedMovielistViewController: UIViewController {
             movieInfoVC.viewModel = infoViewModel
         }
     }
-    
+    private func setViewColor() {
+        let gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor.systemIndigo.cgColor, UIColor.cyan.cgColor]
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        self.tableView.backgroundColor = UIColor.clear
+    }
 
 
     //MARK: Interface Link

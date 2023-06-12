@@ -12,7 +12,7 @@ class SideMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setViewColor()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -27,6 +27,14 @@ class SideMenuViewController: UIViewController {
         }
     }
     
+    private func setViewColor() {
+        let gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor.systemIndigo.cgColor, UIColor.cyan.cgColor]
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
     
     @IBAction func showMainButton(_ sender: Any) {
         dismiss(animated: true)

@@ -31,6 +31,7 @@ class SearchBarViewController: UIViewController {
         setTablaView()
         setSearchBar()
         setupBinding()
+        setViewColor()
     }
     
     func setupBinding() {
@@ -38,7 +39,6 @@ class SearchBarViewController: UIViewController {
         viewModel.getsearchResult()
             .observe(on: MainScheduler.asyncInstance)
             .subscribe {[weak self] list in
-                print("resultVC => \(list)")
                 self?.searchResults = list
                 self?.tableView.reloadData()
             }
@@ -65,6 +65,15 @@ class SearchBarViewController: UIViewController {
             }
             .disposed(by: disposeBag)
     }
+    private func setViewColor() {
+        let gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor.systemIndigo.cgColor, UIColor.cyan.cgColor]
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        self.tableView.backgroundColor = UIColor.clear
+    }
     
     var tableView: UITableView!
 }
@@ -82,7 +91,6 @@ extension SearchBarViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("VC ]]] index \(indexPath.row)")
         viewModel.getSelectEvent(index: indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -99,8 +107,6 @@ extension SearchBarViewController {
         
         regiserXib()
         setTableViewLayout()
-        
-
     }
     
     func regiserXib() {
