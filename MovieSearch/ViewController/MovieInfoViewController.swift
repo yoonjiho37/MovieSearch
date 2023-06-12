@@ -50,6 +50,7 @@ class MovieInfoViewController: UIViewController {
             .observe(on: MainScheduler.asyncInstance)
             .subscribe { info in
                 self.movieInfo = info
+
                 guard let movieInfo = self.movieInfo else { return }
                 
                 let info1 = CellCase.info(movieInfo)

@@ -52,13 +52,13 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="wUq-c9-UzB">
                                 <rect key="frame" x="0.0" y="13.333333333333339" width="106" height="51.666666666666657"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="순위/변동" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKA-Bd-UfD">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="순위/변동" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKA-Bd-UfD">
                                         <rect key="frame" x="21.333333333333332" y="0.0" width="63.666666666666671" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x위 New!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCC-pU-AfD">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x위 New!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCC-pU-AfD">
                                         <rect key="frame" x="19.666666666666664" y="31.333333333333314" width="66.666666666666686" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -79,13 +79,13 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="9Sy-Po-Z15">
                                 <rect key="frame" x="107" y="16.333333333333339" width="106" height="45.666666666666657"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누적관객수" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j6H-Rf-oWx">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="누적관객수" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j6H-Rf-oWx">
                                         <rect key="frame" x="16.333333333333329" y="0.0" width="73.666666666666671" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxxx명" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKs-qd-AhK">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxxx명" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKs-qd-AhK">
                                         <rect key="frame" x="35.333333333333343" y="31.333333333333311" width="35.666666666666657" height="14.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
@@ -106,24 +106,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="1M6-RF-xD3">
-                                <rect key="frame" x="214" y="4.6666666666666572" width="106" height="69"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1M6-RF-xD3">
+                                <rect key="frame" x="214" y="16.666666666666654" width="106" height="44.666666666666657"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08U-hX-xQe">
-                                        <rect key="frame" x="7.3333333333333428" y="0.0" width="91.666666666666671" height="34"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="34.329999999999998" id="O4W-j9-gDn"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="tinted" title="나중에 볼 영상 추가"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGT-dZ-9rH">
-                                        <rect key="frame" x="2" y="36" width="102" height="33"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32.670000000000002" id="fuw-m5-o5h"/>
-                                        </constraints>
-                                        <buttonConfiguration key="configuration" style="tinted" title="좋아요 추가"/>
-                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제작사" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYc-nJ-LN2">
+                                        <rect key="frame" x="31.000000000000004" y="0.0" width="44.333333333333343" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="company" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7I-xx-8PX">
+                                        <rect key="frame" x="27.333333333333339" y="30.333333333333339" width="51.666666666666657" height="14.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -177,12 +174,13 @@
             <color key="backgroundColor" systemColor="systemCyanColor"/>
             <connections>
                 <outlet property="audiACCLabel" destination="iKs-qd-AhK" id="iPW-Yr-l4F"/>
-                <outlet property="genreAndRuntimeLable" destination="RiR-Ni-iLF" id="y4L-pW-HxH"/>
+                <outlet property="companyLabel" destination="M7I-xx-8PX" id="vNu-GT-Esg"/>
+                <outlet property="genreAndRuntimeLabel" destination="RiR-Ni-iLF" id="pYS-le-zUD"/>
                 <outlet property="posterImageView" destination="5TZ-oW-sTC" id="CKU-JN-b5o"/>
                 <outlet property="rankLabel" destination="lCC-pU-AfD" id="kfp-iE-anE"/>
                 <outlet property="ratingImageView" destination="Iwb-Nc-5Oe" id="FS9-wU-OZU"/>
-                <outlet property="releaseDateLable" destination="2VF-7I-8tI" id="BV7-0h-LJR"/>
-                <outlet property="titleLable" destination="id8-ha-bVt" id="J77-eP-vn3"/>
+                <outlet property="releaseDateLabel" destination="2VF-7I-8tI" id="5q1-Hl-BXw"/>
+                <outlet property="titleLabel" destination="id8-ha-bVt" id="jM0-ea-TtO"/>
             </connections>
             <point key="canvasLocation" x="129.7709923664122" y="91.549295774647888"/>
         </tableViewCell>

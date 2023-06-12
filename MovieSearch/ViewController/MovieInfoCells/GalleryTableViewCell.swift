@@ -42,17 +42,24 @@ extension GalleryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.cellIdentifier, for: indexPath) as? GalleryCollectionViewCell else { return UICollectionViewCell()
         }
+
+        
         let imageURLStr = galleryData?.posterURLs[indexPath.item] ?? ""
-        guard let imageURL = URL(string: imageURLStr) else {
-            cell.imageView.image = UIImage(named: "NoImageAvailable")
-            return UICollectionViewCell()
-        }
-        URLSession.shared.dataTask(with: imageURL) { data, res, err in
-            guard let data = data else { return }
-            DispatchQueue.main.async {
-                cell.imageView.image = UIImage(data: data)
+        if imageURLStr == "" {
+            return cell
+        } else {
+            guard let imageURL = URL(string: imageURLStr) else {
+                cell.imageView.image = UIImage(named: "NoImageAvailable")
+                return UICollectionViewCell()
             }
-        }.resume()
+            URLSession.shared.dataTask(with: imageURL) { data, res, err in
+                guard let data = data else { return }
+                DispatchQueue.main.async {
+                    cell.imageView.image = UIImage(data: data)
+                }
+            }.resume()
+        }
+        
         
         return cell
     }
