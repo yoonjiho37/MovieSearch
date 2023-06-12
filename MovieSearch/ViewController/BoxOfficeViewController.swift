@@ -22,7 +22,6 @@ class BoxOfficeViewController: UIViewController {
         self.viewModel = BoxOfficeViewModel()
         super.init(coder: aDecoder)
     }
-    
     var boxOfficeList: [ViewMovieItems] = []
     
     override func viewDidLoad() {
@@ -30,6 +29,7 @@ class BoxOfficeViewController: UIViewController {
         setupBinding()
         setupUI()
     }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let identifer = segue.identifier ?? ""
@@ -50,18 +50,17 @@ class BoxOfficeViewController: UIViewController {
         //output
         viewModel.getAllList()
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { data in
-                
-                self.boxOfficeList = data
-                self.viewModel.getNowPage(page: 0)
-                self.collectionView.reloadData()
+            .subscribe(onNext: { [weak self] data in
+                self?.boxOfficeList = data
+                self?.viewModel.getNowPage(page: 0)
+                self?.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
         
         viewModel.getPageData()
             .observe(on: MainScheduler.instance)
-            .subscribe { item in
-                self.setupPageDatas(item: item[0])
+            .subscribe { [weak self] item in
+                self?.setupPageDatas(item: item[0])
             }
             .disposed(by: disposeBag)
         
@@ -77,7 +76,6 @@ class BoxOfficeViewController: UIViewController {
                 self?.showErrorAlert(message: err)
             }
             .disposed(by: disposeBag)
-        
     }
     
     
@@ -86,6 +84,17 @@ class BoxOfficeViewController: UIViewController {
         collectionView.dataSource = self
         showMenuOrAlret()
         setFlowLayout()
+        setViewColor()
+    }
+    private func setViewColor() {
+        let gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor.systemIndigo.cgColor, UIColor.cyan.cgColor]
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        self.collectionView.backgroundColor = UIColor.clear
+        self.infoButton.tintColor = UIColor.white
     }
     
     private func setupPageDatas(item: ViewMovieItems) {
@@ -97,7 +106,7 @@ class BoxOfficeViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var rankAndNameLabel: UILabel!
     @IBOutlet weak var salesShare: UILabel!
-    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet var infoButton: UIButton!
     @IBOutlet var showMenuButton: UIBarButtonItem!
     @IBAction func showSearchVC() {
         guard let searchVC = storyboard?.instantiateViewController(identifier: SearchBarViewController.storyBoardId) else { return }
@@ -109,11 +118,8 @@ class BoxOfficeViewController: UIViewController {
     
 }
 
-
-
 extension BoxOfficeViewController {
     private func showMenuOrAlret() {
-        print("do")
         if #available(iOS 14.0, *) {
             showMenuButton.menu = getUIMenu()
         } else {
@@ -132,7 +138,6 @@ extension BoxOfficeViewController {
                 UIAction(title: "주간 박스오피스",handler: { _ in
                     self.viewModel.fetchList(type: .weekly)
                     self.showMenuButton.title = "주간"
-
                 }),
                 UIAction(title: "주말 박스오피스",handler: { _ in
                     self.viewModel.fetchList(type: .weekEnd)
@@ -196,6 +201,7 @@ extension BoxOfficeViewController: UICollectionViewDelegate, UICollectionViewDat
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 60)
         collectionView.collectionViewLayout = flowLayout
         collectionView.decelerationRate = .fast
+        
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

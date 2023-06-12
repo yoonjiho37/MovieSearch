@@ -12,6 +12,7 @@ class InfomationTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setLayoutProperties()
     }
 
     func inputData(data: ViewMovieItems) {
@@ -38,7 +39,11 @@ class InfomationTableViewCell: UITableViewCell {
             }
         }.resume()
     }
-
+    
+    private func setLayoutProperties() {
+        self.backgroundColor = UIColor.clear
+    }
+    
     
     //MARK: InterfaceBuilder Links
     @IBOutlet weak var posterImageView: UIImageView!
