@@ -18,6 +18,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="246"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RhP-Tp-JG4">
+                        <rect key="frame" x="16" y="16" width="108" height="140"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" title=""/>
+                        <connections>
+                            <action selector="showPoster:" destination="-1" eventType="touchUpInside" id="UTN-yn-kUG"/>
+                        </connections>
+                    </button>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5TZ-oW-sTC">
                         <rect key="frame" x="16.000000000000007" y="16" width="107.66666666666669" height="140"/>
                         <constraints>
@@ -153,18 +162,22 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="RhP-Tp-JG4" firstAttribute="width" secondItem="5TZ-oW-sTC" secondAttribute="width" multiplier="1.0031" id="9a2-3q-Ba2"/>
                     <constraint firstItem="Iwb-Nc-5Oe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="APH-Ml-PKy"/>
                     <constraint firstAttribute="bottom" secondItem="sk8-u9-e4X" secondAttribute="bottom" id="EOh-Ix-aem"/>
                     <constraint firstItem="sk8-u9-e4X" firstAttribute="top" secondItem="5TZ-oW-sTC" secondAttribute="bottom" constant="12" id="FaT-az-Qfx"/>
                     <constraint firstItem="id8-ha-bVt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="IGK-N9-0OD"/>
                     <constraint firstItem="al2-3M-OBX" firstAttribute="leading" secondItem="5TZ-oW-sTC" secondAttribute="trailing" constant="8" symbolic="YES" id="Oef-lb-T3Q"/>
+                    <constraint firstItem="RhP-Tp-JG4" firstAttribute="height" secondItem="5TZ-oW-sTC" secondAttribute="height" id="Ouk-ep-MzS"/>
                     <constraint firstAttribute="trailing" secondItem="id8-ha-bVt" secondAttribute="trailing" constant="16" id="UbE-ej-QIT"/>
                     <constraint firstItem="5TZ-oW-sTC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="VJy-HC-Dlo"/>
                     <constraint firstItem="sk8-u9-e4X" firstAttribute="top" secondItem="al2-3M-OBX" secondAttribute="bottom" constant="34.329999999999998" id="Zlf-4c-X3X"/>
                     <constraint firstAttribute="trailingMargin" relation="lessThanOrEqual" secondItem="al2-3M-OBX" secondAttribute="trailing" constant="102.33" id="bcZ-7L-eVj"/>
                     <constraint firstAttribute="trailing" secondItem="sk8-u9-e4X" secondAttribute="trailing" id="cK2-UB-ff8"/>
                     <constraint firstItem="id8-ha-bVt" firstAttribute="leading" secondItem="Iwb-Nc-5Oe" secondAttribute="trailing" constant="8" symbolic="YES" id="iuv-i0-6N5"/>
+                    <constraint firstItem="RhP-Tp-JG4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="jHo-lU-GeF"/>
                     <constraint firstItem="al2-3M-OBX" firstAttribute="top" relation="lessThanOrEqual" secondItem="id8-ha-bVt" secondAttribute="bottom" constant="26" id="qaI-EH-XfV"/>
+                    <constraint firstItem="RhP-Tp-JG4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="v25-v1-BSs"/>
                     <constraint firstItem="sk8-u9-e4X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="vAu-z6-Wdq"/>
                     <constraint firstItem="Iwb-Nc-5Oe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="100" id="wde-YW-yS6"/>
                     <constraint firstItem="5TZ-oW-sTC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="woK-xc-JAs"/>

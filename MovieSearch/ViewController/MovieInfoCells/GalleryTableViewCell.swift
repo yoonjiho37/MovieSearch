@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol CollectionViewCellDelegate: AnyObject {
+    func collectionView(collectionViewCell: GalleryCollectionViewCell?, index: Int, didTappedInTableViewCell: GalleryTableViewCell?)
+}
+
+
 class GalleryTableViewCell: UITableViewCell {
     static let cellIndentifier = "GalleryTableViewCell"
 
@@ -32,6 +37,7 @@ class GalleryTableViewCell: UITableViewCell {
     
     //MARK: InterfaceBuilder Links
     @IBOutlet weak var collectionView: UICollectionView!
+    weak var cellDelegate: CollectionViewCellDelegate?
 }
 
 extension GalleryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -62,6 +68,14 @@ extension GalleryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSo
         
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? GalleryCollectionViewCell
+        print("cellItem ==> \(indexPath.item)")
+        print("cellItem ==> \(indexPath.row)")
+
+        self.cellDelegate?.collectionView(collectionViewCell: cell, index: indexPath.item, didTappedInTableViewCell: self)
     }
     
     private func setFlowLayout() {

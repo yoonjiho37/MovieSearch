@@ -52,43 +52,6 @@ class BoxOfficeViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] data in
                 self?.boxOfficeList = data
-                if self?.boxOfficeList.count ?? 0 >= 1 {
-                    print("VC1 --> \(self?.boxOfficeList[4].actors)")
-                    print("VC2 --> \(self?.boxOfficeList[4].audiAcc)")
-                    print("VC3 --> \(self?.boxOfficeList[4].baseDate)")
-                    print("VC4 --> \(self?.boxOfficeList[4].company)")
-                    print("VC5 --> \(self?.boxOfficeList[4].directorNm)")
-                    print("VC6 --> \(self?.boxOfficeList[4].genre)")
-
-                    print("VC7 --> \(self?.boxOfficeList[4].movieCode)")
-
-                    print("VC8 --> \(self?.boxOfficeList[4].movieCode)")
-                    print("VC9 --> \(self?.boxOfficeList[4].movieId)")
-
-                    print("VC10 --> \(self?.boxOfficeList[4].plot)")
-
-                    print("VC11 --> \(self?.boxOfficeList[4].posterURLs)")
-
-                    print("VC12 --> \(self?.boxOfficeList[4].rank)")
-
-                    print("VC13 --> \(self?.boxOfficeList[4].rankInten)")
-                    print("VC14 --> \(self?.boxOfficeList[3].rankOldAndNew)")
-
-                    print("VC15 --> \(self?.boxOfficeList[4].rating)")
-
-                    print("VC16 --> \(self?.boxOfficeList[4].repRlsDate)")
-
-                    print("VC17 --> \(self?.boxOfficeList[4].runtime)")
-                    print("VC18 --> \(self?.boxOfficeList[4].title)")
-
-//                    print("VC --> \(self?.boxOfficeList[3].)")
-//                    print("VC --> \(self?.boxOfficeList[3])")
-
-
-                    
-
-
-                }
                 self?.viewModel.getNowPage(page: 0)
                 self?.collectionView.reloadData()
             })
@@ -103,7 +66,6 @@ class BoxOfficeViewController: UIViewController {
         
         viewModel.getInfoView()
             .subscribe { [weak self] item in
-                print("info ==> \(item.element![0].self)")
                 self?.performSegue(withIdentifier: MovieInfoViewController.identifer, sender: item.element)
             }
             .disposed(by: disposeBag)

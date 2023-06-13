@@ -93,9 +93,23 @@ class MovieInfoViewController: UIViewController {
     @IBAction func touchLB(_ sender: UIButton) {
         viewModel.getUpdateEvent(type: .like)
     }
+    @IBAction func showPoster(_ sender: UIButton) {
+        showPosterViewModal(index: 0)
+    }
 }
 
 extension MovieInfoViewController {
+    private func showPosterViewModal(index: Int) {
+        guard let posterVC = storyboard?.instantiateViewController(withIdentifier: PosterViewController.storyBoardID) as? PosterViewController else { return }
+        posterVC.modalPresentationStyle = .fullScreen
+        posterVC.modalTransitionStyle = .crossDissolve
+        
+        posterVC.posterURLObserver.onNext(movieInfo?.posterURLs[index] ?? "")
+        DispatchQueue.main.async {
+            self.navigationController?.present(posterVC, animated: true)
+        }
+    }
+    
     private func showErrorAlert(message: NSError) {
         let message = message.domain
         let alert = UIAlertController(title: "오류 발생", message: "\(message)", preferredStyle: .alert)
@@ -120,8 +134,16 @@ extension MovieInfoViewController {
         self.tableView.backgroundColor = UIColor.clear
     }
 }
+extension MovieInfoViewController: CollectionViewCellDelegate{
+    func collectionView(collectionViewCell: GalleryCollectionViewCell?, index: Int, didTappedInTableViewCell: GalleryTableViewCell?) {
+        showPosterViewModal(index: index)
+    }
+}
 
-extension MovieInfoViewController: UITableViewDataSource {
+
+extension MovieInfoViewController: UITableViewDataSource  {
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return dataSource.count
     }
@@ -147,6 +169,7 @@ extension MovieInfoViewController: UITableViewDataSource {
         case .gallery(_):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: GalleryTableViewCell.cellIndentifier, for: indexPath) as? GalleryTableViewCell else { return UITableViewCell() }
             cell.inputData(data: movieInfo)
+            cell.cellDelegate = self
             return cell
         case .plot(_):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PlotTableViewCell.cellIndentifier, for: indexPath) as? PlotTableViewCell else { return UITableViewCell()}

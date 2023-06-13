@@ -33,6 +33,7 @@
 		277E79A329EE853C00FAB650 /* MovieInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E79A229EE853C00FAB650 /* MovieInfoViewController.swift */; };
 		277E79A629EE856400FAB650 /* MovieInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277E79A529EE856400FAB650 /* MovieInfoViewModel.swift */; };
 		2781B40729E83035002E3877 /* Utills.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2781B40629E83035002E3877 /* Utills.swift */; };
+		2783DE032A381D88000FFE22 /* PosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2783DE022A381D88000FFE22 /* PosterViewController.swift */; };
 		27852AD62A3202FB00B4ACAC /* SearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27852AD52A3202FB00B4ACAC /* SearchBarViewController.swift */; };
 		27852AD82A32032400B4ACAC /* SearchBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27852AD72A32032400B4ACAC /* SearchBarViewModel.swift */; };
 		27852ADF2A32047F00B4ACAC /* SearchBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27852ADD2A32047F00B4ACAC /* SearchBarTableViewCell.swift */; };
@@ -104,6 +105,7 @@
 		277E79A229EE853C00FAB650 /* MovieInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoViewController.swift; sourceTree = "<group>"; };
 		277E79A529EE856400FAB650 /* MovieInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoViewModel.swift; sourceTree = "<group>"; };
 		2781B40629E83035002E3877 /* Utills.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utills.swift; sourceTree = "<group>"; };
+		2783DE022A381D88000FFE22 /* PosterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterViewController.swift; sourceTree = "<group>"; };
 		27852AD52A3202FB00B4ACAC /* SearchBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarViewController.swift; sourceTree = "<group>"; };
 		27852AD72A32032400B4ACAC /* SearchBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarViewModel.swift; sourceTree = "<group>"; };
 		27852ADD2A32047F00B4ACAC /* SearchBarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarTableViewCell.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				2735B30A2A151DAB0007607C /* SavedMovieCell */,
 				27852AD52A3202FB00B4ACAC /* SearchBarViewController.swift */,
 				27852AE12A32048B00B4ACAC /* SearchBarCell */,
+				2783DE022A381D88000FFE22 /* PosterViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -643,6 +646,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2783DE032A381D88000FFE22 /* PosterViewController.swift in Sources */,
 				2773407829D70D7900150A08 /* SearchResult.swift in Sources */,
 				277267622A0CBFC900155C30 /* CoreDataManager.swift in Sources */,
 				275F43182A0242C500D3FB98 /* PlotTableViewCell.swift in Sources */,
