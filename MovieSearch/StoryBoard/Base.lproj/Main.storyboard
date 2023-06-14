@@ -126,15 +126,17 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Ouo-z4-tvY">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="line.3.horizontal" catalog="system" id="BIf-Eo-vfW">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="0gw-cg-AkS" kind="show" id="ufG-s4-4qM"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem title="일별" id="QL5-dm-iXq"/>
+                            <barButtonItem title="일별" id="QL5-dm-iXq">
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </barButtonItem>
                             <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="PCR-Ed-bsy">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="showSearchVC" destination="BYZ-38-t0r" id="rzz-ss-ngu"/>
                                 </connections>

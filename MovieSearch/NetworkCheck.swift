@@ -27,7 +27,7 @@ final class NetworkCheck {
     }
     
     func checkConneted() -> Bool {
-        return isConnedted
+        return false
     }
     
     func startMonitoring() {
