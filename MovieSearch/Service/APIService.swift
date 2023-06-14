@@ -166,12 +166,14 @@ class APIService {
     
     //MARK: JsonDecoder
     static func decodeJsonData<T>(onComplete: @escaping (Result<T, Error>) -> Void, decodeForm: dataForm, type: BoxOfficeType?, data: Data) {
+        var errorType: dataForm = decodeForm
         do {
             switch decodeForm {
             case .boxOfficeResult:
                 switch type {
                 case .daily:
                     let response = try JSONDecoder().decode(BoxOffice.self, from: data)
+                    
                     return onComplete(.success(response.boxOfficeResult as! T))
                 case .weekly, .weekEnd:
                     let response = try JSONDecoder().decode(BoxOfficeWeekly.self, from: data)
@@ -193,7 +195,7 @@ class APIService {
                 
             }
         } catch {
-            return onComplete(.failure(NSError(domain: "Data Decoding Error", code: -1)))
+            return onComplete(.failure(NSError(domain: "Data Decoding Error: \(errorType)", code: -1)))
         }
     }
     
