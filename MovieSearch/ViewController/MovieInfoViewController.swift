@@ -48,38 +48,38 @@ class MovieInfoViewController: UIViewController {
         
         viewModel.getMovieInfo()
             .observe(on: MainScheduler.asyncInstance)
-            .subscribe { info in
-                self.movieInfo = info
-                guard let movieInfo = self.movieInfo else { return }
+            .subscribe { [weak self] info in
+                self?.movieInfo = info
+                guard let movieInfo = self?.movieInfo else { return }
                 
                 let info1 = CellCase.info(movieInfo)
                 let info2 = CellCase.buttons(movieInfo)
                 let info3 = CellCase.gallery(movieInfo)
                 let info4 = CellCase.plot(movieInfo)
                 let info5 = CellCase.cast(movieInfo)
-                self.dataSource = [info1, info2, info3, info4, info5]
+                self?.dataSource = [info1, info2, info3, info4, info5]
                 
-                self.tableView.reloadData()
+                self?.tableView.reloadData()
                 
             }
             .disposed(by: disposeBag)
         
         viewModel.getUpdateResult()
             .observe(on: MainScheduler.asyncInstance)
-            .subscribe { info in                
-                self.movieInfo = info.element
-                guard let movieInfo = self.movieInfo else { return }
+            .subscribe {[weak self] info in
+                self?.movieInfo = info.element
+                guard let movieInfo = self?.movieInfo else { return }
                 
                 let info2 = CellCase.buttons(movieInfo)
 
-                self.dataSource[1] = info2
-                self.tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+                self?.dataSource[1] = info2
+                self?.tableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
             }
             .disposed(by: disposeBag)
         
         viewModel.getErrorMassage()
             .observe(on: MainScheduler.asyncInstance)
-            .subscribe(onNext: { err in self.showErrorAlert(message: err)})
+            .subscribe(onNext: { [weak self] err in self?.showErrorAlert(message: err)})
             .disposed(by: disposeBag)
     }
     
@@ -141,7 +141,7 @@ extension MovieInfoViewController: UITableViewDataSource {
             return cell
         case .buttons(_):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ButtonTableViewCell.cellIdentifier, for: indexPath) as? ButtonTableViewCell else { return UITableViewCell() }
-            cell.inputData(data: movieInfo)
+            cell.cellDataObs.onNext(movieInfo)
             return cell
         case .gallery(_):
             guard let cell = tableView.dequeueReusableCell(withIdentifier: GalleryTableViewCell.cellIndentifier, for: indexPath) as? GalleryTableViewCell else { return UITableViewCell() }

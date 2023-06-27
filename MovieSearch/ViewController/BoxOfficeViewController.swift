@@ -86,6 +86,7 @@ class BoxOfficeViewController: UIViewController {
         setFlowLayout()
         setViewColor()
     }
+    
     private func setViewColor() {
         let gradientLayer = CAGradientLayer()
         

@@ -216,6 +216,12 @@ class APIService {
         guard let url = URL(string: urlStr) else { return URL(string: "")!}
         return url
     }
+    
+    func test() {
+        
+    }
 }
 
+
+//kankjdfnakjfnbwajkfb
 
