@@ -6,14 +6,34 @@
 //
 
 import UIKit
+import RxSwift
 
 class ButtonTableViewCell: UITableViewCell {
     static let cellIdentifier = "ButtonTableViewCell"
+    
+    let disposeBag = DisposeBag()
+    let cellDataObs: AnyObserver<ViewMovieItems>
+    
+    required init?(coder aDecoder: NSCoder) {
+        let cellDataSubject = PublishSubject<ViewMovieItems>()
+        self.cellDataObs = cellDataSubject.asObserver()
+        
+        super.init(coder: aDecoder)
+        
+        cellDataSubject
+            .subscribe { [weak self] data in
+                self?.inputData(data: data)
+            }
+            .disposed(by: disposeBag)
+        
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
-    func inputData(data: ViewMovieItems) {
+    private func inputData(data: ViewMovieItems) {
         if data.likeBoolean {
             print("do1")
             likeButton.setTitle("좋아요 취소", for: .normal)

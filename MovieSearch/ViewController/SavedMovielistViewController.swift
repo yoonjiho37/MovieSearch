@@ -43,9 +43,9 @@ class SavedMovielistViewController: UIViewController {
         
         viewModel.getMovieList()
             .observe(on: MainScheduler.asyncInstance)
-            .subscribe(onNext: { list in
-                self.movieList = list
-                self.tableView.reloadData()
+            .subscribe(onNext: { [weak self] list in
+                self?.movieList = list
+                self?.tableView.reloadData()
             })
             .disposed(by: disposeBag)
         
